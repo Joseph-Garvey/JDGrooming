@@ -20,9 +20,9 @@
                     <Border Margin="10" Style="{StaticResource brd_1}">
                         <StackPanel VerticalAlignment="Center">
                             <Border Style="{StaticResource brd_1}">
-                                <Image Source="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Mops_oct09_cropped2.jpg/330px-Mops_oct09_cropped2.jpg" MaxHeight="68" MaxWidth="80"></Image>
+                                <Image Name="img_Dog" Source="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Mops_oct09_cropped2.jpg/330px-Mops_oct09_cropped2.jpg" MaxHeight="68" MaxWidth="80"></Image>
                             </Border>
-                            <Button Style="{StaticResource btnDark}" FontSize="6" Margin="5,0,5,5">Upload new image</Button>
+                            <Button Style="{StaticResource btnDark}" FontSize="6" Margin="5,0,5,5" Click="btn_UploadImage">Upload new image</Button>
                         </StackPanel>
                     </Border>
                 </StackPanel>
