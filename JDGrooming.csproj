@@ -78,10 +78,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExampleWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -99,9 +95,6 @@
     </Compile>
     <Compile Include="DogRegistration.xaml.cs">
       <DependentUpon>DogRegistration.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ExampleWindow.xaml.cs">
-      <DependentUpon>ExampleWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

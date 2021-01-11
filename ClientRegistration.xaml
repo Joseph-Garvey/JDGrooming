@@ -1,37 +1,80 @@
 ﻿<UserControl x:Class="JDGrooming.ClientRegistration"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:JDGrooming"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              >
     <Border Background="#121212">
+        <Border.Resources>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Width" Value="130"></Setter>
+                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            </Style>
+            <Style TargetType="DockPanel">
+                <Setter Property="MinWidth" Value="200"/>
+            </Style>
+            <Style TargetType="Label" BasedOn="{StaticResource lbl_WhiteHeading}">
+                <Setter Property="MinWidth" Value="90"></Setter>
+                <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+            </Style>
+        </Border.Resources>
         <StackPanel>
-            <StackPanel Style="{StaticResource HorizontalCentred}">
-                <StackPanel VerticalAlignment="Bottom">
-                    <Label Style="{StaticResource lbl_WhiteHeading}">Dog Name:</Label>
-                    <TextBox></TextBox>
-                    <Label Style="{StaticResource lbl_WhiteHeading}">Client Name:</Label>
-                    <TextBox></TextBox>
-                    <Label Style="{StaticResource lbl_WhiteHeading}">Breed:</Label>
-                </StackPanel>
-                <Border Margin="10" Style="{StaticResource brd_1}">
-                    <StackPanel VerticalAlignment="Center">
-                        <Border Style="{StaticResource brd_1}">
-                            <Image Name="img_Dog" Source="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Mops_oct09_cropped2.jpg/330px-Mops_oct09_cropped2.jpg" MaxHeight="68" MaxWidth="80"></Image>
-                        </Border>
-                        <Button Style="{StaticResource btnDark}" FontSize="6" Margin="5,0,5,5">Upload new image</Button>
-                    </StackPanel>
-                </Border>
-            </StackPanel>
-            <ComboBox FontSize="6" Height="15" x:Name="cmb_Breed">
-                <ComboBoxItem>Pug</ComboBoxItem>
-            </ComboBox>
-            <Label Style="{StaticResource lbl_WhiteHeading}">Date of Birth:</Label>
-            <DatePicker Name="dp_DOB"/>
-            <Label Style="{StaticResource lbl_WhiteHeading}">Additional Info:</Label>
-            <TextBox></TextBox>
+            <Label FontSize="16" Background="#1e1e1e" BorderBrush="Black" BorderThickness="1" Margin="5">Client Registration:</Label>
+            <DockPanel Margin="5,5,5,0">
+                <Label>Forename:</Label>
+                <TextBox></TextBox>
+            </DockPanel>
+            <DockPanel Margin="5,0,5,0">
+                <Label>Surname:</Label>
+                <TextBox></TextBox>
+            </DockPanel>
+            <Grid Margin="5,0,5,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label>Address:</Label>
+                <Label Grid.Row="1">First Line:</Label>
+                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                <Label Grid.Row="2">Second Line:</Label>
+                <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
+                <Label Grid.Row="1" Grid.Column="2">Postcode:</Label>
+                <TextBox Grid.Row="1" Grid.Column="3" Width="80"></TextBox>
+                <Label Grid.Row="2" Grid.Column="2">Town:</Label>
+                <TextBox Grid.Row="2" Grid.Column="3" Width="80"></TextBox>
+            </Grid>
+            <Grid Margin="5,0,5,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label>Contact Details:</Label>
+                <Label Grid.Row="1">Email Address:</Label>
+                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                <Label Grid.Row="2">Home Phone:</Label>
+                <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
+                <Label Grid.Row="1" Grid.Column="2" Content="Mobile:"/>
+                <TextBox Grid.Row="1" Grid.Column="3" Width="100"></TextBox>
+            </Grid>
             <Button Style="{StaticResource btnDark}" Margin="10">Register</Button>
         </StackPanel>
     </Border>
