@@ -44,7 +44,7 @@
             </StackPanel>
         </Grid>
         <Grid Name="View">
-            <local:ExampleWindow></local:ExampleWindow>
+            <local:DogRegistration></local:DogRegistration>
         </Grid>
     </DockPanel>
     <!--

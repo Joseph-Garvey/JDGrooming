@@ -8,6 +8,32 @@
         <Style TargetType="{x:Type Window}" x:Key="window_Resizeable">
             <EventSetter Event="KeyDown" Handler="Window_KeyDown"></EventSetter>
         </Style>
+        <!-- Button Styles -->
+        <Style x:Key="btn" TargetType="Button">
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+        </Style>
+        <Style x:Key="btnDark" TargetType="Button" BasedOn="{StaticResource btn}">
+            <Setter Property="Background" Value="#2d2d30"></Setter>
+            <Setter Property="Foreground" Value="#B2F4F4F4"/>
+        </Style>
+        <!-- Label Styles -->
+        <Style TargetType="Label" x:Key="lbl_WhiteHeading">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Foreground" Value="#B2F4F4F4"/>
+        </Style>
+        <!-- Border Styles -->
+        <Style TargetType="Border" x:Key="brd_1">
+            <Setter Property="Background" Value="#2d2d30"></Setter>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <!-- ComboBox Styles -->
+        <Style TargetType="ComboBox" x:Key="LowProfile">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Height" Value="15"/>
+        </Style>
         <!-- StackPanel Styles -->
         <Style TargetType="StackPanel" x:Key="Horizontal">
             <Setter Property="Orientation" Value="Horizontal"></Setter>
@@ -23,6 +49,11 @@
         </Style>
         <Style TargetType="StackPanel" x:Key="HorizontalLeft" BasedOn="{StaticResource Horizontal}">
             <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        </Style>
+        <!-- Other Styles -->
+        <Style TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="MinWidth" Value="100"/>
         </Style>
     </Application.Resources>
 </Application>
