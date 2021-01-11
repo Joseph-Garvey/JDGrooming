@@ -51,14 +51,13 @@ namespace JDGrooming
         {
             // try user control v window
             // grid v viewbox v stackpanel
-            View.Children.Clear();
             switch (((Button)sender).Content)
             {
                 case "Window":
-                    //View.Children.Add(new ExampleUserWindow());
+                    View.Child = new ClientRegistration();
                     break;
                 case "Settings":
-                    //View.Children.Add(new Viewbox { Child = new Register() });
+                    View.Child = new DogRegistration();
                     break;
             }
         }
