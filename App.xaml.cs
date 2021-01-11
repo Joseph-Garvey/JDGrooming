@@ -15,6 +15,43 @@ namespace JDGrooming
     /// </summary>
     public partial class App : Application
     {
+        #region Override Events
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            try
+            {
+                base.OnStartup(e);
+                string debugPath = System.IO.Path.GetDirectoryName(Environment.CurrentDirectory);
+                string datadirectoryPath = System.IO.Path.GetDirectoryName(debugPath);
+                AppDomain.CurrentDomain.SetData("DataDirectory", datadirectoryPath);
+                //// Start Splash Screen and Show
+                //Splash splashScreen = new Splash();
+                //this.MainWindow = splashScreen;
+                //splashScreen.Show();
+                //// Show Progress Bar on a new thread
+                //Task.Factory.StartNew(() =>
+                //{
+                //    // report progress each iteration to update progress bar.
+                //    for (int i = 1; i <= 110; i++)
+                //    {
+                //        // simulated loading.
+                //        System.Threading.Thread.Sleep(10);
+                //        splashScreen.Dispatcher.Invoke(() => splashScreen.Progress = i);
+                //    }
+                //    // on completion do this
+                //    this.Dispatcher.Invoke(() =>
+                //    {
+                //        //initialize the Welcome Screen window, set as main app window.
+                //        //and close the splash screen
+                //        UIElements.Login mainWindow = new UIElements.Login();
+                //        mainWindow.Show();
+                //        splashScreen.Close();
+                //    });
+                //});
+            }
+            catch (TaskCanceledException) { }
+        }
+        #endregion
         #region Window Management
         /// <summary>
         /// Listens for key presses on window.
