@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using JDGrooming.Classes.Database_Management;
 using System.Windows.Controls;
 
 namespace JDGrooming
@@ -15,6 +16,13 @@ namespace JDGrooming
     /// </summary>
     public partial class App : Application
     {
+        ProjectDBAccess query = new ProjectDBAccess();
+        public Database db
+        {
+            get { return query.db; }
+            set { query.db = value; }
+        }
+
         #region Override Events
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -48,6 +56,19 @@ namespace JDGrooming
                 //        splashScreen.Close();
                 //    });
                 //});
+                #region Database Setup
+                if (db.Connect()) MessageBox.Show("Database Connection Successful", "Success");
+                else
+                {
+                    MessageBox.Show("Database Connection Unsuccessful", "Error");
+                    return;
+                }
+                if (db.Rdr is null) { }
+                else
+                {
+                    db.Rdr.Close();
+                }
+                #endregion
             }
             catch (TaskCanceledException) { }
         }
