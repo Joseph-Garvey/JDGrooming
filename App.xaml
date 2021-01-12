@@ -4,11 +4,15 @@
              xmlns:local="clr-namespace:JDGrooming"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!-- Window Styles -->
-        <Style TargetType="{x:Type Window}" x:Key="window_Resizeable">
-            <EventSetter Event="KeyDown" Handler="Window_KeyDown"></EventSetter>
+        <!--#region Border Styles -->
+        <Style TargetType="Border" x:Key="brd_1">
+            <Setter Property="Background" Value="#2d2d30"></Setter>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
         </Style>
-        <!-- Button Styles -->
+        <!--#endregion-->
+        <!--#region Button Styles -->
         <Style x:Key="btn" TargetType="Button">
             <Setter Property="BorderBrush" Value="Black"></Setter>
             <Setter Property="BorderThickness" Value="1"></Setter>
@@ -17,24 +21,58 @@
             <Setter Property="Background" Value="#2d2d30"></Setter>
             <Setter Property="Foreground" Value="#B2F4F4F4"/>
         </Style>
-        <!-- Label Styles -->
-        <Style TargetType="Label" x:Key="lbl_WhiteHeading">
-            <Setter Property="FontSize" Value="10"/>
-            <Setter Property="Foreground" Value="#B2F4F4F4"/>
+        <!--#endregion-->
+        <!--#region Checkbox Styles -->
+        <Style TargetType="CheckBox" x:Key="ShowHide">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="checkboxImage" Source="pack://siteoforigin:,,,/Icons/show.png"/>
+                            <ContentPresenter/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="checkboxImage" Property="Source" Value="pack://siteoforigin:,,,/Icons/hide.png"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Height" Value="14"></Setter>
         </Style>
-        <!-- Border Styles -->
-        <Style TargetType="Border" x:Key="brd_1">
-            <Setter Property="Background" Value="#2d2d30"></Setter>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value="1"/>
+                <Style TargetType="CheckBox" x:Key="Verification">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="checkboxImage" Source="pack://siteoforigin:,,,/Icons/incorrect.png"/>
+                            <ContentPresenter/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="checkboxImage" Property="Source" Value="pack://siteoforigin:,,,/Icons/verified.png"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Height" Value="18"></Setter>
         </Style>
-        <!-- ComboBox Styles -->
+        <!--#endregion-->
+        <!--#region ComboBox Styles -->
         <Style TargetType="ComboBox" x:Key="LowProfile">
             <Setter Property="FontSize" Value="10"/>
             <Setter Property="Height" Value="15"/>
         </Style>
-        <!-- StackPanel Styles -->
+        <!--#endregion-->
+        <!--#region Label Styles -->
+        <Style TargetType="Label" x:Key="lbl_WhiteHeading">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Foreground" Value="#B2F4F4F4"/>
+        </Style>
+        <!--#endregion-->
+        <!--#region StackPanel Styles -->
         <Style TargetType="StackPanel" x:Key="Horizontal">
             <Setter Property="Orientation" Value="Horizontal"></Setter>
         </Style>
@@ -50,10 +88,17 @@
         <Style TargetType="StackPanel" x:Key="HorizontalLeft" BasedOn="{StaticResource Horizontal}">
             <Setter Property="HorizontalAlignment" Value="Left"></Setter>
         </Style>
-        <!-- Other Styles -->
+        <!--#endregion-->
+        <!--#region TextBox Styles -->
         <Style TargetType="TextBox">
             <Setter Property="BorderBrush" Value="Black"></Setter>
             <Setter Property="MinWidth" Value="100"/>
         </Style>
+        <!--#endregion-->
+        <!--#region Window Styles -->
+        <Style TargetType="{x:Type Window}" x:Key="window_Resizeable">
+            <EventSetter Event="KeyDown" Handler="Window_KeyDown"></EventSetter>
+        </Style>
+        <!--#endregion-->
     </Application.Resources>
 </Application>

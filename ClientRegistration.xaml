@@ -23,14 +23,16 @@
         </Border.Resources>
         <StackPanel>
             <Label FontSize="16" Background="#1e1e1e" BorderBrush="Black" BorderThickness="1" Margin="5">Client Registration:</Label>
-            <DockPanel Margin="5,5,5,0">
-                <Label>Forename:</Label>
-                <TextBox></TextBox>
-            </DockPanel>
-            <DockPanel Margin="5,0,5,0">
-                <Label>Surname:</Label>
-                <TextBox></TextBox>
-            </DockPanel>
+            <StackPanel Style="{StaticResource HorizontalLeft}" Margin="5,5,5,0">
+                <Label Content="Forename*"/>
+                <TextBox Name="txt_Forename" TextChanged="VerifyText"></TextBox>
+                <CheckBox x:Name="chk_Forename" Style="{StaticResource Verification}"></CheckBox>
+            </StackPanel>
+            <StackPanel Style="{StaticResource HorizontalLeft}" Margin="5,0,5,0">
+                <Label Content="Surname*"/>
+                <TextBox Name="txt_Surname" TextChanged="VerifyText"></TextBox>
+                <CheckBox x:Name="chk_Surname" Style="{StaticResource Verification}"></CheckBox>
+            </StackPanel>
             <Grid Margin="5,0,5,5">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -43,15 +45,17 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label>Address:</Label>
-                <Label Grid.Row="1">First Line:</Label>
+                <Label Grid.Row="1" Content="First Line*"/>
                 <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
-                <Label Grid.Row="2">Second Line:</Label>
+                <Label Grid.Row="2" Content="Second Line"/>
                 <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
-                <Label Grid.Row="1" Grid.Column="2">Postcode:</Label>
-                <TextBox Grid.Row="1" Grid.Column="3" Width="80"></TextBox>
-                <Label Grid.Row="2" Grid.Column="2">Town:</Label>
+                <Label Grid.Row="1" Grid.Column="2" Content="Postcode*"/>
+                <TextBox Grid.Row="1" Grid.Column="3" Width="80" Name="txt_Postcode" TextChanged="VerifyText"></TextBox>
+                <CheckBox Grid.Row="1" Grid.Column="4" x:Name="chk_Postcode" Style="{StaticResource Verification}" ></CheckBox>
+                <Label Grid.Row="2" Grid.Column="2" Content="Town*"/>
                 <TextBox Grid.Row="2" Grid.Column="3" Width="80"></TextBox>
             </Grid>
             <Grid Margin="5,0,5,5">
@@ -65,16 +69,23 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label>Contact Details:</Label>
                 <Label Grid.Row="1">Email Address:</Label>
-                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBox Name="txt_Email" TextChanged="VerifyText" Grid.Row="1" Grid.Column="1"></TextBox>
+                <CheckBox Grid.Row="1" Grid.Column="2" x:Name="chk_Email" Style="{StaticResource Verification}"></CheckBox>
                 <Label Grid.Row="2">Home Phone:</Label>
-                <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
-                <Label Grid.Row="1" Grid.Column="2" Content="Mobile:"/>
-                <TextBox Grid.Row="1" Grid.Column="3" Width="100"></TextBox>
+                <TextBox Name="txt_HomePhone" TextChanged="VerifyText" Grid.Row="2" Grid.Column="1"></TextBox>
+                <CheckBox Grid.Row="2" Grid.Column="2" x:Name="chk_HomePhone" Style="{StaticResource Verification}"></CheckBox>
+                <Label Grid.Row="1" Grid.Column="3" Content="Mobile:"/>
+                <TextBox Name="txt_Mobile" TextChanged="VerifyText" Grid.Row="1" Grid.Column="4" Width="100"></TextBox>
+                <CheckBox Grid.Row="1" Grid.Column="5" x:Name="chk_Mobile" Style="{StaticResource Verification}"></CheckBox>
+                <Label Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2">At least one field must be completed.</Label>
             </Grid>
+            <Label>* indicates compulsory fields</Label>
             <Button Style="{StaticResource btnDark}" Margin="10">Register</Button>
         </StackPanel>
     </Border>
