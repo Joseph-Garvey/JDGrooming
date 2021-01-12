@@ -52,5 +52,63 @@ namespace JDGrooming
             }
             chkBox.IsChecked = pass;
         }
+
+        private void Register(object sender, RoutedEventArgs e)
+        {
+            // add letter validation for names etc
+            // try something similar to last year's system but more efficient.
+            // this time get something that works, then improve on it.
+            // also auto format the strings in future.
+            const String failedNameFormat = "\u2022 Names must consist of letters.";
+            const String failedForenameLength = "\u2022 Forename must be less than 35 characters.";
+            const String failedSurnameLength = "\u2022 Surname must be less than 50 characters.";
+            const String failedAddressLength = "\u2022 Address line must be less than 35 characters.";
+            const String failedTownLength = "\u2022 Town/City name must be less than 64 characters.";
+            const String failedPostCode = "\u2022 Postcode must be of valid format and length eg. XX0 XX0.";
+            const String failedEmail = "\u2022 Email must be of valid format and length (<255 chars) eg. JoeBloggs@mail.com";
+            const String failedPhone = "\u2022 PhoneNo must be of valid format and length (<32 chars)";
+            const String failedContactDetail = "\u2022 Customer must provide at least one method of contact.";
+            const String failedMissingInfo = "\u2022 All fields marked * must be completed.";
+            String Errors = "";
+            if ((txt_Forename.Text == "")
+                || (txt_Surname.Text == "")
+                || (txtAddress1.Text == "")
+                || (txt_Postcode.Text == "")
+                || (txt_Town.Text == "")
+                ) { AddToErrors(ref Errors, failedMissingInfo); }
+            if ((txt_Email.Text == "")
+                && (txt_HomePhone.Text == "")
+                && (txt_Mobile.Text == "")
+                ) { AddToErrors(ref Errors, failedContactDetail); }
+            if (txt_Forename.Text.Length > 35)  AddToErrors(ref Errors,failedForenameLength);
+            if (txt_Surname.Text.Length > 50)  AddToErrors(ref Errors, failedSurnameLength);
+            if(CheckCharacters(txt_Forename.Text) || CheckCharacters(txt_Surname.Text))  AddToErrors(ref Errors,failedNameFormat);
+            if ((txtAddress1.Text.Length > 35) || (txtAddress2.Text.Length > 35))  AddToErrors(ref Errors, failedAddressLength);
+            if (txt_Town.Text.Length > 64)  AddToErrors(ref Errors, failedTownLength);
+            if ((txt_Postcode.Text.Length > 8) || (!Verification.VerifyPostcode(txt_Postcode.Text)))  AddToErrors(ref Errors, failedPostCode);
+            //// fix this
+            if (txt_Email.Text != "" && ((txt_Email.Text.Length > 255) || (!Verification.VerifyEmail(txt_Email.Text))))  AddToErrors(ref Errors, failedEmail);
+            if((txt_Mobile.Text != "" && ((txt_Mobile.Text.Length > 32) || (!Verification.VerifyPhoneNumber(txt_Mobile.Text)))) ||
+               (txt_HomePhone.Text != "" && (txt_HomePhone.Text.Length > 32) || (!Verification.VerifyPhoneNumber(txt_HomePhone.Text))))
+              { AddToErrors(ref Errors, failedPhone); }
+            if(Errors != "") { MessageBox.Show(Errors, "Error", MessageBoxButton.OK ,MessageBoxImage.Error); }
+            else
+            {
+                MessageBox.Show("IT WORKS!");
+            }
+        }
+        private void AddToErrors(ref String ErrorList, String Error)
+        {
+            Error += Environment.NewLine;
+            ErrorList += Error;
+        }
+        private bool CheckCharacters(String test)
+        {
+            foreach(Char c in test)
+            {
+                if (!Char.IsLetter(c)) { return false; }
+            }
+            return true;
+        }
     }
 }

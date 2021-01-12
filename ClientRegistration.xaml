@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:JDGrooming"
              mc:Ignorable="d"
              >
+    <!-- fix textbox names to be consistent-->
     <Border Background="#121212">
         <Border.Resources>
             <Style TargetType="TextBox">
@@ -25,13 +26,11 @@
             <Label FontSize="16" Background="#1e1e1e" BorderBrush="Black" BorderThickness="1" Margin="5">Client Registration:</Label>
             <StackPanel Style="{StaticResource HorizontalLeft}" Margin="5,5,5,0">
                 <Label Content="Forename*"/>
-                <TextBox Name="txt_Forename" TextChanged="VerifyText"></TextBox>
-                <CheckBox x:Name="chk_Forename" Style="{StaticResource Verification}"></CheckBox>
+                <TextBox Name="txt_Forename"></TextBox>
             </StackPanel>
             <StackPanel Style="{StaticResource HorizontalLeft}" Margin="5,0,5,0">
                 <Label Content="Surname*"/>
-                <TextBox Name="txt_Surname" TextChanged="VerifyText"></TextBox>
-                <CheckBox x:Name="chk_Surname" Style="{StaticResource Verification}"></CheckBox>
+                <TextBox Name="txt_Surname"></TextBox>
             </StackPanel>
             <Grid Margin="5,0,5,5">
                 <Grid.RowDefinitions>
@@ -49,14 +48,14 @@
                 </Grid.ColumnDefinitions>
                 <Label>Address:</Label>
                 <Label Grid.Row="1" Content="First Line*"/>
-                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                <TextBox x:Name="txtAddress1" Grid.Row="1" Grid.Column="1"></TextBox>
                 <Label Grid.Row="2" Content="Second Line"/>
-                <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
+                <TextBox x:Name="txtAddress2" Grid.Row="2" Grid.Column="1"></TextBox>
                 <Label Grid.Row="1" Grid.Column="2" Content="Postcode*"/>
                 <TextBox Grid.Row="1" Grid.Column="3" Width="80" Name="txt_Postcode" TextChanged="VerifyText"></TextBox>
                 <CheckBox Grid.Row="1" Grid.Column="4" x:Name="chk_Postcode" Style="{StaticResource Verification}" ></CheckBox>
                 <Label Grid.Row="2" Grid.Column="2" Content="Town*"/>
-                <TextBox Grid.Row="2" Grid.Column="3" Width="80"></TextBox>
+                <TextBox x:Name="txt_Town" Grid.Row="2" Grid.Column="3" Width="80"></TextBox>
             </Grid>
             <Grid Margin="5,0,5,5">
                 <Grid.RowDefinitions>
@@ -86,7 +85,7 @@
                 <Label Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2">At least one field must be completed.</Label>
             </Grid>
             <Label>* indicates compulsory fields</Label>
-            <Button Style="{StaticResource btnDark}" Margin="10">Register</Button>
+            <Button Style="{StaticResource btnDark}" Margin="10" Click="Register">Register</Button>
         </StackPanel>
     </Border>
 </UserControl>
