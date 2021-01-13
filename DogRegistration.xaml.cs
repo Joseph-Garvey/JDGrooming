@@ -14,16 +14,19 @@ using System.Windows.Navigation;
 using System.ComponentModel;
 using Microsoft.Win32;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace JDGrooming
 {
     /// <summary>
     /// Interaction logic for DogRegistration.xaml
     /// </summary>
-    public partial class DogRegistration : UserControl
+    public partial class DogRegistration : UserControl, INotifyPropertyChanged
     {
         public DogRegistration()
         {
+            this.DataContext = this;
+            itemlist = new ObservableCollection<string> { "Pug", "Poodle", "Husky" };
             InitializeComponent();
         }
 
@@ -60,6 +63,45 @@ namespace JDGrooming
                 catch { }
                 img_Dog.Source = new BitmapImage(new Uri(newpath));
             }
+        }
+        #region Searchable ComboBox Code
+        private ObservableCollection<String> itemlist;
+        public ObservableCollection<string> ItemList
+        {
+            get { return itemlist; }
+            set
+            {
+                if (itemlist == value) return;
+                itemlist = value;
+                this.NotifyPropertyChanged("ItemList");
+            }
+        }
+        private string searchtext;
+        public string SearchText
+        {
+            get { return searchtext; }
+            set
+            {
+                if (searchtext == value) return;
+                searchtext = value;
+                this.NotifyPropertyChanged("SearchText");
+                cmb_Breed.Items.Filter += Filter;
+            }
+        }
+        private void cmb_DropDownClosed(object sender, EventArgs e)
+        {
+            if (cmb_Breed.SelectedIndex == -1) { SearchText = ""; }
+        }
+        public bool Filter(object item)
+        {
+            // use regex in future
+            return (((String)item).ToLowerInvariant()).Contains(SearchText.ToLowerInvariant());
+        }
+        #endregion
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
     }
 }

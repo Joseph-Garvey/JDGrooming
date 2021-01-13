@@ -85,7 +85,7 @@
                 <Label Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2">At least one field must be completed.</Label>
             </Grid>
             <Label>* indicates compulsory fields</Label>
-            <Button Style="{StaticResource btnDark}" Margin="10" Click="Register">Register</Button>
+            <Button x:Name="btnRegister" Style="{StaticResource btnDark}" Margin="10" Click="Register">Register</Button>
         </StackPanel>
     </Border>
 </UserControl>

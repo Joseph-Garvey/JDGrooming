@@ -106,6 +106,9 @@ namespace JDGrooming
             if(Errors != "") { MessageBox.Show(Errors, "Error", MessageBoxButton.OK ,MessageBoxImage.Error); }
             else
             {
+                //Client client = new Client();
+                // make it so that it automatically makes the sql string
+                //INSERT INTO[Client] (Forename, Surname, FirstLine, Town, Postcode, Mobile) VALUES('Joseph', 'Garvey', '16 Old Road', 'Not Newry', 'BT00 000', '07426358255');
                 MessageBox.Show("IT WORKS!");
             }
         }

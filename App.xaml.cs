@@ -143,5 +143,19 @@ namespace JDGrooming
             return Application.Current.MainWindow;
         }
         #endregion
+        #region UI Methods
+        private void cmb_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            OpenComboBox((ComboBox)sender);
+        }
+        private void cmb_GotFocus(object sender, RoutedEventArgs e)
+        {
+            OpenComboBox((ComboBox)sender);
+        }
+        private void OpenComboBox(ComboBox sender)
+        {
+            sender.IsDropDownOpen = true;
+        }
+        #endregion
     }
 }

@@ -66,6 +66,63 @@
             <Setter Property="FontSize" Value="10"/>
             <Setter Property="Height" Value="15"/>
         </Style>
+        <!--#region Install instructions for self -->
+        <!-- 1. Add this style to ComboBox -->
+        <!-- 2. this.DataContext = this;   -->
+        <!-- 3. Add INotifyPropertyChanged interface -->
+        <!-- 4. Implement Property Changed Event Handler
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        } -->
+        <!-- 5. Add SearchText String and Property
+        private string searchtext;
+        public string SearchText
+        {
+            get { return searchtext; }
+            set
+            {
+                if (searchtext == value) return;
+                searchtext = value;
+                this.NotifyPropertyChanged("SearchText");
+                cmb.Items.Filter += Filter;
+            }
+        }
+        -->
+        <!-- 6. Add Items List
+        private ObservableCollection<String> itemlist;
+        public ObservableCollection<string> ItemList
+        {
+            get { return itemlist; }
+            set
+            {
+                if (itemlist == value) return;
+                itemlist = value;
+                this.NotifyPropertyChanged("ItemList");
+            }
+        }-->
+        <!--7. Add DropDownClosed Method + Filter
+        private void cmb_DropDownClosed(object sender, EventArgs e)
+        {
+            if(cmb.SelectedIndex == -1) { SearchText = ""; }
+        }
+        public bool Filter(object item)
+        {
+            // use regex in future
+            return (((String)item).ToLowerInvariant()).Contains(SearchText.ToLowerInvariant());
+        } -->
+        <!--#endregion-->
+        <Style x:Key="Searchable" TargetType="ComboBox">
+            <Setter Property="IsTextSearchEnabled" Value="False"/>
+            <Setter Property="IsEditable" Value="True"/>
+            <Setter Property="ItemsSource" Value="{Binding ItemList}"/>
+            <Setter Property="Text" Value="{Binding SearchText}"/>
+            <EventSetter Event="PreviewTextInput" Handler="cmb_PreviewTextInput"/>
+            <EventSetter Event="GotFocus" Handler="cmb_GotFocus"/>
+            <!-- change to get focus -->
+            <!--Remember to copy this event -->
+        </Style>
         <!--#endregion-->
         <!--#region Label Styles -->
         <Style TargetType="Label" x:Key="lbl_WhiteHeading">

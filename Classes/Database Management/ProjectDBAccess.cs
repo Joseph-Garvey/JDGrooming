@@ -13,7 +13,7 @@ namespace JDGrooming.Classes.Database_Management
         public Database db = new Database();
 
         #region Methods
-        public SqlDataReader QueryDatabase(String Query)
+        private SqlDataReader QueryDatabase(String Query)
         {
             using (SqlCommand command = db.Conn.CreateCommand())
             {
@@ -21,6 +21,10 @@ namespace JDGrooming.Classes.Database_Management
                 db.Cmd = command;
                 return db.Cmd.ExecuteReader();
             }
+        }
+        public void AddClient(Client client)
+        {
+            QueryDatabase("");
         }
         #endregion
     }

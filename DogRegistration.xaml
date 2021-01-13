@@ -25,9 +25,7 @@
                         </StackPanel>
                     </Border>
                 </StackPanel>
-                <ComboBox FontSize="6" Height="15" x:Name="cmb_Breed">
-                    <ComboBoxItem>Pug</ComboBoxItem>
-                </ComboBox>
+                <ComboBox FontSize="6" Height="15" x:Name="cmb_Breed" Style="{StaticResource Searchable}" DropDownClosed="cmb_DropDownClosed"></ComboBox>
                 <Label Style="{StaticResource lbl_WhiteHeading}">Date of Birth:</Label>
                 <DatePicker Name="dp_DOB" SelectedDateChanged="dp_DOB_SelectedDateChanged"/>
                 <Label Style="{StaticResource lbl_WhiteHeading}">Additional Info:</Label>
