@@ -58,6 +58,7 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="Height" Value="18"></Setter>
+            <Setter Property="IsEnabled" Value="False"></Setter>
         </Style>
         <!--#endregion-->
         <!--#region ComboBox Styles -->
