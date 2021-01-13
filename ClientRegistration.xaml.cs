@@ -82,15 +82,27 @@ namespace JDGrooming
                 ) { AddToErrors(ref Errors, failedContactDetail); }
             if (txt_Forename.Text.Length > 35)  AddToErrors(ref Errors,failedForenameLength);
             if (txt_Surname.Text.Length > 50)  AddToErrors(ref Errors, failedSurnameLength);
-            if(CheckCharacters(txt_Forename.Text) || CheckCharacters(txt_Surname.Text))  AddToErrors(ref Errors,failedNameFormat);
+            if(!CheckCharacters(txt_Forename.Text) || !CheckCharacters(txt_Surname.Text))  AddToErrors(ref Errors,failedNameFormat);
             if ((txtAddress1.Text.Length > 35) || (txtAddress2.Text.Length > 35))  AddToErrors(ref Errors, failedAddressLength);
             if (txt_Town.Text.Length > 64)  AddToErrors(ref Errors, failedTownLength);
             if ((txt_Postcode.Text.Length > 8) || (!Verification.VerifyPostcode(txt_Postcode.Text)))  AddToErrors(ref Errors, failedPostCode);
-            //// fix this
-            if (txt_Email.Text != "" && ((txt_Email.Text.Length > 255) || (!Verification.VerifyEmail(txt_Email.Text))))  AddToErrors(ref Errors, failedEmail);
-            if((txt_Mobile.Text != "" && ((txt_Mobile.Text.Length > 32) || (!Verification.VerifyPhoneNumber(txt_Mobile.Text)))) ||
-               (txt_HomePhone.Text != "" && (txt_HomePhone.Text.Length > 32) || (!Verification.VerifyPhoneNumber(txt_HomePhone.Text))))
-              { AddToErrors(ref Errors, failedPhone); }
+            bool ContactDetailsPresent = false;
+            if(txt_Email.Text != "")
+            {
+                ContactDetailsPresent = true;
+                if((txt_Email.Text.Length > 255) || (!Verification.VerifyEmail(txt_Email.Text))) AddToErrors(ref Errors, failedEmail);
+            }
+            if (txt_Mobile.Text != "")
+            {
+                ContactDetailsPresent = true;
+                if ((txt_Mobile.Text.Length > 32) || (!Verification.VerifyPhoneNumber(txt_Mobile.Text))) AddToErrors(ref Errors, failedPhone);
+            }
+            if (txt_HomePhone.Text != "")
+            {
+                ContactDetailsPresent = true;
+                if ((txt_HomePhone.Text.Length > 32) || (!Verification.VerifyPhoneNumber(txt_HomePhone.Text))) AddToErrors(ref Errors, failedPhone);
+            }
+            if (!ContactDetailsPresent) { AddToErrors(ref Errors,failedContactDetail); }
             if(Errors != "") { MessageBox.Show(Errors, "Error", MessageBoxButton.OK ,MessageBoxImage.Error); }
             else
             {
