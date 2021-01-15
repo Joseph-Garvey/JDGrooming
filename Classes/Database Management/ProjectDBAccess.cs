@@ -36,12 +36,24 @@ namespace JDGrooming.Classes.Database_Management
             List<String> breeds = new List<string> { };
             try
             {
-                SqlDataReader reader = ReadDatabase("SELECT Name FROM [Breed]");
+                SqlDataReader reader = ReadDatabase("SELECT Name FROM [Breed];");
                 while (reader.Read()) breeds.Add(reader.GetString(0));
                 reader.Close();
             }
             catch { db.Rdr.Close(); }
             return breeds;
+        }
+        public List<String> GetClients()
+        {
+            List<String> clients = new List<string> { };
+            try
+            {
+                SqlDataReader reader = ReadDatabase("SELECT ID, Surname+' '+Forename AS Name FROM [Client];");
+                while (reader.Read()) clients.Add(reader.GetInt32(0) + " - " + reader.GetString(1));
+                reader.Close();
+            }
+            catch { db.Rdr.Close(); }
+            return clients;
         }
         #endregion
     }
