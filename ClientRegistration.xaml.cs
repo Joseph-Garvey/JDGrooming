@@ -106,10 +106,13 @@ namespace JDGrooming
             if(Errors != "") { MessageBox.Show(Errors, "Error", MessageBoxButton.OK ,MessageBoxImage.Error); }
             else
             {
-                if(txt_Email != "") { }
-                // make it so that it automatically makes the sql string
-                //INSERT INTO[Client] (Forename, Surname, FirstLine, Town, Postcode, Mobile) VALUES('Joseph', 'Garvey', '16 Old Road', 'Not Newry', 'BT00 000', '07426358255');
-                MessageBox.Show("IT WORKS!");
+                String Start = "INSERT INTO [Client] ([Surname], [Forename], [FirstLine], [Town], [Postcode]";
+                String End = String.Format("VALUES('{0}', '{1}', '{2}', '{3}', '{4}'", txt_Surname.Text, txt_Forename.Text, txtAddress1.Text, txt_Town.Text, txt_Postcode.Text);
+                if (txt_Email.Text != "") { Start += ", [Email]"; End += ", '" + txt_Email.Text + "'"; }
+                if (txt_HomePhone.Text != "") { Start += ", [HomePhone]"; End += ", '" + txt_HomePhone.Text + "'"; } // fix
+                if (txt_Mobile.Text != "") { Start += ", [Mobile]"; End += ", '" + txt_Mobile.Text + "'"; } // fix
+                if (txtAddress2.Text != "") { Start += ", [SecondLine]"; End += ", '" + txtAddress2.Text + "'"; }
+                ((App)Application.Current).query.QueryDatabase(Start + ") " + End + ");");
             }
         }
         private void AddToErrors(ref String ErrorList, String Error)

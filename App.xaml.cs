@@ -16,7 +16,7 @@ namespace JDGrooming
     /// </summary>
     public partial class App : Application
     {
-        ProjectDBAccess query = new ProjectDBAccess();
+        public ProjectDBAccess query = new ProjectDBAccess();
         public Database db
         {
             get { return query.db; }

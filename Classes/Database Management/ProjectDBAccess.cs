@@ -13,29 +13,24 @@ namespace JDGrooming.Classes.Database_Management
         public Database db = new Database();
 
         #region Methods
-        //public void QueryDatabase(String Query)
-        //{
-        //    using (SqlCommand command = db.Conn.CreateCommand())
-        //    {
-        //        command.CommandText = Query;
-        //        db.Cmd = command;
-        //        using (db.Cmd.ExecuteReader()) { }
-        //    }
-        //}
-        public SqlDataReader QueryDatabase(String Query)
+        public void QueryDatabase(String Query)
         {
             using (SqlCommand command = db.Conn.CreateCommand())
             {
                 command.CommandText = Query;
                 db.Cmd = command;
-                return db.Cmd.ExecuteReader();
+                using (db.Cmd.ExecuteReader()) { }
             }
         }
-        public void AddClient(Client client)
-        {
-            String s = client.GetInsertSQL();
-            int i;
-        }
+        //public SqlDataReader QueryDatabase(String Query)
+        //{
+        //    using (SqlCommand command = db.Conn.CreateCommand())
+        //    {
+        //        command.CommandText = Query;
+        //        db.Cmd = command;
+        //        return db.Cmd.ExecuteReader();
+        //    }
+        //}
         #endregion
     }
 }
