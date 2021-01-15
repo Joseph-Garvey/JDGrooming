@@ -22,15 +22,27 @@ namespace JDGrooming.Classes.Database_Management
                 using (db.Cmd.ExecuteReader()) { }
             }
         }
-        //public SqlDataReader QueryDatabase(String Query)
-        //{
-        //    using (SqlCommand command = db.Conn.CreateCommand())
-        //    {
-        //        command.CommandText = Query;
-        //        db.Cmd = command;
-        //        return db.Cmd.ExecuteReader();
-        //    }
-        //}
+        public SqlDataReader ReadDatabase(String Query)
+        {
+            using (SqlCommand command = db.Conn.CreateCommand())
+            {
+                command.CommandText = Query;
+                db.Cmd = command;
+                return db.Cmd.ExecuteReader();
+            }
+        }
+        public List<String> GetBreeds()
+        {
+            List<String> breeds = new List<string> { };
+            try
+            {
+                SqlDataReader reader = ReadDatabase("SELECT Name FROM [Breed]");
+                while (reader.Read()) breeds.Add(reader.GetString(0));
+                reader.Close();
+            }
+            catch { db.Rdr.Close(); }
+            return breeds;
+        }
         #endregion
     }
 }

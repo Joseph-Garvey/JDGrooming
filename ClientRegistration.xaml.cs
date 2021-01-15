@@ -113,6 +113,7 @@ namespace JDGrooming
                 if (txt_Mobile.Text != "") { Start += ", [Mobile]"; End += ", '" + txt_Mobile.Text + "'"; } // fix
                 if (txtAddress2.Text != "") { Start += ", [SecondLine]"; End += ", '" + txtAddress2.Text + "'"; }
                 ((App)Application.Current).query.QueryDatabase(Start + ") " + End + ");");
+                MessageBox.Show("Client registered successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
         private void AddToErrors(ref String ErrorList, String Error)

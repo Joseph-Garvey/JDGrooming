@@ -23,10 +23,12 @@ namespace JDGrooming
     /// </summary>
     public partial class DogRegistration : UserControl, INotifyPropertyChanged
     {
+        public App JDApp { get => ((App)Application.Current); }
+
         public DogRegistration()
         {
             this.DataContext = this;
-            itemlist = new ObservableCollection<string> { "Pug", "Poodle", "Husky" };
+            itemlist = new ObservableCollection<string>(JDApp.query.GetBreeds());
             InitializeComponent();
         }
 
