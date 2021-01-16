@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace JDGrooming.Classes.Database_Management
 {
@@ -36,14 +38,43 @@ namespace JDGrooming.Classes.Database_Management
             List<String> breeds = new List<string> { };
             try
             {
-                SqlDataReader reader = ReadDatabase("SELECT Name FROM [Breed];");
+                SqlDataReader reader = ReadDatabase("SELECT [Name] FROM [Breed];");
                 while (reader.Read()) breeds.Add(reader.GetString(0));
                 reader.Close();
             }
             catch { db.Rdr.Close(); }
             return breeds;
         }
-        public List<String> GetClients()
+        public int GetBreedID(String breedname)
+        {
+            int id = new int();
+            try
+            {
+                SqlDataReader reader = ReadDatabase("SELECT [ID] FROM [Breed] WHERE [Name]='" + breedname + "';");
+                while (reader.Read()) id = reader.GetInt32(0);
+                reader.Close();
+            }
+            catch { db.Rdr.Close(); }
+            return id;
+        }
+        public BitmapImage GetBreedImage(String breedname)
+        {
+            BitmapImage image = new BitmapImage();
+            try
+            {
+                SqlDataReader reader = ReadDatabase("SELECT [DefaultImage] FROM [Breed] WHERE [Name]='" + breedname + "';");
+                while (reader.Read())
+                {
+                    String s = reader.GetString(0);
+                    if (!File.Exists(s)) { throw new FileNotFoundException(); } // fix in future
+                    image = new BitmapImage(new Uri(s));
+                }
+                reader.Close();
+            }
+            catch { }
+            return image;
+        }
+        public List<String> GetClientsString()
         {
             List<String> clients = new List<string> { };
             try
@@ -54,6 +85,11 @@ namespace JDGrooming.Classes.Database_Management
             }
             catch { db.Rdr.Close(); }
             return clients;
+        }
+        public int GetClientIDFromString(String input)
+        {
+            int id = int.Parse(input.Substring(0, input.IndexOf(' ')));
+            return id;
         }
         #endregion
     }

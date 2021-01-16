@@ -35,11 +35,35 @@ namespace JDGrooming
             this.DataContext = this;
             BreedList = new ObservableCollection<string>(JDApp.query.GetBreeds());
             // change client search in future
-            ClientList = new ObservableCollection<string>(JDApp.query.GetClients());
+            ClientList = new ObservableCollection<string>(JDApp.query.GetClientsString());
             InitializeComponent();
         }
         #endregion
+        #region Methods
+        private bool ImgSourceHasChanged() // fix this later with a bool type value??
+        {
+            return img_Dog.Source.ToString() != "pack://siteoforigin:,,,/Icons/add_image.png";
+        }
+        #endregion
         #region Events
+        private void cmb_Breed_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!ImgSourceHasChanged())
+            {
+                try
+                {
+                    if(cmb_Breed.SelectedItem != null)
+                    {
+                        BitmapImage image = JDApp.query.GetBreedImage(cmb_Breed.SelectedItem.ToString());
+                        if (image.UriSource != null)
+                        {
+                            if (File.Exists(image.UriSource.AbsolutePath)) { img_Dog.Source = image; }
+                        }
+                    }
+                }
+                catch { }
+            }
+        }
         /// <summary>
         /// Ensures DOB is in past
         /// </summary>
@@ -106,12 +130,12 @@ namespace JDGrooming
             if (Errors != "") MessageBox.Show(Errors, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
-                // image is optional
+                // image is optional // add check that image still exists
                 String Start = "INSERT INTO [Dog] ([Name], [DOB], [ClientID], [BreedID]";
-                String End = String.Format("VALUES('{0}', '{1}', '{2}', '{3}', '{4}'", txt_Name.Text, dp_DOB.SelectedDate, // find way of getting client id
-                //if(img_Dog.Source)
-                if(txt_AdditionalInfo.Text != "") { Start += ", [AdditionalInfo]";  }
-                ((App)Application.Current).query.QueryDatabase(Start + ") " + End + ");");
+                String End = String.Format("VALUES('{0}', '{1}', '{2}', '{3}'", txt_Name.Text, dp_DOB.SelectedDate, JDApp.query.GetClientIDFromString(cmb_Client.SelectedItem.ToString()), JDApp.query.GetBreedID(cmb_Breed.SelectedItem.ToString())); // find way of getting client id
+                if (ImgSourceHasChanged()) { Start += ", [Image]"; End += (", '" + img_Dog.Source.ToString() + "'"); }
+                if(txt_AdditionalInfo.Text != "") { Start += ", [AdditionalInfo]"; End += (", '" + txt_AdditionalInfo.Text + "'"); }
+                JDApp.query.QueryDatabase(Start + ") " + End + ");");
                 MessageBox.Show("Client registered successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }

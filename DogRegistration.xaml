@@ -9,7 +9,7 @@
         <Viewbox>
             <StackPanel>
                 <StackPanel Style="{StaticResource HorizontalCentred}">
-                    <StackPanel VerticalAlignment="Bottom">
+                    <StackPanel VerticalAlignment="Bottom" Width="120">
                         <Label Style="{StaticResource lbl_WhiteHeading}">Dog Name:</Label>
                         <TextBox x:Name="txt_Name"></TextBox>
                         <Label Style="{StaticResource lbl_WhiteHeading}">Client Name:</Label>
@@ -21,13 +21,13 @@
                     <Border Margin="10" Style="{StaticResource brd_1}">
                         <StackPanel VerticalAlignment="Center">
                             <Border Style="{StaticResource brd_1}">
-                                <Image Name="img_Dog" Source="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Mops_oct09_cropped2.jpg/330px-Mops_oct09_cropped2.jpg" MaxHeight="68" MaxWidth="80"></Image>
+                                <Image Name="img_Dog" Source="pack://siteoforigin:,,,/Icons/add_image.png" MaxHeight="68" MaxWidth="80"></Image>
                             </Border>
                             <Button Style="{StaticResource btnDark}" FontSize="6" Margin="5,0,5,5" Click="btn_UploadImage">Upload new image</Button>
                         </StackPanel>
                     </Border>
                 </StackPanel>
-                <ComboBox FontSize="6" Height="15" x:Name="cmb_Breed"
+                <ComboBox FontSize="6" Height="15" x:Name="cmb_Breed" SelectionChanged="cmb_Breed_SelectionChanged"
                           Style="{StaticResource Searchable}" ItemsSource="{Binding BreedList}"
                           Text="{Binding Breed_searchtext}" DropDownClosed="cmb_DropDownClosed"></ComboBox>
                 <Label Style="{StaticResource lbl_WhiteHeading}">Date of Birth:</Label>
