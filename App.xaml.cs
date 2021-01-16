@@ -16,7 +16,7 @@ namespace JDGrooming
     /// </summary>
     public partial class App : Application
     {
-        ProjectDBAccess query = new ProjectDBAccess();
+        public ProjectDBAccess query = new ProjectDBAccess();
         public Database db
         {
             get { return query.db; }
@@ -68,6 +68,12 @@ namespace JDGrooming
                 {
                     db.Rdr.Close();
                 }
+                //var lines = System.IO.File.ReadAllLines(@"C:\Users\Joseph Garvey\Desktop\CW\Dog_Breeds.txt");
+                //for (var i = 0; i < lines.Length; i += 1)
+                //{
+                //    Classes.Breed b = new Classes.Breed(lines[i]);
+                //    query.QueryDatabase(b.GetInsertSQL());
+                //}
                 #endregion
             }
             catch (TaskCanceledException) { }

@@ -9,28 +9,32 @@
         <Viewbox>
             <StackPanel>
                 <StackPanel Style="{StaticResource HorizontalCentred}">
-                    <StackPanel VerticalAlignment="Bottom">
+                    <StackPanel VerticalAlignment="Bottom" Width="120">
                         <Label Style="{StaticResource lbl_WhiteHeading}">Dog Name:</Label>
-                        <TextBox></TextBox>
+                        <TextBox x:Name="txt_Name"></TextBox>
                         <Label Style="{StaticResource lbl_WhiteHeading}">Client Name:</Label>
-                        <TextBox></TextBox>
+                        <ComboBox FontSize="6" Height="15" x:Name="cmb_Client"
+                                  Style="{StaticResource Searchable}" DropDownClosed="cmb_DropDownClosed"
+                                  Text="{Binding Client_searchtext}" ItemsSource="{Binding ClientList}"></ComboBox>
                         <Label Style="{StaticResource lbl_WhiteHeading}">Breed:</Label>
                     </StackPanel>
                     <Border Margin="10" Style="{StaticResource brd_1}">
                         <StackPanel VerticalAlignment="Center">
                             <Border Style="{StaticResource brd_1}">
-                                <Image Name="img_Dog" Source="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Mops_oct09_cropped2.jpg/330px-Mops_oct09_cropped2.jpg" MaxHeight="68" MaxWidth="80"></Image>
+                                <Image Name="img_Dog" Source="pack://siteoforigin:,,,/Icons/add_image.png" MaxHeight="68" MaxWidth="80"></Image>
                             </Border>
                             <Button Style="{StaticResource btnDark}" FontSize="6" Margin="5,0,5,5" Click="btn_UploadImage">Upload new image</Button>
                         </StackPanel>
                     </Border>
                 </StackPanel>
-                <ComboBox FontSize="6" Height="15" x:Name="cmb_Breed" Style="{StaticResource Searchable}" DropDownClosed="cmb_DropDownClosed"></ComboBox>
+                <ComboBox FontSize="6" Height="15" x:Name="cmb_Breed" SelectionChanged="cmb_Breed_SelectionChanged"
+                          Style="{StaticResource Searchable}" ItemsSource="{Binding BreedList}"
+                          Text="{Binding Breed_searchtext}" DropDownClosed="cmb_DropDownClosed"></ComboBox>
                 <Label Style="{StaticResource lbl_WhiteHeading}">Date of Birth:</Label>
                 <DatePicker Name="dp_DOB" SelectedDateChanged="dp_DOB_SelectedDateChanged"/>
                 <Label Style="{StaticResource lbl_WhiteHeading}">Additional Info:</Label>
-                <TextBox></TextBox>
-                <Button Style="{StaticResource btnDark}" Margin="10">Register</Button>
+                <TextBox Name="txt_AdditionalInfo"></TextBox>
+                <Button Style="{StaticResource btnDark}" Margin="10" Click="btn_Register">Register</Button>
             </StackPanel>
         </Viewbox>
     </Border>
