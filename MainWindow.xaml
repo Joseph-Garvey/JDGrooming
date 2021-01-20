@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JDGrooming"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1080" Background="#121212">
+        Title="JD Dog Care" Height="720" Width="1080" Background="#121212" AllowsTransparency="True"
+        WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="CanResizeWithGrip">
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames AccelerationRatio="0.45" DecelerationRatio="0.45" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
@@ -31,7 +32,7 @@
     </Window.Triggers>
     <!-- Make resize later but dockpanel works -->
     <DockPanel>
-        <!-- TitleBar goes here -->
+        <local:TitleBar DockPanel.Dock="Top"></local:TitleBar>
         <Grid Name="GridMenu" Width="80" Background="#FF282828" DockPanel.Dock="Left">
             <StackPanel>
                 <Button Name="BtnOpenMenu" Style="{StaticResource btnDark}" Height="80" Click="BtnOpenMenu_Click">

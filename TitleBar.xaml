@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="JDGrooming.TitleBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:JDGrooming"
+             mc:Ignorable="d"
+             Background="#2d2d30" Height="40" MouseDown="this_MouseDown" BorderThickness="1" BorderBrush="Black">
+    <!-- Come back to this later and fix it
+         NB. Make buttons black -->
+    <DockPanel HorizontalAlignment="Stretch">
+        <Label Name="lblTitle" Style="{StaticResource lbl_WhiteHeading}" FontSize="18" Margin="10,0,10,0" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Left">Window Title</Label>
+        <StackPanel Style="{StaticResource HorizontalRight}">
+            <Button Style="{StaticResource btnSimpleDark}" Click="btn_Minimise">
+                <Image Source="pack://siteoforigin:,,,/icons/minimise.png" Margin="2"/>
+            </Button>
+            <Button Style="{StaticResource btnSimpleDark}" Click="btn_Fullscreen">
+                <Image Source="pack://siteoforigin:,,,/icons/restore.png" Margin="2"></Image>
+            </Button>
+            <Button Style="{StaticResource btnSimpleDark}" Click="btn_Close">
+                <Image Source="pack://siteoforigin:,,,/icons/close.png" Margin="2"></Image>
+            </Button>
+        </StackPanel>
+    </DockPanel>
+</UserControl>
