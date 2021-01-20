@@ -114,11 +114,12 @@ namespace JDGrooming
         /// <param name="e"></param>
         private void btn_Register(object sender, RoutedEventArgs e)
         {
+            // add null checks + whitespace for name etc check user reqs
             const String failedMissingData = "\u2022 All fields except for additional information must be completed.";
             const String failedNameFormat = "\u2022 Names must consist of letters.";
             const String failedNameLength = "\u2022 Names must be less than 32 characters."; // less than or equal to?
             const String failedAdditionaInfoLength = "\u2022 Information must be less than 255 characters.";
-            const String failedFileNameLength = "\u2022 Information must be less than 260 characters. (Windows limit)";
+            const String failedFileNameLength = "\u2022 Image file-path must be less than 260 characters. (Windows limit)";
             String Errors = "";
             if(txt_Name.Text == ""
                 || cmb_Client.SelectedIndex == -1

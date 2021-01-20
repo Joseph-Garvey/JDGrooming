@@ -24,65 +24,53 @@
         </Border.Resources>
         <StackPanel>
             <Label FontSize="16" Background="#1e1e1e" BorderBrush="Black" BorderThickness="1" Margin="5">Client Registration:</Label>
-            <StackPanel Style="{StaticResource HorizontalLeft}" Margin="5,5,5,0">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
                 <Label Content="Forename*"/>
-                <TextBox Name="txt_Forename"></TextBox>
-            </StackPanel>
-            <StackPanel Style="{StaticResource HorizontalLeft}" Margin="5,0,5,0">
-                <Label Content="Surname*"/>
-                <TextBox Name="txt_Surname"></TextBox>
-            </StackPanel>
-            <Grid Margin="5,0,5,5">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Label>Address:</Label>
-                <Label Grid.Row="1" Content="First Line*"/>
-                <TextBox x:Name="txtAddress1" Grid.Row="1" Grid.Column="1"></TextBox>
-                <Label Grid.Row="2" Content="Second Line"/>
-                <TextBox x:Name="txtAddress2" Grid.Row="2" Grid.Column="1"></TextBox>
-                <Label Grid.Row="1" Grid.Column="2" Content="Postcode*"/>
-                <TextBox Grid.Row="1" Grid.Column="3" Width="80" Name="txt_Postcode" TextChanged="VerifyText"></TextBox>
-                <CheckBox Grid.Row="1" Grid.Column="4" x:Name="chk_Postcode" Style="{StaticResource Verification}" ></CheckBox>
-                <Label Grid.Row="2" Grid.Column="2" Content="Town*"/>
-                <TextBox x:Name="txt_Town" Grid.Row="2" Grid.Column="3" Width="80"></TextBox>
-            </Grid>
-            <Grid Margin="5,0,5,5">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Label>Contact Details:</Label>
-                <Label Grid.Row="1">Email Address:</Label>
-                <TextBox Name="txt_Email" TextChanged="VerifyText" Grid.Row="1" Grid.Column="1"></TextBox>
-                <CheckBox Grid.Row="1" Grid.Column="2" x:Name="chk_Email" Style="{StaticResource Verification}"></CheckBox>
-                <Label Grid.Row="2">Home Phone:</Label>
-                <TextBox Name="txt_HomePhone" TextChanged="VerifyText" Grid.Row="2" Grid.Column="1"></TextBox>
-                <CheckBox Grid.Row="2" Grid.Column="2" x:Name="chk_HomePhone" Style="{StaticResource Verification}"></CheckBox>
-                <Label Grid.Row="1" Grid.Column="3" Content="Mobile:"/>
-                <TextBox Name="txt_Mobile" TextChanged="VerifyText" Grid.Row="1" Grid.Column="4" Width="100"></TextBox>
-                <CheckBox Grid.Row="1" Grid.Column="5" x:Name="chk_Mobile" Style="{StaticResource Verification}"></CheckBox>
-                <Label Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2">At least one field must be completed.</Label>
+                <TextBox Grid.Column="1" Name="txt_Forename"></TextBox>
+                <Label Grid.Row="1" Content="Surname*"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Name="txt_Surname"></TextBox>
+                <Label Grid.Row="2">Address:</Label>
+                <Label Grid.Row="3" Content="First Line*"/>
+                <TextBox x:Name="txtAddress1" Grid.Row="3" Grid.Column="1"></TextBox>
+                <Label Grid.Row="4" Content="Second Line"/>
+                <TextBox x:Name="txtAddress2" Grid.Row="4" Grid.Column="1"></TextBox>
+                <Label Grid.Row="3" Grid.Column="3" Content="Postcode*"/>
+                <TextBox Grid.Row="3" Grid.Column="4" Width="100" Name="txt_Postcode" TextChanged="VerifyText"></TextBox>
+                <CheckBox Grid.Row="3" Grid.Column="5" x:Name="chk_Postcode" Style="{StaticResource Verification}" ></CheckBox>
+                <Label Grid.Row="4" Grid.Column="3" Content="Town*"/>
+                <TextBox x:Name="txt_Town" Grid.Row="4" Grid.Column="4" Width="100" ></TextBox>
+                <Label Grid.Row="5" >Contact Details:</Label>
+                <Label Grid.Row="6">Email Address:</Label>
+                <TextBox Name="txt_Email" TextChanged="VerifyText" Grid.Row="6" Grid.Column="1"></TextBox>
+                <CheckBox Grid.Row="6" Grid.Column="2" x:Name="chk_Email" Style="{StaticResource Verification}"></CheckBox>
+                <Label Grid.Row="7">Home Phone:</Label>
+                <TextBox Name="txt_HomePhone" TextChanged="VerifyText" Grid.Row="7" Grid.Column="1"></TextBox>
+                <CheckBox Grid.Row="7" Grid.Column="2" x:Name="chk_HomePhone" Style="{StaticResource Verification}"></CheckBox>
+                <Label Grid.Row="6" Grid.Column="3" Width="Auto" Content="Mobile:"/>
+                <TextBox Name="txt_Mobile" TextChanged="VerifyText" Grid.Row="6" Grid.Column="4" Width="100"></TextBox>
+                <CheckBox Grid.Row="6" Grid.Column="5" x:Name="chk_Mobile" Style="{StaticResource Verification}"></CheckBox>
+                <Label Grid.Column="3" Grid.Row="7" Grid.ColumnSpan="3">At least one field must be completed.</Label>
             </Grid>
             <Label>* indicates compulsory fields</Label>
             <Button x:Name="btnRegister" Style="{StaticResource btnDark}" Margin="10" Click="Register">Register</Button>

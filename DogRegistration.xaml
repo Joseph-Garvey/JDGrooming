@@ -8,7 +8,7 @@
     <Border Background="#121212">
         <Viewbox>
             <StackPanel>
-                <StackPanel Style="{StaticResource HorizontalCentred}">
+                <StackPanel Style="{StaticResource HorizontalCentred}" Margin="5,0,0,0">
                     <StackPanel VerticalAlignment="Bottom" Width="120">
                         <Label Style="{StaticResource lbl_WhiteHeading}">Dog Name:</Label>
                         <TextBox x:Name="txt_Name"></TextBox>
@@ -27,13 +27,13 @@
                         </StackPanel>
                     </Border>
                 </StackPanel>
-                <ComboBox FontSize="6" Height="15" x:Name="cmb_Breed" SelectionChanged="cmb_Breed_SelectionChanged"
+                <ComboBox Margin="5,0,5,0" FontSize="6" Height="15" x:Name="cmb_Breed" SelectionChanged="cmb_Breed_SelectionChanged"
                           Style="{StaticResource Searchable}" ItemsSource="{Binding BreedList}"
                           Text="{Binding Breed_searchtext}" DropDownClosed="cmb_DropDownClosed"></ComboBox>
-                <Label Style="{StaticResource lbl_WhiteHeading}">Date of Birth:</Label>
-                <DatePicker Name="dp_DOB" SelectedDateChanged="dp_DOB_SelectedDateChanged"/>
-                <Label Style="{StaticResource lbl_WhiteHeading}">Additional Info:</Label>
-                <TextBox Name="txt_AdditionalInfo"></TextBox>
+                <Label Margin="5,0,5,0"  Style="{StaticResource lbl_WhiteHeading}">Date of Birth:</Label>
+                <DatePicker Name="dp_DOB" Margin="5,0,5,0" SelectedDateChanged="dp_DOB_SelectedDateChanged"/>
+                <Label Margin="5,0,5,0" Style="{StaticResource lbl_WhiteHeading}">Additional Info:</Label>
+                <TextBox Name="txt_AdditionalInfo" Margin="5,0,5,0"></TextBox>
                 <Button Style="{StaticResource btnDark}" Margin="10" Click="btn_Register">Register</Button>
             </StackPanel>
         </Viewbox>

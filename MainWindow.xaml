@@ -9,14 +9,14 @@
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames AccelerationRatio="0.45" DecelerationRatio="0.45" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="100"></EasingDoubleKeyFrame>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="80"></EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="150"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="CloseMenu">
             <DoubleAnimationUsingKeyFrames AccelerationRatio="0.45" DecelerationRatio="0.45" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0" Value="150"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="80"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
 
@@ -32,19 +32,24 @@
     <!-- Make resize later but dockpanel works -->
     <DockPanel>
         <!-- TitleBar goes here -->
-        <Grid Name="GridMenu" Width="100" Background="#FF282828" DockPanel.Dock="Left">
+        <Grid Name="GridMenu" Width="80" Background="#FF282828" DockPanel.Dock="Left">
             <StackPanel>
-                <Button Name="BtnOpenMenu" Margin="20" Click="BtnOpenMenu_Click">Expand</Button>
-                <Button Name="BtnCloseMenu" Margin="20" Visibility="Collapsed" Click="BtnCloseMenu_Click">Collapse</Button>
-                <Button  Margin="10" Width="50" Click="Button_Click">None</Button>
-                <Button  Margin="10" Width="50"  Click="Button_Click">Window</Button>
-                <Button Margin="10" Width="50"  Click="Button_Click">UserControl</Button>
-                <Button  Margin="10" Width="50"  Click="Button_Click">Example</Button>
-                <Button  Margin="10"  Click="Button_Click">Settings</Button>
+                <Button Name="BtnOpenMenu" Style="{StaticResource btnDark}" Height="80" Click="BtnOpenMenu_Click">
+                    <Image Source="pack://siteoforigin:,,,/Icons/menu.png" Margin="0,20,0,20"></Image>
+                </Button>
+                <Button Name="BtnCloseMenu" Style="{StaticResource btnDark}" Height="80" Visibility="Collapsed" Click="BtnCloseMenu_Click">
+                    <Image Source="pack://siteoforigin:,,,/Icons/menu.png" Margin="0,20,0,20"></Image>
+                </Button>
+                <Button x:Name="btnAddDog" Style="{StaticResource btnDark}" Height="80" Click="Button_Click">
+                    <Image Source="pack://siteoforigin:,,,/Icons/dog.png" Margin="0,20,0,20"></Image>
+                </Button>
+                <Button x:Name="btnAddClient" Style="{StaticResource btnDark}" Height="80" Click="Button_Click">
+                    <Image Source="pack://siteoforigin:,,,/Icons/client.png" Margin="0,15,0,15"></Image>
+                </Button>
             </StackPanel>
         </Grid>
         <Viewbox Name="View">
-            <local:DogRegistration></local:DogRegistration>
+            <local:ClientRegistration></local:ClientRegistration>
         </Viewbox>
     </DockPanel>
     <!--
