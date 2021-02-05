@@ -31,31 +31,32 @@
         </EventTrigger>
     </Window.Triggers>
     <!-- Make resize later but dockpanel works -->
-    <DockPanel>
+    <DockPanel x:Name="Dock_Window">
         <local:TitleBar DockPanel.Dock="Top"></local:TitleBar>
         <Grid Name="GridMenu" Width="80" Background="#FF282828" DockPanel.Dock="Left">
-            <StackPanel>
-                <Button Name="BtnOpenMenu" Style="{StaticResource btnDark}" Height="80" Click="BtnOpenMenu_Click">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <Button Name="BtnOpenMenu" Style="{StaticResource btnDark}" Height="80" Click="BtnOpenMenu_Click">
                     <Image Source="pack://siteoforigin:,,,/Icons/menu.png" Margin="0,20,0,20"></Image>
                 </Button>
                 <Button Name="BtnCloseMenu" Style="{StaticResource btnDark}" Height="80" Visibility="Collapsed" Click="BtnCloseMenu_Click">
                     <Image Source="pack://siteoforigin:,,,/Icons/menu.png" Margin="0,20,0,20"></Image>
                 </Button>
+                <Button x:Name="btnBooking" Style="{StaticResource btnDark}" Height="80" Click="Button_Click">
+                    <Image Source="pack://siteoforigin:,,,/Icons/grooming.png" Margin="0,10,0,10"></Image>
+                </Button>
                 <Button x:Name="btnAddDog" Style="{StaticResource btnDark}" Height="80" Click="Button_Click">
                     <Image Source="pack://siteoforigin:,,,/Icons/dog.png" Margin="0,20,0,20"></Image>
                 </Button>
-                <Button x:Name="btnAddClient" Style="{StaticResource btnDark}" Height="80" Click="Button_Click">
-                    <Image Source="pack://siteoforigin:,,,/Icons/client.png" Margin="0,15,0,15"></Image>
-                </Button>
-            </StackPanel>
+                <!-- I should add a plus button to the dog logo -->
+            <Button x:Name="btnAddClient" Style="{StaticResource btnDark}" Height="80" Click="Button_Click">
+                <Image Source="pack://siteoforigin:,,,/Icons/client.png" Margin="0,15,0,15"></Image>
+            </Button>
         </Grid>
-        <Viewbox Name="View">
+        <Viewbox Name="View" DockPanel.Dock="Bottom">
             <local:ClientRegistration></local:ClientRegistration>
         </Viewbox>
     </DockPanel>
-    <!--
-    <Viewbox Stretch="UniformToFill">
-
-    </Viewbox>
-    -->
 </Window>

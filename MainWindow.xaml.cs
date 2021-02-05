@@ -59,6 +59,15 @@ namespace JDGrooming
                 case "btnAddDog":
                     View.Child = new DogRegistration();
                     break;
+                case "btnBooking":
+                    //fix this later
+                    BookingProgress b = new BookingProgress();
+
+                    DockPanel.SetDock(b, Dock.Top);
+                    Dock_Window.Children.Add(b);
+                    Dock_Window.Visibility = Visibility.Collapsed;
+                    Dock_Window.Visibility = Visibility.Visible;
+                    break;
             }
         }
         #endregion
