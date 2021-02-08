@@ -34,7 +34,7 @@ namespace JDGrooming
                 if (searchtext == value) return;
                 searchtext = value;
                 this.NotifyPropertyChanged("SearchText");
-                data_DogList.Items.Filter += FilterDog;
+                //data_DogList.Items.Filter += FilterDog;
             }
         }
         private DataView doglist;
@@ -59,10 +59,10 @@ namespace JDGrooming
         }
 
         #region Methods
-        public void FilterDog(object sender, FilterEventArgs e)
-        {
-            var item = e.Item;
-        }
+        //public void FilterDog(object sender, FilterEventArgs e)
+        //{
+        //    var item = e.Item;
+        //}
         //public bool FilterDog(object item)
         //{
         //    // i could use an object model
