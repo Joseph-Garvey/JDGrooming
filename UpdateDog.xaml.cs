@@ -23,9 +23,15 @@ namespace JDGrooming
     /// </summary>
     public partial class UpdateDog : UserControl, INotifyPropertyChanged
     {
-        #region Variables
+        #region Variables and Properties
+        /// <summary>
+        /// References the application code.
+        /// </summary>
         private App JDApp { get => ((App)Application.Current); }
         private String searchtext;
+        /// <summary>
+        /// Search query for the data-grid displaying all dogs.
+        /// </summary>
         public String SearchText
         {
             get { return searchtext; }
@@ -38,6 +44,9 @@ namespace JDGrooming
             }
         }
         private DataView doglist;
+        /// <summary>
+        /// Dog Data
+        /// </summary>
         public DataView DogList
         {
             get { return doglist; }
@@ -48,6 +57,49 @@ namespace JDGrooming
                 this.NotifyPropertyChanged("DogList");
             }
         }
+        private string dogname;
+        /// <summary>
+        /// Name of currently selected dog.
+        /// </summary>
+        public String DogName
+        {
+            get { return dogname; }
+            set
+            {
+                if (dogname == value) return;
+                dogname = value;
+                this.NotifyPropertyChanged("DogName");
+            }
+        }
+        private string breed;
+        /// <summary>
+        /// Breed of currently selected dog.
+        /// </summary>
+        public String Breed
+        {
+            get { return breed; }
+            set
+            {
+                if (breed == value) return;
+                breed = value;
+                this.NotifyPropertyChanged("Breed");
+            }
+        }
+        private string age;
+        /// <summary>
+        /// Age of currently selected dog.
+        /// </summary>
+        public String Age
+        {
+            get { return breed; }
+            set
+            {
+                if (breed == value) return;
+                breed = value;
+                this.NotifyPropertyChanged("BreedName");
+            }
+        }
+
         #endregion
 
         public UpdateDog()
@@ -76,6 +128,11 @@ namespace JDGrooming
         //}
         #endregion
         #region Events
+        /// <summary>
+        /// Handles image upload, fix later to add modification of file path?
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_UploadImage(object sender, RoutedEventArgs e)
         {
             /// add exception handling here
