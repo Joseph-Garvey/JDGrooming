@@ -31,7 +31,11 @@
                     <TextBox Grid.Column="1" Style="{StaticResource SearchBox}" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
                 </Grid>
                 <!-- fix appearance later -->
-                <DataGrid x:Name="data_DogList" Margin="5,0,5,5" BorderBrush="Black" SelectionChanged="DataGrid_SelectionChanged" ItemsSource="{Binding DogList}" MaxWidth="200" FontSize="6"></DataGrid>
+                <DataGrid x:Name="data_DogList" Margin="5,0,5,5" BorderBrush="Black"
+                          SelectedItem="{Binding SelectedItem}"
+                          SelectionChanged="DataGrid_SelectionChanged"
+                          ItemsSource="{Binding DogList}" MaxWidth="200"
+                          FontSize="6" IsReadOnly="True" SelectionMode="Single"></DataGrid>
             </StackPanel>
         </Border>
         <StackPanel Margin="0,5,5,5">
@@ -68,7 +72,7 @@
                     <Label>Name:</Label>
                     <TextBox x:Name="txtName" Grid.Column="1"></TextBox>
                     <Label Grid.Row="1">Breed:</Label>
-                    <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Breed, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Label Grid.Row="2">Age:</Label>
                     <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0"></Label>
                     <Label Grid.Row="3">Client Name:</Label>

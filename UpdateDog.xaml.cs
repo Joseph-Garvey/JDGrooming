@@ -28,6 +28,7 @@ namespace JDGrooming
         /// References the application code.
         /// </summary>
         private App JDApp { get => ((App)Application.Current); }
+
         private String searchtext;
         /// <summary>
         /// Search query for the data-grid displaying all dogs.
@@ -43,6 +44,7 @@ namespace JDGrooming
                 //data_DogList.Items.Filter += FilterDog;
             }
         }
+
         private DataView doglist;
         /// <summary>
         /// Dog Data
@@ -57,17 +59,33 @@ namespace JDGrooming
                 this.NotifyPropertyChanged("DogList");
             }
         }
+
+        private object selecteditem;
+        public object SelectedItem
+        {
+            get { return selecteditem; }
+            set
+            {
+                if (selecteditem == value) return;
+                selecteditem = value;
+                this.NotifyPropertyChanged("SelectedItem");
+            }
+        }
+        public DataRowView SelectedRow;
+
         private string dogname;
         /// <summary>
         /// Name of currently selected dog.
         /// </summary>
         public String DogName
         {
-            get { return dogname; }
+            get
+            {
+                return ((DataRowView)data_DogList.SelectedItem).Row.ItemArray[0].ToString();
+            }
             set
             {
-                if (dogname == value) return;
-                dogname = value;
+                dogname = SelectedRow[0].ToString();
                 this.NotifyPropertyChanged("DogName");
             }
         }
@@ -99,15 +117,19 @@ namespace JDGrooming
                 this.NotifyPropertyChanged("BreedName");
             }
         }
-
         #endregion
 
         public UpdateDog()
         {
             DogList = JDApp.query.FillDogTable();
+            Binding binding_SelectedRow = new Binding("Row")
+            {
+                Source = SelectedItem,
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            };
+            SelectedRow = binding_SelectedRow;
             this.DataContext = this;
             InitializeComponent();
-
         }
 
         #region Methods
@@ -161,7 +183,7 @@ namespace JDGrooming
         }
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            var obj = ((DataRowView)data_DogList.SelectedItem).Row.ItemArray;
         }
         #endregion
         #region PropertyChanged Event Handlers
