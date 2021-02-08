@@ -72,15 +72,19 @@
                     <TextBox x:Name="txtName" Grid.Column="1" Text="{Binding DogName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Label Grid.Row="1">Breed:</Label>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Breed, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                    <Label Grid.Row="2">Age:</Label>
-                    <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0" Content="{Binding Age}"></Label>
-                    <Label Grid.Row="3">Client Name:</Label>
-                    <ComboBox Grid.Row="3" Grid.Column="1" FontSize="6" Style="{StaticResource Searchable}"
-                              Margin="5" BorderBrush="Black" Height="12"></ComboBox>
-                    <Label Grid.Row="5" Content="Address:"/>
+                    <Label Grid.Row="2">DOB:</Label>
+                    <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0"></Label>
+                    <Label Grid.Row="3">Status:</Label>
+                    <Label Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0"></Label>
+                    <Label Grid.Row="4">Dog Info:</Label>
+                    <TextBox Grid.Row="4" Grid.Column="1" MaxWidth="100" TextWrapping="Wrap" Text="{Binding Breed, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <Label Grid.Row="5">Breed Info:</Label>
                     <Label Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0"></Label>
-                    <Label Grid.Row="6">Contact Details:</Label>
-                    <Label Grid.Row="6" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0"></Label>
+                    <Label Grid.Row="6">Client Name:</Label>
+                    <DockPanel Grid.Row="6" Grid.Column="1">
+                        <Label DockPanel.Dock="Left" Margin="5,0,0,0"></Label>
+                        <Button Style="{StaticResource btnDark}" FontSize="6">tmp</Button>
+                    </DockPanel>
                 </Grid>
             </Border>
         </StackPanel>

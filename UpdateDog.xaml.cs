@@ -168,6 +168,9 @@ namespace JDGrooming
             object[] selectedrow = ((DataRowView)data_DogList.SelectedItem).Row.ItemArray;
             DogName = selectedrow[1].ToString();
             Breed = selectedrow[2].ToString();
+            // info and image is in query
+            List<String> sqlresults = JDApp.query.GetUpdateDog(selectedrow[0].ToString());
+            if(File.Exists(selectedrow))
         }
         #endregion
         #region PropertyChanged Event Handlers

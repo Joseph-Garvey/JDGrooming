@@ -97,7 +97,7 @@ namespace JDGrooming.Classes.Database_Management
             using (SqlCommand command = db.Conn.CreateCommand())
             {
                 command.CommandText = "SELECT [Dog].ID, [Dog].[Name], [Breed].[Name] AS Breed, Forename + ' ' + Surname AS Client_Name, " +
-                    "DOB, [Image] FROM [Dog] " +
+                    "DOB, [Status] FROM [Dog] " +
                     "INNER JOIN [Client] ON [Dog].ClientID = [Client].Id " +
                     "INNER JOIN [Breed] ON [Dog].BreedID = [Breed].Id;";
                 db.Cmd = command;
@@ -106,6 +106,25 @@ namespace JDGrooming.Classes.Database_Management
                 sda.Fill(dt);
                 return dt.DefaultView;
             }
+        }
+        public List<String> GetUpdateDog(string id)
+        {
+            List<String> results = new List<string> { };
+            try
+            {
+                SqlDataReader reader = ReadDatabase("SELECT AdditionalInfo, Info, Image, DefaultImage FROM [Dog] " +
+                    "INNER JOIN [Breed] ON [Dog].BreedID = [Breed].Id" +
+                    " WHERE [Dog].ID = '+ " + id + "';");
+                while (reader.Read()) {
+                    results.Add(reader.GetString(0));
+                    results.Add(reader.GetString(1));
+                    results.Add(reader.GetString(2));
+                    results.Add(reader.GetString(3));
+                        }
+                reader.Close();
+            }
+            catch { db.Rdr.Close(); }
+            return results;
         }
         #endregion
     }
