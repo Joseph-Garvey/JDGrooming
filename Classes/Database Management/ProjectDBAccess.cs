@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Data;
 
 namespace JDGrooming.Classes.Database_Management
 {
@@ -90,6 +91,21 @@ namespace JDGrooming.Classes.Database_Management
         {
             int id = int.Parse(input.Substring(0, input.IndexOf(' ')));
             return id;
+        }
+        public DataView FillDogTable()
+        {
+            using (SqlCommand command = db.Conn.CreateCommand())
+            {
+                command.CommandText = "SELECT [Dog].ID, [Dog].[Name], [Breed].[Name], Forename + ' ' + Surname AS Client_Name, " +
+                    "DOB, [Image] FROM [Dog] " +
+                    "INNER JOIN [Client] ON [Dog].ClientID = [Client].Id " +
+                    "INNER JOIN [Breed] ON [Dog].BreedID = [Breed].Id;";
+                db.Cmd = command;
+                SqlDataAdapter sda = new SqlDataAdapter(db.Cmd);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                return dt.DefaultView;
+            }
         }
         #endregion
     }

@@ -59,6 +59,9 @@ namespace JDGrooming
                 case "btnAddDog":
                     View.Child = new DogRegistration();
                     break;
+                case "btnUpdateDog":
+                    View.Child = new UpdateDog();
+                    break;
                 case "btnBooking":
                     //fix this later
                     BookingProgress b = new BookingProgress();

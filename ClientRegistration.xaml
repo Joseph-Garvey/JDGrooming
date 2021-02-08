@@ -19,7 +19,6 @@
             </Style>
             <Style TargetType="Label" BasedOn="{StaticResource lbl_WhiteHeading}">
                 <Setter Property="MinWidth" Value="90"></Setter>
-                <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
             </Style>
         </StackPanel.Resources>
         <Label FontSize="16" Background="#1e1e1e" BorderBrush="Black" BorderThickness="1" Margin="5">Client Registration:</Label>
