@@ -60,19 +60,6 @@ namespace JDGrooming
             }
         }
 
-        private object selecteditem;
-        public object SelectedItem
-        {
-            get { return selecteditem; }
-            set
-            {
-                if (selecteditem == value) return;
-                selecteditem = value;
-                this.NotifyPropertyChanged("SelectedItem");
-            }
-        }
-        public DataRowView SelectedRow;
-
         private string dogname;
         /// <summary>
         /// Name of currently selected dog.
@@ -81,11 +68,12 @@ namespace JDGrooming
         {
             get
             {
-                return ((DataRowView)data_DogList.SelectedItem).Row.ItemArray[0].ToString();
+                return dogname;
             }
             set
             {
-                dogname = SelectedRow[0].ToString();
+                if (dogname == value) return;
+                dogname = value;
                 this.NotifyPropertyChanged("DogName");
             }
         }
@@ -122,12 +110,6 @@ namespace JDGrooming
         public UpdateDog()
         {
             DogList = JDApp.query.FillDogTable();
-            Binding binding_SelectedRow = new Binding("Row")
-            {
-                Source = SelectedItem,
-                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-            };
-            SelectedRow = binding_SelectedRow;
             this.DataContext = this;
             InitializeComponent();
         }
@@ -183,7 +165,9 @@ namespace JDGrooming
         }
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var obj = ((DataRowView)data_DogList.SelectedItem).Row.ItemArray;
+            object[] selectedrow = ((DataRowView)data_DogList.SelectedItem).Row.ItemArray;
+            DogName = selectedrow[1].ToString();
+            Breed = selectedrow[2].ToString();
         }
         #endregion
         #region PropertyChanged Event Handlers

@@ -70,11 +70,11 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Label>Name:</Label>
-                    <TextBox x:Name="txtName" Grid.Column="1"></TextBox>
+                    <TextBox x:Name="txtName" Grid.Column="1" Text="{Binding DogName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Label Grid.Row="1">Breed:</Label>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Breed, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Label Grid.Row="2">Age:</Label>
-                    <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0"></Label>
+                    <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0" Content="{Binding Age}"></Label>
                     <Label Grid.Row="3">Client Name:</Label>
                     <ComboBox Grid.Row="3" Grid.Column="1" FontSize="6" Style="{StaticResource Searchable}"
                               Margin="5" BorderBrush="Black" Height="12"></ComboBox>
