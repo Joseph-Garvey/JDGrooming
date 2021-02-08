@@ -32,7 +32,6 @@
                 </Grid>
                 <!-- fix appearance later -->
                 <DataGrid x:Name="data_DogList" Margin="5,0,5,5" BorderBrush="Black"
-                          SelectedItem="{Binding SelectedItem}"
                           SelectionChanged="DataGrid_SelectionChanged"
                           ItemsSource="{Binding DogList}" MaxWidth="200"
                           FontSize="6" IsReadOnly="True" SelectionMode="Single"></DataGrid>
