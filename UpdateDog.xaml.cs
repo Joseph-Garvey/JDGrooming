@@ -91,18 +91,51 @@ namespace JDGrooming
                 this.NotifyPropertyChanged("Breed");
             }
         }
-        private string age;
+        private string dob;
         /// <summary>
-        /// Age of currently selected dog.
+        /// DOB of currently selected dog.
         /// </summary>
-        public String Age
+        public String DOB
         {
-            get { return breed; }
+            get { return dob; }
             set
             {
-                if (breed == value) return;
-                breed = value;
-                this.NotifyPropertyChanged("BreedName");
+                if (dob == value) return;
+                dob = value;
+                this.NotifyPropertyChanged("DOB");
+            }
+        }
+        private string status;
+        public String Status
+        {
+            get { return status; }
+            set
+            {
+                if (status == value) return;
+                status = value;
+                this.NotifyPropertyChanged("Status");
+            }
+        }
+        private string doginfo;
+        public String DogInfo
+        {
+            get { return doginfo; }
+            set
+            {
+                if (doginfo == value) return;
+                doginfo = value;
+                this.NotifyPropertyChanged("DogInfo");
+            }
+        }
+        private string breedinfo;
+        public String BreedInfo
+        {
+            get { return breedinfo; }
+            set
+            {
+                if (breedinfo == value) return;
+                breedinfo = value;
+                this.NotifyPropertyChanged("BreedInfo");
             }
         }
         #endregion
@@ -168,9 +201,25 @@ namespace JDGrooming
             object[] selectedrow = ((DataRowView)data_DogList.SelectedItem).Row.ItemArray;
             DogName = selectedrow[1].ToString();
             Breed = selectedrow[2].ToString();
+            DOB = selectedrow[3].ToString();
+            Status = selectedrow[4].ToString();
             // info and image is in query
             List<String> sqlresults = JDApp.query.GetUpdateDog(selectedrow[0].ToString());
-            if(File.Exists(selectedrow))
+            DogInfo = sqlresults[0];
+            BreedInfo = sqlresults[1];
+            try
+            {
+                // change the image source into a bindable property
+                if (File.Exists(sqlresults[3])) { img_Dog.Source = new BitmapImage(new Uri(sqlresults[3])); }
+            }
+            catch
+            {
+                try
+                {
+                    if (File.Exists(sqlresults[4])) { img_Dog.Source = new BitmapImage(new Uri(sqlresults[4])); }
+                }
+                catch { }
+            }
         }
         #endregion
         #region PropertyChanged Event Handlers

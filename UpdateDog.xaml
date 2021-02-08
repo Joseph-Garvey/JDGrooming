@@ -73,9 +73,9 @@
                     <Label Grid.Row="1">Breed:</Label>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Breed, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Label Grid.Row="2">DOB:</Label>
-                    <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0"></Label>
+                    <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0" Content="{Binding DOB}"></Label>
                     <Label Grid.Row="3">Status:</Label>
-                    <Label Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0"></Label>
+                    <Label Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0" Content="{Binding Status}"></Label>
                     <Label Grid.Row="4">Dog Info:</Label>
                     <TextBox Grid.Row="4" Grid.Column="1" MaxWidth="100" TextWrapping="Wrap" Text="{Binding Breed, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Label Grid.Row="5">Breed Info:</Label>
