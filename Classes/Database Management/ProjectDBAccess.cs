@@ -96,7 +96,7 @@ namespace JDGrooming.Classes.Database_Management
         {
             using (SqlCommand command = db.Conn.CreateCommand())
             {
-                command.CommandText = "SELECT [Dog].ID, [Dog].[Name], [Breed].[Name], Forename + ' ' + Surname AS Client_Name, " +
+                command.CommandText = "SELECT [Dog].ID, [Dog].[Name], [Breed].[Name] AS Breed, Forename + ' ' + Surname AS Client_Name, " +
                     "DOB, [Image] FROM [Dog] " +
                     "INNER JOIN [Client] ON [Dog].ClientID = [Client].Id " +
                     "INNER JOIN [Breed] ON [Dog].BreedID = [Breed].Id;";

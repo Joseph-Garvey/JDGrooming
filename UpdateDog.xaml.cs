@@ -34,7 +34,7 @@ namespace JDGrooming
                 if (searchtext == value) return;
                 searchtext = value;
                 this.NotifyPropertyChanged("SearchText");
-                //cmb.Items.Filter += Filter;
+                data_DogList.Items.Filter += FilterDog;
             }
         }
         private DataView doglist;
@@ -59,6 +59,21 @@ namespace JDGrooming
         }
 
         #region Methods
+        public void FilterDog(object sender, FilterEventArgs e)
+        {
+            var item = e.Item;
+        }
+        //public bool FilterDog(object item)
+        //{
+        //    // i could use an object model
+        //    // why I shouldn't
+        //    // while it is what i'm used to
+        //    // its easier yes but it takes forever
+        //    // and this way i do not have to deal with every data eventuality, just the text that i know is in the datagrid
+        //    // this (at least in theory) makes it much easier dealing with clients many different contact detail(s) etc later
+        //    var items = item;
+        //    return (((String)item).ToLowerInvariant()).Contains(SearchText.ToLowerInvariant());
+        //}
         #endregion
         #region Events
         private void btn_UploadImage(object sender, RoutedEventArgs e)
@@ -89,7 +104,7 @@ namespace JDGrooming
         }
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
         #endregion
         #region PropertyChanged Event Handlers
