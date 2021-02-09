@@ -62,6 +62,9 @@ namespace JDGrooming
                 case "btnUpdateDog":
                     View.Child = new UpdateDog();
                     break;
+                case "btnUpdateClient":
+                    View.Child = new UpdateClient();
+                    break;
                 case "btnBooking":
                     //fix this later
                     BookingProgress b = new BookingProgress();
