@@ -22,7 +22,10 @@ namespace JDGrooming.Classes
         /// </summary>
         public MailAddress BusinessAddress = new MailAddress("jddogcareni@gmail.com");
         public String BusinessAddressPassword = "rwdvM88$fDJh";
-        SmtpClient mailClient = new SmtpClient
+        /// <summary>
+        /// MailClient to handle all mail.
+        /// </summary>
+        public SmtpClient MailClient { get; set; } = new SmtpClient
         {
             Port = 587,
             Host = "smtp.gmail.com",
@@ -30,10 +33,6 @@ namespace JDGrooming.Classes
             UseDefaultCredentials = false,
             DeliveryMethod = SmtpDeliveryMethod.Network
         };
-        /// <summary>
-        /// MailClient to handle all mail.
-        /// </summary>
-        public SmtpClient MailClient { get => mailClient; set => mailClient = value; }
         /// <summary>
         /// 2FA Authentication Code
         /// </summary>
@@ -69,11 +68,8 @@ namespace JDGrooming.Classes
         {
             try
             {
-                MailMessage message = new MailMessage(BusinessAddress.ToString(), Address.ToString());
-                message.Subject = "2FA Authentication";
-                // refine this stuff later
+                MailMessage message = new MailMessage(BusinessAddress.ToString(), Address.ToString(), "Authentication code from JDDogCare", html);
                 message.IsBodyHtml = true;
-                message.Body = html;
                 MailClient.SendMailAsync(message);
             }
             // if email doesn't send

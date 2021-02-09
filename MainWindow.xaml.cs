@@ -65,6 +65,9 @@ namespace JDGrooming
                 case "btnUpdateClient":
                     View.Child = new UpdateClient();
                     break;
+                case "btnEmailTest":
+                    View.Child = new _2FA_Test();
+                    break;
                 case "btnBooking":
                     //fix this later
                     BookingProgress b = new BookingProgress();

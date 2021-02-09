@@ -70,6 +70,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="2FA Test.xaml.cs">
+      <DependentUpon>2FA Test.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BookingProgress.xaml.cs">
       <DependentUpon>BookingProgress.xaml</DependentUpon>
     </Compile>
@@ -86,6 +89,10 @@
     <Compile Include="UpdateDog.xaml.cs">
       <DependentUpon>UpdateDog.xaml</DependentUpon>
     </Compile>
+    <Page Include="2FA Test.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BookingProgress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

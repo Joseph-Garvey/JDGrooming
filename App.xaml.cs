@@ -29,10 +29,6 @@ namespace JDGrooming
             try
             {
                 base.OnStartup(e);
-                //
-                var Email = new JDGrooming.Classes.Email("josephgarvey784@gmail.com");
-                int i = Email.Authenticate();
-                //
                 string debugPath = System.IO.Path.GetDirectoryName(Environment.CurrentDirectory);
                 string datadirectoryPath = System.IO.Path.GetDirectoryName(debugPath);
                 AppDomain.CurrentDomain.SetData("DataDirectory", datadirectoryPath);
