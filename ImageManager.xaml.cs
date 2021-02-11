@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,18 +14,77 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace JDGrooming
 {
     /// <summary>
     /// Interaction logic for ImageManager.xaml
     /// </summary>
-    public partial class ImageManager : UserControl
+    public partial class ImageManager : UserControl, INotifyPropertyChanged
     {
+        #region PropertyChanged Event Handlers
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
+        #endregion
+
+        private BitmapImage image;
+        public BitmapImage Image
+        {
+            get { return image; }
+            set
+            {
+                if (image == value) return;
+                image = value;
+                this.NotifyPropertyChanged("Image");
+            }
+        }
+
+        private String img_source;
+        public String Img_Source
+        {
+            get { return img_source; }
+            set
+            {
+                if (img_source == value) return;
+                img_source = value;
+                Image = new BitmapImage(new Uri(Img_Source));
+                this.NotifyPropertyChanged("Img_Source");
+            }
+        }
+
         public ImageManager()
         {
             InitializeComponent();
+            Img_Source = "pack://siteoforigin:,,,/Icons/add_image.png";
+        }
+        private void btn_UploadImage(object sender, RoutedEventArgs e)
+        {
+            /// add exception handling here
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Title = "Select Dog Image",
+                Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), // this may break
+                CheckFileExists = true,
+                CheckPathExists = true
+            };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                /// move this to register after
+                String FileName = Path.GetFileName(openFileDialog.FileName);
+                string folder = Path.Combine(Environment.CurrentDirectory, @"DogImages");
+                Directory.CreateDirectory(folder); // if folder does not exist create it
+                string newpath = Path.Combine(folder, FileName);
+                try
+                {
+                    File.Copy(openFileDialog.FileName, newpath);
+                }
+                catch { }
+                Img_Source = newpath;
+            }
         }
     }
 }

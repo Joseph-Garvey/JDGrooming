@@ -7,11 +7,11 @@
              mc:Ignorable="d"
             >
     <Border Margin="5" Style="{StaticResource brd_1}">
-        <StackPanel VerticalAlignment="Center">
-            <Border Style="{StaticResource brd_1}">
-                <Image Name="img_Dog" Source="pack://siteoforigin:,,,/Icons/add_image.png" MaxHeight="68" MaxWidth="80"></Image>
+        <DockPanel VerticalAlignment="Center" Height="97" Width="92">
+            <Border Style="{StaticResource brd_1}" DockPanel.Dock="Top">
+                <Image Name="img_Dog" Source="{Binding Image}" MaxHeight="68" MaxWidth="80"></Image>
             </Border>
-            <Button Style="{StaticResource btnDark}" FontSize="6" Margin="5,0,5,5" Click="btn_UploadImage">Upload new image</Button>
-        </StackPanel>
+            <Button Style="{StaticResource btnDark}" FontSize="6" VerticalAlignment="Bottom" Margin="5,0,5,5" Click="btn_UploadImage" DockPanel.Dock="Bottom">Upload new image</Button>
+        </DockPanel>
     </Border>
 </UserControl>
