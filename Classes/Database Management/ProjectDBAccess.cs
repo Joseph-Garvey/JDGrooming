@@ -107,19 +107,19 @@ namespace JDGrooming.Classes.Database_Management
                 return dt.DefaultView;
             }
         }
-        public List<String> GetUpdateDog(string id)
+        public String[] GetUpdateDog(string id)
         {
-            List<String> results = new List<string> { };
+            String[] results = new String[4];
             try
             {
                 SqlDataReader reader = ReadDatabase("SELECT AdditionalInfo, Info, Image, DefaultImage FROM [Dog] " +
                     "INNER JOIN [Breed] ON [Dog].BreedID = [Breed].Id" +
-                    " WHERE [Dog].ID = '+ " + id + "';");
+                    " WHERE [Dog].ID = " + id + ";");
                 while (reader.Read()) {
-                    results.Add(reader.GetString(0));
-                    results.Add(reader.GetString(1));
-                    results.Add(reader.GetString(2));
-                    results.Add(reader.GetString(3));
+                    if(!reader.IsDBNull(0)) results[0] = (reader.GetString(0));
+                    if (!reader.IsDBNull(1)) results[1] = (reader.GetString(1));
+                    if (!reader.IsDBNull(2)) results[2] = (reader.GetString(2));
+                    if (!reader.IsDBNull(3)) results[3] = (reader.GetString(3));
                         }
                 reader.Close();
             }

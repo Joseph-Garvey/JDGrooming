@@ -204,21 +204,18 @@ namespace JDGrooming
             DOB = selectedrow[3].ToString();
             Status = selectedrow[4].ToString();
             // info and image is in query
-            List<String> sqlresults = JDApp.query.GetUpdateDog(selectedrow[0].ToString());
-            DogInfo = sqlresults[0];
-            BreedInfo = sqlresults[1];
+            String[] sqlresults = JDApp.query.GetUpdateDog(selectedrow[0].ToString());
+            DogInfo = sqlresults[0] ?? "";
+            BreedInfo = sqlresults[1] ?? "";
             try
             {
+                // fix the image string manipulation
                 // change the image source into a bindable property
-                if (File.Exists(sqlresults[3])) { img_Dog.Source = new BitmapImage(new Uri(sqlresults[3])); }
+                if (File.Exists(sqlresults[2])) { img_Dog.Source = new BitmapImage(new Uri(sqlresults[3])); }
+                else if (File.Exists(sqlresults[3].ToString())) { img_Dog.Source = new BitmapImage(new Uri(sqlresults[4])); }
             }
             catch
             {
-                try
-                {
-                    if (File.Exists(sqlresults[4])) { img_Dog.Source = new BitmapImage(new Uri(sqlresults[4])); }
-                }
-                catch { }
             }
         }
         #endregion

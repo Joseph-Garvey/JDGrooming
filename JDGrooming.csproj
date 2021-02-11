@@ -77,6 +77,12 @@
       <DependentUpon>BookingProgress.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Email.cs" />
+    <Compile Include="ImageManager.xaml.cs">
+      <DependentUpon>ImageManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MenuButton.xaml.cs">
+      <DependentUpon>MenuButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ProgressIcon.xaml.cs">
       <DependentUpon>ProgressIcon.xaml</DependentUpon>
     </Compile>
@@ -105,6 +111,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ImageManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -130,6 +140,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MenuButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ProgressIcon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

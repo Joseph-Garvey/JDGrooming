@@ -39,6 +39,8 @@
                 <Style TargetType="Button" BasedOn="{StaticResource btnDark}">
                     <Setter Property="Height" Value="80"/>
                     <EventSetter Event="Click" Handler="Button_Click"/>
+                    <Setter Property="Padding" Value="10,0,0,0"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
                 </Style>
             </StackPanel.Resources>
             <Button Name="BtnOpenMenu" Click="BtnOpenMenu_Click">
