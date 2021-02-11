@@ -42,7 +42,7 @@ namespace JDGrooming
         #region Methods
         private bool ImgSourceHasChanged() // fix this later with a bool type value??
         {
-            return img_Dog.Source.ToString() != "pack://siteoforigin:,,,/Icons/add_image.png";
+            return img_Dog.Img_Source != "pack://siteoforigin:,,,/Icons/add_image.png";
         }
         #endregion
         #region Events
@@ -54,10 +54,11 @@ namespace JDGrooming
                 {
                     if(cmb_Breed.SelectedItem != null)
                     {
-                        BitmapImage image = JDApp.query.GetBreedImage(cmb_Breed.SelectedItem.ToString());
-                        if (image.UriSource != null)
+                        String source = JDApp.query.GetBreedImageSource(cmb_Breed.SelectedItem.ToString());
+                        Uri imguri = new Uri(source);
+                        if (imguri != null)
                         {
-                            if (File.Exists(image.UriSource.AbsolutePath)) { img_Dog.Source = image; }
+                            if (File.Exists(imguri.AbsolutePath)) { img_Dog.Img_Source = source; }
                         }
                     }
                 }
@@ -75,36 +76,6 @@ namespace JDGrooming
             {
                 dp_DOB.SelectedDate = DateTime.Now.AddDays(-1);
                 MessageBox.Show("Invalid DOB, must be in the past.");
-            }
-        }
-        /// <summary>
-        /// Opens file dialog for uploading new image
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_UploadImage(object sender, RoutedEventArgs e)
-        {
-            /// add exception handling here
-            OpenFileDialog openFileDialog = new OpenFileDialog()
-            {
-                Title = "Select Dog Image",
-                Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*",
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), // this may break
-                CheckFileExists = true,
-                CheckPathExists = true
-            };
-            if(openFileDialog.ShowDialog() == true)
-            {
-                /// move this to register after
-                String FileName = Path.GetFileName(openFileDialog.FileName);
-                string folder = Path.Combine(Environment.CurrentDirectory, @"DogImages");
-                Directory.CreateDirectory(folder); // if folder does not exist create it
-                string newpath = Path.Combine(folder, FileName);
-                try {
-                    File.Copy(openFileDialog.FileName, newpath);
-                }
-                catch { }
-                img_Dog.Source = new BitmapImage(new Uri(newpath));
             }
         }
         /// <summary>
@@ -127,14 +98,14 @@ namespace JDGrooming
             if(txt_Name.Text.Length > 32) { AddToErrors(ref Errors, failedNameLength); }
             if (txt_AdditionalInfo.Text.Length > 255) { AddToErrors(ref Errors, failedAdditionaInfoLength); }
             if (!CheckCharacters(txt_Name.Text)) { AddToErrors(ref Errors, failedNameFormat); }
-            if(img_Dog.Source.ToString().Length > 260) { AddToErrors(ref Errors, failedFileNameLength); }
+            if(img_Dog.Img_Source.Length > 260) { AddToErrors(ref Errors, failedFileNameLength); }
             if (Errors != "") MessageBox.Show(Errors, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {
                 // image is optional // add check that image still exists
                 String Start = "INSERT INTO [Dog] ([Name], [DOB], [ClientID], [BreedID]";
                 String End = String.Format("VALUES('{0}', '{1}', '{2}', '{3}'", txt_Name.Text, dp_DOB.SelectedDate, JDApp.query.GetClientIDFromString(cmb_Client.SelectedItem.ToString()), JDApp.query.GetBreedID(cmb_Breed.SelectedItem.ToString())); // find way of getting client id
-                if (ImgSourceHasChanged()) { Start += ", [Image]"; End += (", '" + img_Dog.Source.ToString() + "'"); }
+                if (ImgSourceHasChanged()) { Start += ", [Image]"; End += (", '" + img_Dog.Img_Source + "'"); }
                 if(txt_AdditionalInfo.Text != "") { Start += ", [AdditionalInfo]"; End += (", '" + txt_AdditionalInfo.Text + "'"); }
                 JDApp.query.QueryDatabase(Start + ") " + End + ");");
                 MessageBox.Show("Client registered successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);

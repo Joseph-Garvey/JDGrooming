@@ -30,21 +30,14 @@
                                   Style="{StaticResource Searchable}" DropDownClosed="cmb_DropDownClosed"
                                   Text="{Binding Client_searchtext}" ItemsSource="{Binding ClientList}"></ComboBox>
         <Label Style="{StaticResource lbl_WhiteHeading}" Grid.Row="4" Margin="5,0,5,0">Breed:</Label>
-        <Border Margin="10" Style="{StaticResource brd_1}" Grid.Column="1" Grid.RowSpan="5">
-            <StackPanel VerticalAlignment="Center">
-                <Border Style="{StaticResource brd_1}">
-                    <Image Name="img_Dog" Source="pack://siteoforigin:,,,/Icons/add_image.png" MaxHeight="68" MaxWidth="80"></Image>
-                </Border>
-                <Button Style="{StaticResource btnDark}" FontSize="6" Margin="5,0,5,5" Click="btn_UploadImage">Upload new image</Button>
-            </StackPanel>
-        </Border>
+        <local:ImageManager x:Name="img_Dog" Grid.Column="1" Grid.RowSpan="5"/>
         <ComboBox Margin="5,0,5,0" FontSize="6" Height="15" x:Name="cmb_Breed" SelectionChanged="cmb_Breed_SelectionChanged"
                           Style="{StaticResource Searchable}" ItemsSource="{Binding BreedList}" Grid.Row="5" Grid.ColumnSpan="2"
                           Text="{Binding Breed_searchtext}" DropDownClosed="cmb_DropDownClosed"></ComboBox>
         <Label Margin="5,0,5,0"  Style="{StaticResource lbl_WhiteHeading}" Grid.Row="6" Grid.ColumnSpan="2">Date of Birth:</Label>
         <DatePicker Name="dp_DOB" Margin="5,0,5,0" Grid.Row="7" SelectedDateChanged="dp_DOB_SelectedDateChanged" Grid.ColumnSpan="2"/>
         <Label Margin="5,0,5,0" Style="{StaticResource lbl_WhiteHeading}" Grid.Row="8" Grid.ColumnSpan="2">Additional Info:</Label>
-        <TextBox Name="txt_AdditionalInfo" Margin="5,0,5,0" Grid.Row="9" Grid.ColumnSpan="2"></TextBox>
+        <TextBox Name="txt_AdditionalInfo" Margin="5,0,5,0" Grid.Row="9"  Grid.ColumnSpan="2"></TextBox>
         <Button Style="{StaticResource btnDark}" Margin="10" Click="btn_Register" Grid.Row="10" Grid.ColumnSpan="2">Register</Button>
     </Grid>
 </UserControl>

@@ -58,9 +58,9 @@ namespace JDGrooming.Classes.Database_Management
             catch { db.Rdr.Close(); }
             return id;
         }
-        public BitmapImage GetBreedImage(String breedname)
+        public String GetBreedImageSource(String breedname)
         {
-            BitmapImage image = new BitmapImage();
+            String image = "";
             try
             {
                 SqlDataReader reader = ReadDatabase("SELECT [DefaultImage] FROM [Breed] WHERE [Name]='" + breedname + "';");
@@ -68,7 +68,7 @@ namespace JDGrooming.Classes.Database_Management
                 {
                     String s = reader.GetString(0);
                     if (!File.Exists(s)) { throw new FileNotFoundException(); } // fix in future
-                    image = new BitmapImage(new Uri(s));
+                    image = s;
                 }
                 reader.Close();
             }

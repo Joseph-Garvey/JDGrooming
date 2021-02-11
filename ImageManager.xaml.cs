@@ -50,7 +50,8 @@ namespace JDGrooming
             {
                 if (img_source == value) return;
                 img_source = value;
-                Image = new BitmapImage(new Uri(Img_Source));
+                // fix all of this
+                Image = new BitmapImage(new Uri(Img_Source, UriKind.RelativeOrAbsolute));
                 this.NotifyPropertyChanged("Img_Source");
             }
         }
@@ -58,7 +59,8 @@ namespace JDGrooming
         public ImageManager()
         {
             InitializeComponent();
-            Img_Source = "pack://siteoforigin:,,,/Icons/add_image.png";
+            //this.DataContext = this;
+            Img_Source = "/Icons/add_image.png";
         }
         private void btn_UploadImage(object sender, RoutedEventArgs e)
         {
