@@ -107,6 +107,21 @@ namespace JDGrooming.Classes.Database_Management
                 return dt.DefaultView;
             }
         }
+        /// <summary>
+        /// only update the changed field in future
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="breed"></param>
+        public void UpdateDog(string id, string name, string breedid, string doginfo)
+        {
+            String Start = String.Format("UPDATE [Dog] SET [Name] = '{0}', [BreedID] = '{1}'",
+                name, breedid);
+            String SQL = Start;
+            if(doginfo != "") { SQL += ", [AdditionalInfo] = '" + doginfo + "'"; }
+            SQL += " WHERE [ID] = " + id + " ;";
+            QueryDatabase(SQL);
+        }
         public String[] GetUpdateDog(string id)
         {
             String[] results = new String[4];

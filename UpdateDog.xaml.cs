@@ -138,6 +138,17 @@ namespace JDGrooming
                 this.NotifyPropertyChanged("BreedInfo");
             }
         }
+        private string clientname;
+        public String ClientName
+        {
+            get { return clientname; }
+            set
+            {
+                if (clientname == value) return;
+                clientname = value;
+                this.NotifyPropertyChanged("ClientName");
+            }
+        }
         #endregion
 
         public UpdateDog()
@@ -165,13 +176,39 @@ namespace JDGrooming
         //}
         #endregion
         #region Events
+        /// <summary>
+        /// Verifies details and sends to database.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnUpdateDog_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                object[] selectedrow = ((DataRowView)data_DogList.SelectedItem).Row.ItemArray;
+                string id = selectedrow[0].ToString();
+                string breedid = JDApp.query.GetBreedID(Breed).ToString();
+                // Update Name, breed must be a combobox dropdown, status button, update dog info
+                // maybe make client info an update later but just get this working to start off with.
+                // add notification that an element has changed etc
+                JDApp.query.UpdateDog(id, DogName, breedid, DogInfo);
+                MessageBox.Show("Dog Updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch { }
+        }
+        /// <summary>
+        /// Retrieves the details of selected dog.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             object[] selectedrow = ((DataRowView)data_DogList.SelectedItem).Row.ItemArray;
             DogName = selectedrow[1].ToString();
             Breed = selectedrow[2].ToString();
-            DOB = selectedrow[3].ToString();
-            Status = selectedrow[4].ToString();
+            ClientName = selectedrow[3].ToString();
+            DOB = selectedrow[4].ToString();
+            Status = selectedrow[5].ToString();
             // info and image is in query
             String[] sqlresults = JDApp.query.GetUpdateDog(selectedrow[0].ToString());
             DogInfo = sqlresults[0] ?? "";

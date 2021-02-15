@@ -85,6 +85,7 @@ namespace JDGrooming
         /// <param name="e"></param>
         private void btn_Register(object sender, RoutedEventArgs e)
         {
+            // move all of this to dbaccess
             // add null checks + whitespace for name etc check user reqs
             const String failedMissingData = "\u2022 All fields except for additional information must be completed.";
             const String failedNameFormat = "\u2022 Names must consist of letters.";

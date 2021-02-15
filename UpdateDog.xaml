@@ -60,6 +60,7 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Label>Name:</Label>
                     <TextBox x:Name="txtName" Grid.Column="1" Text="{Binding DogName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
@@ -74,10 +75,8 @@
                     <Label Grid.Row="5">Breed Info:</Label>
                     <Label Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0" Content="{Binding BreedInfo}"></Label>
                     <Label Grid.Row="6">Client Name:</Label>
-                    <DockPanel Grid.Row="6" Grid.Column="1">
-                        <Label DockPanel.Dock="Left" Margin="5,0,0,0"></Label>
-                        <Button Style="{StaticResource btnDark}" FontSize="6">tmp</Button>
-                    </DockPanel>
+                    <Button Grid.Row="6" Grid.Column="1" Margin="5,2,5,2" Style="{StaticResource btnDark}" FontSize="6" Content="{Binding ClientName, UpdateSourceTrigger=PropertyChanged}"></Button>
+                    <Button Grid.ColumnSpan="2" Grid.Row="7" FontSize="10" Margin="5" Style="{StaticResource btnDark}" Click="btnUpdateDog_Click">Update Dog</Button>
                 </Grid>
             </Border>
         </StackPanel>
