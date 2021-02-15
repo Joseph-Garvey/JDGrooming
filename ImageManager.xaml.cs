@@ -51,16 +51,17 @@ namespace JDGrooming
                 if (img_source == value) return;
                 img_source = value;
                 // fix all of this
-                Image = new BitmapImage(new Uri(Img_Source, UriKind.RelativeOrAbsolute));
+                Uri uri = new Uri("pack://siteoforigin:,,," + ImageDirectory + img_source);
+                Image = new BitmapImage(uri);
                 this.NotifyPropertyChanged("Img_Source");
             }
         }
+        public String ImageDirectory = "/DogImages/";
 
         public ImageManager()
         {
             InitializeComponent();
-            //this.DataContext = this;
-            Img_Source = "/Icons/add_image.png";
+            this.DataContext = this;
         }
         private void btn_UploadImage(object sender, RoutedEventArgs e)
         {
@@ -75,7 +76,6 @@ namespace JDGrooming
             };
             if (openFileDialog.ShowDialog() == true)
             {
-                /// move this to register after
                 String FileName = Path.GetFileName(openFileDialog.FileName);
                 string folder = Path.Combine(Environment.CurrentDirectory, @"DogImages");
                 Directory.CreateDirectory(folder); // if folder does not exist create it
@@ -85,7 +85,7 @@ namespace JDGrooming
                     File.Copy(openFileDialog.FileName, newpath);
                 }
                 catch { }
-                Img_Source = newpath;
+                Img_Source = FileName;
             }
         }
     }

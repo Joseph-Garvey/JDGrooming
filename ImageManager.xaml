@@ -9,7 +9,7 @@
     <Border Margin="5" Style="{StaticResource brd_1}">
         <DockPanel VerticalAlignment="Center" Height="97" Width="92">
             <Border Style="{StaticResource brd_1}" DockPanel.Dock="Top">
-                <Image Source="{Binding Image, FallbackValue='pack://siteoforigin:,,,/Icons/add_image.png'}" MaxHeight="68" MaxWidth="80"></Image>
+                <Image Source="{Binding Image, TargetNullValue='pack://siteoforigin:,,,/Icons/add_image.png'}" MaxHeight="68" MaxWidth="80"></Image>
             </Border>
             <Button Style="{StaticResource btnDark}" FontSize="6" VerticalAlignment="Bottom" Margin="5,0,5,5" Click="btn_UploadImage" DockPanel.Dock="Bottom">Upload new image</Button>
         </DockPanel>
