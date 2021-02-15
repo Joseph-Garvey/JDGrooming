@@ -176,12 +176,15 @@ namespace JDGrooming
             String[] sqlresults = JDApp.query.GetUpdateDog(selectedrow[0].ToString());
             DogInfo = sqlresults[0] ?? "";
             BreedInfo = sqlresults[1] ?? "";
+            String DogImage = sqlresults[2] ?? "";
+            String BreedImage = sqlresults[3] ?? "";
             try
             {
                 // fix the image string manipulation
                 // change the image source into a bindable property
-                if (File.Exists(sqlresults[2])) { img_Dog.Img_Source = sqlresults[3]; }
-                else if (File.Exists(sqlresults[3].ToString())) { img_Dog.Img_Source = sqlresults[4]; }
+                String folder = Path.Combine(Environment.CurrentDirectory + @"/DogImages/");
+                if (File.Exists(Path.Combine(folder, DogImage))) { img_Dog.Img_Source = DogImage; }
+                else if (File.Exists(Path.Combine(folder, BreedImage))) { img_Dog.Img_Source = BreedImage; }
             }
             catch
             {
