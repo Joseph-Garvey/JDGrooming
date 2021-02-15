@@ -165,37 +165,6 @@ namespace JDGrooming
         //}
         #endregion
         #region Events
-        /// <summary>
-        /// Handles image upload, fix later to add modification of file path?
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_UploadImage(object sender, RoutedEventArgs e)
-        {
-            /// add exception handling here
-            OpenFileDialog openFileDialog = new OpenFileDialog()
-            {
-                Title = "Select Dog Image",
-                Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*",
-                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures), // this may break
-                CheckFileExists = true,
-                CheckPathExists = true
-            };
-            if (openFileDialog.ShowDialog() == true)
-            {
-                /// move this to register after
-                String FileName = Path.GetFileName(openFileDialog.FileName);
-                string folder = Path.Combine(Environment.CurrentDirectory, @"DogImages");
-                Directory.CreateDirectory(folder); // if folder does not exist create it
-                string newpath = Path.Combine(folder, FileName);
-                try
-                {
-                    File.Copy(openFileDialog.FileName, newpath);
-                }
-                catch { }
-                img_Dog.Source = new BitmapImage(new Uri(newpath));
-            }
-        }
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             object[] selectedrow = ((DataRowView)data_DogList.SelectedItem).Row.ItemArray;
@@ -211,8 +180,8 @@ namespace JDGrooming
             {
                 // fix the image string manipulation
                 // change the image source into a bindable property
-                if (File.Exists(sqlresults[2])) { img_Dog.Source = new BitmapImage(new Uri(sqlresults[3])); }
-                else if (File.Exists(sqlresults[3].ToString())) { img_Dog.Source = new BitmapImage(new Uri(sqlresults[4])); }
+                if (File.Exists(sqlresults[2])) { img_Dog.Img_Source = sqlresults[3]; }
+                else if (File.Exists(sqlresults[3].ToString())) { img_Dog.Img_Source = sqlresults[4]; }
             }
             catch
             {

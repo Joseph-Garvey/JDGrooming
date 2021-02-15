@@ -38,14 +38,7 @@
             </StackPanel>
         </Border>
         <StackPanel Margin="0,5,5,5">
-            <Border Margin="5" Style="{StaticResource brd_1}">
-                <StackPanel VerticalAlignment="Center">
-                    <Border Style="{StaticResource brd_1}">
-                        <Image Name="img_Dog" Source="pack://siteoforigin:,,,/Icons/add_image.png" MaxHeight="68" MaxWidth="80"></Image>
-                    </Border>
-                    <Button Style="{StaticResource btnDark}" FontSize="6" Margin="5,0,5,5" Click="btn_UploadImage">Upload new image</Button>
-                </StackPanel>
-            </Border>
+            <local:ImageManager x:Name="img_Dog"></local:ImageManager>
             <Border Style="{StaticResource brd_1}" Margin="5,0,5,5">
                 <Grid>
                     <Grid.Resources>
