@@ -99,7 +99,7 @@ namespace JDGrooming
             if(txt_Name.Text.Length > 32) { AddToErrors(ref Errors, failedNameLength); }
             if (txt_AdditionalInfo.Text.Length > 255) { AddToErrors(ref Errors, failedAdditionaInfoLength); }
             if (!CheckCharacters(txt_Name.Text)) { AddToErrors(ref Errors, failedNameFormat); }
-            if(img_Dog.Img_Source.Length > 260) { AddToErrors(ref Errors, failedFileNameLength); }
+            if((img_Dog.Img_Source ?? "").Length > 260) { AddToErrors(ref Errors, failedFileNameLength); }
             if (Errors != "") MessageBox.Show(Errors, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             else
             {

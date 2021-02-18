@@ -29,36 +29,8 @@ namespace JDGrooming
         /// </summary>
         private App JDApp { get => ((App)Application.Current); }
 
-        private String searchtext;
-        /// <summary>
-        /// Search query for the data-grid displaying all dogs.
-        /// </summary>
-        public String SearchText
-        {
-            get { return searchtext; }
-            set
-            {
-                if (searchtext == value) return;
-                searchtext = value;
-                this.NotifyPropertyChanged("SearchText");
-                //data_DogList.Items.Filter += FilterDog;
-            }
-        }
-
-        private DataView doglist;
-        /// <summary>
-        /// Dog Data
-        /// </summary>
-        public DataView DogList
-        {
-            get { return doglist; }
-            set
-            {
-                if (doglist == value) return;
-                doglist = value;
-                this.NotifyPropertyChanged("DogList");
-            }
-        }
+        //private SelectionChangedEventHandler selectionChanged;
+        //public SelectionChangedEventHandler SelectionChanged { get => selectionChanged; set => selectionChanged = value; }
 
         private string dogname;
         /// <summary>
@@ -153,27 +125,15 @@ namespace JDGrooming
 
         public UpdateDog()
         {
-            DogList = JDApp.query.FillDogTable();
+            //SelectionChanged += DataGrid_SelectionChanged;
             this.DataContext = this;
             InitializeComponent();
+            DogView.DataList = JDApp.query.FillDogTable();
+            DogView.dataview.SelectionChanged += DataGrid_SelectionChanged;
         }
 
         #region Methods
-        //public void FilterDog(object sender, FilterEventArgs e)
-        //{
-        //    var item = e.Item;
-        //}
-        //public bool FilterDog(object item)
-        //{
-        //    // i could use an object model
-        //    // why I shouldn't
-        //    // while it is what i'm used to
-        //    // its easier yes but it takes forever
-        //    // and this way i do not have to deal with every data eventuality, just the text that i know is in the datagrid
-        //    // this (at least in theory) makes it much easier dealing with clients many different contact detail(s) etc later
-        //    var items = item;
-        //    return (((String)item).ToLowerInvariant()).Contains(SearchText.ToLowerInvariant());
-        //}
+
         #endregion
         #region Events
         /// <summary>
@@ -185,7 +145,8 @@ namespace JDGrooming
         {
             try
             {
-                object[] selectedrow = ((DataRowView)data_DogList.SelectedItem).Row.ItemArray;
+                // bind later
+                object[] selectedrow = DogView.SelectedItem;
                 string id = selectedrow[0].ToString();
                 // Update Name, breed must be a combobox dropdown, status button, update dog info
                 // maybe make client info an update later but just get this working to start off with.
@@ -202,7 +163,8 @@ namespace JDGrooming
         /// <param name="e"></param>
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            object[] selectedrow = ((DataRowView)data_DogList.SelectedItem).Row.ItemArray;
+            // do this stuff through bindings later?
+            object[] selectedrow = DogView.SelectedItem;
             DogName = selectedrow[1].ToString();
             Breed = selectedrow[2].ToString();
             ClientName = selectedrow[3].ToString();
