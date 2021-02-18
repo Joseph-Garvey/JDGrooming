@@ -104,8 +104,8 @@ namespace JDGrooming
             else
             {
                 // image is optional // add check that image still exists
-                String Start = "INSERT INTO [Dog] ([Name], [DOB], [ClientID], [BreedID]";
-                String End = String.Format("VALUES('{0}', '{1}', '{2}', '{3}'", txt_Name.Text, dp_DOB.SelectedDate, JDApp.query.GetClientIDFromString(cmb_Client.SelectedItem.ToString()), JDApp.query.GetBreedID(cmb_Breed.SelectedItem.ToString())); // find way of getting client id
+                String Start = "INSERT INTO [Dog] ([Name], [DOB], [ClientID], [BreedName]";
+                String End = String.Format("VALUES('{0}', '{1}', '{2}', '{3}'", txt_Name.Text, dp_DOB.SelectedDate, JDApp.query.GetClientIDFromString(cmb_Client.SelectedItem.ToString()), cmb_Breed.SelectedItem.ToString()); // find way of getting client id
                 if (ImgSourceHasChanged()) { Start += ", [Image]"; End += (", '" + img_Dog.Img_Source + "'"); }
                 if(txt_AdditionalInfo.Text != "") { Start += ", [AdditionalInfo]"; End += (", '" + txt_AdditionalInfo.Text + "'"); }
                 JDApp.query.QueryDatabase(Start + ") " + End + ");");

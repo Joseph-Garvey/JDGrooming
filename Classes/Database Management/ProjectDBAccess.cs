@@ -46,18 +46,6 @@ namespace JDGrooming.Classes.Database_Management
             catch { db.Rdr.Close(); }
             return breeds;
         }
-        public int GetBreedID(String breedname)
-        {
-            int id = new int();
-            try
-            {
-                SqlDataReader reader = ReadDatabase("SELECT [ID] FROM [Breed] WHERE [Name]='" + breedname + "';");
-                while (reader.Read()) id = reader.GetInt32(0);
-                reader.Close();
-            }
-            catch { db.Rdr.Close(); }
-            return id;
-        }
         public String GetBreedImageSource(String breedname)
         {
             String image = "";
@@ -99,7 +87,7 @@ namespace JDGrooming.Classes.Database_Management
                 command.CommandText = "SELECT [Dog].ID, [Dog].[Name], [Breed].[Name] AS Breed, Forename + ' ' + Surname AS Client_Name, " +
                     "DOB, [Status] FROM [Dog] " +
                     "INNER JOIN [Client] ON [Dog].ClientID = [Client].Id " +
-                    "INNER JOIN [Breed] ON [Dog].BreedID = [Breed].Id;";
+                    "INNER JOIN [Breed] ON [Dog].BreedName = [Breed].Name;";
                 db.Cmd = command;
                 SqlDataAdapter sda = new SqlDataAdapter(db.Cmd);
                 DataTable dt = new DataTable();
@@ -113,10 +101,10 @@ namespace JDGrooming.Classes.Database_Management
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="breed"></param>
-        public void UpdateDog(string id, string name, string breedid, string doginfo)
+        public void UpdateDog(string id, string name, string breedname, string doginfo)
         {
-            String Start = String.Format("UPDATE [Dog] SET [Name] = '{0}', [BreedID] = '{1}'",
-                name, breedid);
+            String Start = String.Format("UPDATE [Dog] SET [Name] = '{0}', [BreedName] = '{1}'",
+                name, breedname);
             String SQL = Start;
             if(doginfo != "") { SQL += ", [AdditionalInfo] = '" + doginfo + "'"; }
             SQL += " WHERE [ID] = " + id + " ;";
@@ -128,7 +116,7 @@ namespace JDGrooming.Classes.Database_Management
             try
             {
                 SqlDataReader reader = ReadDatabase("SELECT AdditionalInfo, Info, Image, DefaultImage FROM [Dog] " +
-                    "INNER JOIN [Breed] ON [Dog].BreedID = [Breed].Id" +
+                    "INNER JOIN [Breed] ON [Dog].BreedName = [Breed].Name" +
                     " WHERE [Dog].ID = " + id + ";");
                 while (reader.Read()) {
                     if(!reader.IsDBNull(0)) results[0] = (reader.GetString(0));

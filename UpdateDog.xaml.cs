@@ -187,11 +187,10 @@ namespace JDGrooming
             {
                 object[] selectedrow = ((DataRowView)data_DogList.SelectedItem).Row.ItemArray;
                 string id = selectedrow[0].ToString();
-                string breedid = JDApp.query.GetBreedID(Breed).ToString();
                 // Update Name, breed must be a combobox dropdown, status button, update dog info
                 // maybe make client info an update later but just get this working to start off with.
                 // add notification that an element has changed etc
-                JDApp.query.UpdateDog(id, DogName, breedid, DogInfo);
+                JDApp.query.UpdateDog(id, DogName, Breed, DogInfo);
                 MessageBox.Show("Dog Updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch { }

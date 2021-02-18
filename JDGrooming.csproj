@@ -123,12 +123,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\Address.cs" />
-    <Compile Include="Classes\Breed.cs" />
-    <Compile Include="Classes\Client.cs" />
     <Compile Include="Classes\Database Management\Database.cs" />
     <Compile Include="Classes\Database Management\ProjectDBAccess.cs" />
-    <Compile Include="Classes\Dog.cs" />
     <Compile Include="Classes\Verification.cs" />
     <Compile Include="ClientRegistration.xaml.cs">
       <DependentUpon>ClientRegistration.xaml</DependentUpon>
