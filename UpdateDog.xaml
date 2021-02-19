@@ -25,6 +25,14 @@
                             <Setter Property="Margin" Value="0"/>
                             <Setter Property="VerticalAlignment" Value="Center"/>
                         </Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="MinWidth" Value="80"/>
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="FontSize" Value="10"/>
+                            <Setter Property="Margin" Value="5,0,5,0"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
                     </Grid.Resources>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -47,7 +55,7 @@
                     <Label Grid.Row="2">DOB:</Label>
                     <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0" Content="{Binding DOB}"></Label>
                     <Label Grid.Row="3">Status:</Label>
-                    <Label Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0" Content="{Binding Status}"></Label>
+                    <CheckBox Style="{StaticResource StatusButton}" Margin="5,0,5,0"  Grid.Row="3" Grid.Column="1" Foreground="Black"></CheckBox>
                     <Label Grid.Row="4">Dog Info:</Label>
                     <TextBox Grid.Row="4" Grid.Column="1" MaxWidth="200" TextWrapping="Wrap" Text="{Binding DogInfo, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Label Grid.Row="5">Breed Info:</Label>

@@ -77,8 +77,8 @@ namespace JDGrooming
                 this.NotifyPropertyChanged("DOB");
             }
         }
-        private string status;
-        public String Status
+        private bool status;
+        public bool Status
         {
             get { return status; }
             set
@@ -169,7 +169,7 @@ namespace JDGrooming
             Breed = selectedrow[2].ToString();
             ClientName = selectedrow[3].ToString();
             DOB = selectedrow[4].ToString();
-            Status = selectedrow[5].ToString();
+            Status = bool.Parse(selectedrow[5].ToString());
             // info and image is in query
             String[] sqlresults = JDApp.query.GetUpdateDog(selectedrow[0].ToString());
             DogInfo = sqlresults[0] ?? "";

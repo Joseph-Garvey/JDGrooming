@@ -67,6 +67,29 @@
             <Setter Property="Height" Value="18"></Setter>
             <Setter Property="IsEnabled" Value="False"></Setter>
         </Style>
+        <Style TargetType="CheckBox" x:Key="StatusButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type CheckBox}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <Label HorizontalAlignment="Center" Content="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}"></Label>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="Green"></Setter>
+                                <Setter Property="Content" Value="Active"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Background" Value="Orange"></Setter>
+                                <Setter Property="Content" Value="Inactive"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Height" Value="18"></Setter>
+            <Setter Property="BorderBrush" Value="Black"/>
+        </Style>
         <!--#endregion-->
         <!--#region ComboBox Styles -->
         <Style TargetType="ComboBox" x:Key="LowProfile">
@@ -160,7 +183,6 @@
         <Style TargetType="TextBox">
             <!-- Decide all of this UI width stuff later -->
             <Setter Property="MinWidth" Value="80"/>
-            <Setter Property="Margin" Value="5"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="FontSize" Value="10"/>
             <Setter Property="Margin" Value="3"/>
