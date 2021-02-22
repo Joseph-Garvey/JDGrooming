@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDGrooming", "JDGrooming.csproj", "{F67323BD-FB5D-4DDC-8CC0-7E71C73BF0D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JD Testing", "..\JD Testing\JD Testing.csproj", "{CEECD358-89DF-436C-9A5E-258945EAEDED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JD Testing", "JD Testing\JD Testing.csproj", "{CEECD358-89DF-436C-9A5E-258945EAEDED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
