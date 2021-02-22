@@ -262,13 +262,6 @@
     <Content Include="Icons\verified.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="JDDatabase.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="JDDatabase_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <DependentUpon>JDDatabase.mdf</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
