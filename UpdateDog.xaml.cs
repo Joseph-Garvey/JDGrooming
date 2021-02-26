@@ -151,7 +151,7 @@ namespace JDGrooming
                 // Update Name, breed must be a combobox dropdown, status button, update dog info
                 // maybe make client info an update later but just get this working to start off with.
                 // add notification that an element has changed etc
-                JDApp.query.UpdateDog(id, DogName, Breed, DogInfo, );
+                JDApp.query.UpdateDog(id, DogName, Breed, DogInfo, Status);
                 MessageBox.Show("Dog Updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch { }
@@ -164,29 +164,33 @@ namespace JDGrooming
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // do this stuff through bindings later?
-            object[] selectedrow = DogView.SelectedItem;
-            DogName = selectedrow[1].ToString();
-            Breed = selectedrow[2].ToString();
-            ClientName = selectedrow[3].ToString();
-            DOB = selectedrow[4].ToString();
-            Status = selectedrow[5].ToString();
-            // info and image is in query
-            String[] sqlresults = JDApp.query.GetUpdateDog(selectedrow[0].ToString());
-            DogInfo = sqlresults[0] ?? "";
-            BreedInfo = sqlresults[1] ?? "";
-            String DogImage = sqlresults[2] ?? "";
-            String BreedImage = sqlresults[3] ?? "";
             try
             {
-                // fix the image string manipulation
-                // change the image source into a bindable property
-                String folder = Path.Combine(Environment.CurrentDirectory + @"/DogImages/");
-                if (File.Exists(Path.Combine(folder, DogImage))) { img_Dog.Img_Source = DogImage; }
-                else if (File.Exists(Path.Combine(folder, BreedImage))) { img_Dog.Img_Source = BreedImage; }
+                object[] selectedrow = DogView.SelectedItem;
+                DogName = selectedrow[1].ToString();
+                Breed = selectedrow[2].ToString();
+                ClientName = selectedrow[3].ToString();
+                DOB = selectedrow[4].ToString();
+                Status = bool.Parse(selectedrow[5].ToString());
+                // info and image is in query
+                String[] sqlresults = JDApp.query.GetUpdateDog(selectedrow[0].ToString());
+                DogInfo = sqlresults[0] ?? "";
+                BreedInfo = sqlresults[1] ?? "";
+                String DogImage = sqlresults[2] ?? "";
+                String BreedImage = sqlresults[3] ?? "";
+                try
+                {
+                    // fix the image string manipulation
+                    // change the image source into a bindable property
+                    String folder = Path.Combine(Environment.CurrentDirectory + @"/DogImages/");
+                    if (File.Exists(Path.Combine(folder, DogImage))) { img_Dog.Img_Source = DogImage; }
+                    else if (File.Exists(Path.Combine(folder, BreedImage))) { img_Dog.Img_Source = BreedImage; }
+                }
+                catch
+                {
+                }
             }
-            catch
-            {
-            }
+            catch (NullReferenceException) { }
         }
         #endregion
         #region PropertyChanged Event Handlers

@@ -23,6 +23,9 @@ namespace JDGrooming
     /// </summary>
     public partial class DogRegistration : UserControl, INotifyPropertyChanged
     {
+        /// <summary>
+        /// todo null check + img source has changed
+        /// </summary>
         #region Properties
         public App JDApp { get => ((App)Application.Current); }
         #endregion
@@ -40,15 +43,16 @@ namespace JDGrooming
         }
         #endregion
         #region Methods
+        // fix img source
         private bool ImgSourceHasChanged() // fix this later with a bool type value??
         {
-            return img_Dog.Img_Source != "pack://siteoforigin:,,,/Icons/add_image.png";
+            return img_Dog.Img_Source != null;
         }
         #endregion
         #region Events
         private void cmb_Breed_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!ImgSourceHasChanged())
+            if (ImgSourceHasChanged())
             {
                 try
                 {
@@ -87,6 +91,7 @@ namespace JDGrooming
         {
             // move all of this to dbaccess
             // add null checks + whitespace for name etc check user reqs
+            // pls null check
             const String failedMissingData = "\u2022 All fields except for additional information must be completed.";
             const String failedNameFormat = "\u2022 Names must consist of letters.";
             const String failedNameLength = "\u2022 Names must be less than 32 characters."; // less than or equal to?
@@ -104,8 +109,8 @@ namespace JDGrooming
             else
             {
                 // image is optional // add check that image still exists
-                String Start = "INSERT INTO [Dog] ([Name], [DOB], [ClientID], [BreedName]";
-                String End = String.Format("VALUES('{0}', '{1}', '{2}', '{3}'", txt_Name.Text, dp_DOB.SelectedDate, JDApp.query.GetClientIDFromString(cmb_Client.SelectedItem.ToString()), cmb_Breed.SelectedItem.ToString()); // find way of getting client id
+                String Start = "INSERT INTO [Dog] ([Name], [DOB], [ClientID], [BreedName], [Status]";
+                String End = String.Format("VALUES('{0}', '{1}', '{2}', '{3}', '{4}'", txt_Name.Text, ((DateTime)dp_DOB.SelectedDate).ToString("yyyy-MM-dd"), JDApp.query.GetClientIDFromString(cmb_Client.SelectedItem.ToString()), cmb_Breed.SelectedItem.ToString(), 1); // find way of getting client id
                 if (ImgSourceHasChanged()) { Start += ", [Image]"; End += (", '" + img_Dog.Img_Source + "'"); }
                 if(txt_AdditionalInfo.Text != "") { Start += ", [AdditionalInfo]"; End += (", '" + txt_AdditionalInfo.Text + "'"); }
                 JDApp.query.QueryDatabase(Start + ") " + End + ");");

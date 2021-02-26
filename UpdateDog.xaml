@@ -55,7 +55,7 @@
                     <Label Grid.Row="2">DOB:</Label>
                     <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0" Content="{Binding DOB}"></Label>
                     <Label Grid.Row="3">Status:</Label>
-                    <CheckBox Style="{StaticResource StatusButton}" Margin="5,0,5,0"  Grid.Row="3" Grid.Column="1" Foreground="Black"></CheckBox>
+                    <CheckBox Style="{StaticResource StatusButton}" Margin="5,0,5,0"  Grid.Row="3" Grid.Column="1" Foreground="Black" IsChecked="{Binding Status}" ></CheckBox>
                     <Label Grid.Row="4">Dog Info:</Label>
                     <TextBox Grid.Row="4" Grid.Column="1" MaxWidth="200" TextWrapping="Wrap" Text="{Binding DogInfo, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Label Grid.Row="5">Breed Info:</Label>

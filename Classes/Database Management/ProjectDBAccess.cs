@@ -103,8 +103,8 @@ namespace JDGrooming.Classes.Database_Management
         /// <param name="breed"></param>
         public void UpdateDog(string id, string name, string breedname, string doginfo, bool status)
         {
-            String Start = String.Format("UPDATE [Dog] SET [Name] = '{0}', [BreedName] = '{1}'",
-                name, breedname);
+            String Start = String.Format("UPDATE [Dog] SET [Name] = '{0}', [BreedName] = '{1}', [Status] = '{2}'",
+                name, breedname, status ? 1:0);
             String SQL = Start;
             if(doginfo != "") { SQL += ", [AdditionalInfo] = '" + doginfo + "'"; }
             SQL += " WHERE [ID] = " + id + " ;";
