@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace JD_Testing
+namespace JDTesting
 {
     [TestClass]
     public class UnitTest1
