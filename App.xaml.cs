@@ -71,8 +71,7 @@ namespace JDGrooming
                 //var lines = System.IO.File.ReadAllLines(@"C:\Users\Joseph Garvey\Desktop\CW\Dog_Breeds.txt");
                 //for (var i = 0; i < lines.Length; i += 1)
                 //{
-                //    Classes.Breed b = new Classes.Breed(lines[i]);
-                //    query.QueryDatabase(b.GetInsertSQL());
+                //    query.QueryDatabase("INSERT INTO [Breed] (Name) VALUES ('" + lines[i] + "');");
                 //}
                 #endregion
             }
