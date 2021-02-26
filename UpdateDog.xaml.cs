@@ -77,8 +77,8 @@ namespace JDGrooming
                 this.NotifyPropertyChanged("DOB");
             }
         }
-        private string status;
-        public String Status
+        private bool status;
+        public bool Status
         {
             get { return status; }
             set
@@ -151,7 +151,7 @@ namespace JDGrooming
                 // Update Name, breed must be a combobox dropdown, status button, update dog info
                 // maybe make client info an update later but just get this working to start off with.
                 // add notification that an element has changed etc
-                JDApp.query.UpdateDog(id, DogName, Breed, DogInfo);
+                JDApp.query.UpdateDog(id, DogName, Breed, DogInfo, );
                 MessageBox.Show("Dog Updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch { }

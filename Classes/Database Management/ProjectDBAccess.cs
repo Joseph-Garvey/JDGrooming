@@ -101,7 +101,7 @@ namespace JDGrooming.Classes.Database_Management
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="breed"></param>
-        public void UpdateDog(string id, string name, string breedname, string doginfo)
+        public void UpdateDog(string id, string name, string breedname, string doginfo, bool status)
         {
             String Start = String.Format("UPDATE [Dog] SET [Name] = '{0}', [BreedName] = '{1}'",
                 name, breedname);
