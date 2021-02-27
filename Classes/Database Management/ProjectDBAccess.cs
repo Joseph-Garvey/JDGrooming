@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Data;
+using System.Windows;
 
 namespace JDGrooming.Classes.Database_Management
 {
@@ -128,6 +129,59 @@ namespace JDGrooming.Classes.Database_Management
             }
             catch { db.Rdr.Close(); }
             return results;
+        }
+
+        public void RegisterDog(String DogName, int ClientIndex, String ClientName, int BreedIndex, String BreedName, String AdditionalInfo, String Img_Source, DateTime DOB)
+        {
+            // add null checks + whitespace for name etc check user reqs
+            const String failedNameFormat = "\u2022 Names must consist of letters.";
+            const String failedNameLength = "\u2022 Names must be less than 32 characters."; // less than or equal to?
+            const String failedAdditionaInfoLength = "\u2022 Information must be less than 255 characters.";
+            const String failedFileNameLength = "\u2022 Image file-path must be less than 260 characters. (Windows limit)";
+            String Errors = "";
+            if (DogName.Length > 32) { AddToErrors(ref Errors, failedNameLength); }
+            if (AdditionalInfo.Length > 255) { AddToErrors(ref Errors, failedAdditionaInfoLength); }
+            if (!CheckCharsAreLetters(DogName)) { AddToErrors(ref Errors, failedNameFormat); }
+            if ((Img_Source ?? "").Length > 260) { AddToErrors(ref Errors, failedFileNameLength); }
+            if (Errors != "") MessageBox.Show(Errors, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            else
+            {
+                // image is optional // add check that image still exists
+                String Start = "INSERT INTO [Dog] ([Name], [DOB], [ClientID], [BreedName], [Status]";
+                String End = String.Format("VALUES('{0}', '{1}', '{2}', '{3}', '{4}'", DogName, (DOB).ToString("yyyy-MM-dd"), GetClientIDFromString(ClientName), BreedName, 1); // find way of getting client id
+                if (ImgSourceHasChanged(Img_Source)) { Start += ", [Image]"; End += (", '" + Img_Source + "'"); }
+                if (AdditionalInfo != "") { Start += ", [AdditionalInfo]"; End += (", '" + AdditionalInfo + "'"); }
+                QueryDatabase(Start + ") " + End + ");");
+                MessageBox.Show("Client registered successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        /// <summary>
+        /// Appends to end of a newline in string.
+        /// </summary>
+        /// <param name="ErrorList"></param>
+        /// <param name="Error"></param>
+        private void AddToErrors(ref String ErrorList, String Error)
+        {
+            Error += Environment.NewLine;
+            ErrorList += Error;
+        }
+        /// <summary>
+        /// Checks if supplied string consists of letter characters
+        /// </summary>
+        /// <param name="test"></param>
+        /// <returns></returns>
+        private bool CheckCharsAreLetters(String test)
+        {
+            foreach (Char c in test)
+            {
+                if (!Char.IsLetter(c)) { return false; }
+            }
+            return true;
+        }
+        // fix img source
+        public bool ImgSourceHasChanged(String Img_Source) // fix this later with a bool type value??
+        {
+            return Img_Source != "";
         }
         #endregion
     }

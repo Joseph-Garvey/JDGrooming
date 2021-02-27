@@ -28,6 +28,128 @@ namespace JDGrooming
         /// </summary>
         #region Properties
         public App JDApp { get => ((App)Application.Current); }
+
+        private string dogname;
+        /// <summary>
+        /// DOB of currently selected dog.
+        /// </summary>
+        public String DogName
+        {
+            get { return dogname; }
+            set
+            {
+                if (dogname == value) return;
+                dogname = value;
+                this.NotifyPropertyChanged("DogName");
+            }
+        }
+
+        private string clientinfo;
+        /// <summary>
+        /// Info of currently selected client
+        /// </summary>
+        public String ClientInfo
+        {
+            get { return clientinfo; }
+            set
+            {
+                if (clientinfo == value) return;
+                clientinfo = value;
+                this.NotifyPropertyChanged("ClientInfo");
+            }
+        }
+
+        private int clientindex;
+        /// <summary>
+        /// Selected index of client
+        /// </summary>
+        public int ClientIndex
+        {
+            get { return clientindex; }
+            set
+            {
+                if (clientindex == value) return;
+                clientindex = value;
+                this.NotifyPropertyChanged("ClientIndex");
+            }
+        }
+
+        private object clientname;
+        /// <summary>
+        /// Breed of dog to be registered.
+        /// </summary>
+        public object ClientName
+        {
+            get; set;
+            //get { return clientname; }
+            //set
+            //{
+            //    if (clientname == value) return;
+            //    clientname = value;
+            //    this.NotifyPropertyChanged("ClientName");
+            //}
+        }
+
+        private object breedname;
+        /// <summary>
+        /// Breed of dog to be registered.
+        /// </summary>
+        public object BreedName
+        {
+            get { return breedname; }
+            set
+            {
+                if (breedname == value) return;
+                breedname = value;
+                this.NotifyPropertyChanged("BreedName");
+            }
+        }
+
+        private int breedindex;
+        /// <summary>
+        /// Selected index of client
+        /// </summary>
+        public int BreedIndex
+        {
+            get { return breedindex; }
+            set
+            {
+                if (breedindex == value) return;
+                breedindex = value;
+                this.NotifyPropertyChanged("BreedIndex");
+            }
+        }
+
+        private DateTime dob;
+        /// <summary>
+        /// DOB of currently selected dog.
+        /// </summary>
+        public DateTime DOB
+        {
+            get { return dob; }
+            set
+            {
+                if (dob == value) return;
+                dob = value;
+                this.NotifyPropertyChanged("DOB");
+            }
+        }
+
+        private string additionalinfo;
+        /// <summary>
+        /// Breed of dog to be registered.
+        /// </summary>
+        public String AdditionalInfo
+        {
+            get { return additionalinfo; }
+            set
+            {
+                if (additionalinfo == value) return;
+                additionalinfo = value;
+                this.NotifyPropertyChanged("AdditionalInfo");
+            }
+        }
+
         #endregion
         #region Window Constructor
         /// <summary>
@@ -37,28 +159,27 @@ namespace JDGrooming
         {
             this.DataContext = this;
             BreedList = new ObservableCollection<string>(JDApp.query.GetBreeds());
+            BreedIndex = -1;
             // change client search in future
             ClientList = new ObservableCollection<string>(JDApp.query.GetClientsString());
+            ClientIndex = -1;
+            DOB = DateTime.Today;
             InitializeComponent();
         }
         #endregion
         #region Methods
-        // fix img source
-        private bool ImgSourceHasChanged() // fix this later with a bool type value??
-        {
-            return img_Dog.Img_Source != null;
-        }
+
         #endregion
         #region Events
         private void cmb_Breed_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ImgSourceHasChanged())
+            if (JDApp.query.ImgSourceHasChanged(img_Dog.Img_Source))
             {
                 try
                 {
-                    if(cmb_Breed.SelectedItem != null)
+                    if(BreedIndex != -1)
                     {
-                        String source = JDApp.query.GetBreedImageSource(cmb_Breed.SelectedItem.ToString());
+                        String source = JDApp.query.GetBreedImageSource(BreedName.ToString());
                         Uri imguri = new Uri(source);
                         if (imguri != null)
                         {
@@ -89,48 +210,15 @@ namespace JDGrooming
         /// <param name="e"></param>
         private void btn_Register(object sender, RoutedEventArgs e)
         {
-            // move all of this to dbaccess
-            // add null checks + whitespace for name etc check user reqs
-            // pls null check
             const String failedMissingData = "\u2022 All fields except for additional information must be completed.";
-            const String failedNameFormat = "\u2022 Names must consist of letters.";
-            const String failedNameLength = "\u2022 Names must be less than 32 characters."; // less than or equal to?
-            const String failedAdditionaInfoLength = "\u2022 Information must be less than 255 characters.";
-            const String failedFileNameLength = "\u2022 Image file-path must be less than 260 characters. (Windows limit)";
-            String Errors = "";
-            if(txt_Name.Text == ""
-                || cmb_Client.SelectedIndex == -1
-                || cmb_Breed.SelectedIndex == -1) { AddToErrors(ref Errors, failedMissingData); }
-            if(txt_Name.Text.Length > 32) { AddToErrors(ref Errors, failedNameLength); }
-            if (txt_AdditionalInfo.Text.Length > 255) { AddToErrors(ref Errors, failedAdditionaInfoLength); }
-            if (!CheckCharacters(txt_Name.Text)) { AddToErrors(ref Errors, failedNameFormat); }
-            if((img_Dog.Img_Source ?? "").Length > 260) { AddToErrors(ref Errors, failedFileNameLength); }
-            if (Errors != "") MessageBox.Show(Errors, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            else
+            try
             {
-                // image is optional // add check that image still exists
-                String Start = "INSERT INTO [Dog] ([Name], [DOB], [ClientID], [BreedName], [Status]";
-                String End = String.Format("VALUES('{0}', '{1}', '{2}', '{3}', '{4}'", txt_Name.Text, ((DateTime)dp_DOB.SelectedDate).ToString("yyyy-MM-dd"), JDApp.query.GetClientIDFromString(cmb_Client.SelectedItem.ToString()), cmb_Breed.SelectedItem.ToString(), 1); // find way of getting client id
-                if (ImgSourceHasChanged()) { Start += ", [Image]"; End += (", '" + img_Dog.Img_Source + "'"); }
-                if(txt_AdditionalInfo.Text != "") { Start += ", [AdditionalInfo]"; End += (", '" + txt_AdditionalInfo.Text + "'"); }
-                JDApp.query.QueryDatabase(Start + ") " + End + ");");
-                MessageBox.Show("Client registered successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (DogName == "" || ClientIndex == -1 || BreedIndex == -1) { throw new NullReferenceException(); }
+                JDApp.query.RegisterDog(DogName, ClientIndex, ClientName.ToString(), BreedIndex, BreedName.ToString(), AdditionalInfo, img_Dog.Img_Source ?? "", DOB);
             }
+            catch (NullReferenceException) { MessageBox.Show(failedMissingData, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
         // add to app.xaml.cs
-        private void AddToErrors(ref String ErrorList, String Error)
-        {
-            Error += Environment.NewLine;
-            ErrorList += Error;
-        }
-        private bool CheckCharacters(String test)
-        {
-            foreach (Char c in test)
-            {
-                if (!Char.IsLetter(c)) { return false; }
-            }
-            return true;
-        }
         #endregion
         #region Searchable ComboBox Code
         // breed
