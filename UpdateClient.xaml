@@ -75,9 +75,7 @@
             <Border Style="{StaticResource brd_1}" Margin="5,0,5,5">
                 <StackPanel>
                     <Button Style="{StaticResource btnDark}" Margin="5">Client Invoices:</Button>
-                    <DataGrid Name="data_Invoices">
-
-                    </DataGrid>
+                    <DataGrid Name="data_Invoices"></DataGrid>
                     <Button Style="{StaticResource btnDark}" Margin="5">Print</Button>
                 </StackPanel>
             </Border>
