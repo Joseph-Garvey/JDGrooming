@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,16 +19,12 @@ namespace JDGrooming
     /// <summary>
     /// Interaction logic for TitleBar.xaml
     /// </summary>
-    public partial class TitleBar : UserControl
+    public partial class TitleBar : UserControl, INotifyPropertyChanged
     {
-        public String Title { get; set; }
-        private App JDApp { get}
 
         public TitleBar()
         {
             InitializeComponent();
-            Title = ((App)Application.Current).MainWindow.Title;
-            lblTitle.SetBinding(Label.ContentProperty, new Binding("Title") { Source = this, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged });
         }
 
         private void btn_Close(object sender, RoutedEventArgs e)
@@ -49,5 +46,13 @@ namespace JDGrooming
         {
             ((App)Application.Current).MainWindow.DragMove();
         }
+
+        #region NotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
+        #endregion
     }
 }

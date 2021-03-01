@@ -9,7 +9,7 @@
     <!-- Come back to this later and fix it
          NB. Make buttons black -->
     <DockPanel HorizontalAlignment="Stretch">
-        <Label Name="lblTitle" Style="{StaticResource lbl_WhiteHeading}" FontSize="18" Margin="10,0,10,0" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Left">Window Title</Label>
+        <Label x:Name="lblTitle" Style="{StaticResource lbl_WhiteHeading}" FontSize="18" Margin="10,0,10,0" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" />
         <StackPanel Style="{StaticResource HorizontalRight}">
             <Button Style="{StaticResource btnSimpleDark}" Click="btn_Minimise">
                 <Image Source="pack://siteoforigin:,,,/icons/minimise.png" Margin="2"/>

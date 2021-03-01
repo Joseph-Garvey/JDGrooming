@@ -63,7 +63,7 @@
             <TextBox Name="txt_Email" TextChanged="VerifyText" Grid.Row="6" Grid.Column="1" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <CheckBox Grid.Row="6" Grid.Column="2" x:Name="chk_Email" Style="{StaticResource Verification}"></CheckBox>
             <Label Grid.Row="7">Home Phone:</Label>
-            <TextBox Name="txt_HomePhone" TextChanged="VerifyText" Grid.Row="7" Grid.Column="1" Text="{Binding Mobile, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Name="txt_HomePhone" TextChanged="VerifyText" Grid.Row="7" Grid.Column="1" Text="{Binding HomePhone, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <CheckBox Grid.Row="7" Grid.Column="2" x:Name="chk_HomePhone" Style="{StaticResource Verification}"></CheckBox>
             <Label Grid.Row="6" Grid.Column="3" Width="Auto" Content="Mobile:"/>
             <TextBox Name="txt_Mobile" TextChanged="VerifyText" Grid.Row="6" Grid.Column="4" Width="100" Text="{Binding Mobile, UpdateSourceTrigger=PropertyChanged}"></TextBox>

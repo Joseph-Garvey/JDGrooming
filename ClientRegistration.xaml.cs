@@ -127,6 +127,7 @@ namespace JDGrooming
 
         public ClientRegistration()
         {
+            this.DataContext = this;
             InitializeComponent();
         }
 
@@ -162,8 +163,8 @@ namespace JDGrooming
             const String failedMissingInfo = "\u2022 All fields marked * must be completed.";
             try
             {
-                if ((Forename == "") || (Surname == "") || (FirstLine == "") || (Postcode == "")|| (Town == "")) throw new NullReferenceException();
-                JDApp.query.RegisterClient(Forename, Surname, FirstLine, Secondline ?? "", Postcode, Town, Email ?? "", Mobile ?? "", HomePhone ?? "");
+                if ((Forename == null) || Forename == "" || (Surname == "") || Surname == null || (FirstLine == "") || FirstLine == null || (Postcode == "") || Postcode == null || (Town == "") || Town == null) throw new NullReferenceException();
+                JDApp.query.RegisterClient(Forename, Surname, FirstLine, SecondLine ?? "", Postcode, Town, Email ?? "", Mobile ?? "", HomePhone ?? "");
             }
             catch (NullReferenceException) { MessageBox.Show(failedMissingInfo, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }

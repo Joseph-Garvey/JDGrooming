@@ -78,16 +78,15 @@ namespace JDGrooming
         /// <summary>
         /// Breed of dog to be registered.
         /// </summary>
-        public object ClientName
+        public object ClientName // debug this
         {
-            get; set;
-            //get { return clientname; }
-            //set
-            //{
-            //    if (clientname == value) return;
-            //    clientname = value;
-            //    this.NotifyPropertyChanged("ClientName");
-            //}
+            get { return clientname; }
+            set
+            {
+                if (clientname == value) return;
+                clientname = value;
+                this.NotifyPropertyChanged("ClientName");
+            }
         }
 
         private object breedname;
@@ -213,7 +212,7 @@ namespace JDGrooming
             const String failedMissingData = "\u2022 All fields except for additional information must be completed.";
             try
             {
-                if (DogName == "" || ClientIndex == -1 || BreedIndex == -1) { throw new NullReferenceException(); }
+                if (DogName == "" || DogName == null || ClientIndex == -1 || BreedIndex == -1) { throw new NullReferenceException(); }
                 JDApp.query.RegisterDog(DogName, ClientName.ToString(), BreedName.ToString(), AdditionalInfo, img_Dog.Img_Source ?? "", DOB);
             }
             catch (NullReferenceException) { MessageBox.Show(failedMissingData, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
