@@ -131,7 +131,72 @@ namespace JDGrooming.Classes.Database_Management
             return results;
         }
 
-        public void RegisterDog(String DogName, int ClientIndex, String ClientName, int BreedIndex, String BreedName, String AdditionalInfo, String Img_Source, DateTime DOB)
+        public void RegisterClient(String Forename, String Surname, String FirstLine, String SecondLine, String Postcode, String Town, String Email, String Mobile, String HomePhone)
+        {
+            // add letter validation for names etc
+            // try something similar to last year's system but more efficient.
+            // this time get something that works, then improve on it.
+            // also auto format the strings in future.
+            const String failedNameFormat = "\u2022 Names must consist of letters.";
+            const String failedForenameLength = "\u2022 Forename must be less than 35 characters.";
+            const String failedSurnameLength = "\u2022 Surname must be less than 50 characters.";
+            const String failedAddressLength = "\u2022 Address line must be less than 35 characters.";
+            const String failedTownLength = "\u2022 Town/City name must be less than 64 characters.";
+            const String failedPostCode = "\u2022 Postcode must be of valid format and length eg. XX0 XX0.";
+            const String failedEmail = "\u2022 Email must be of valid format and length (<255 chars) eg. JoeBloggs@mail.com";
+            const String failedPhone = "\u2022 PhoneNo must be of valid format and length (<32 chars)";
+            const String failedContactDetail = "\u2022 Customer must provide at least one method of contact.";
+            String Errors = "";
+            if ((Email == "")
+                && (HomePhone == "")
+                && (Mobile == "")
+                ) { AddToErrors(ref Errors, failedContactDetail); }
+            if (Forename.Length > 35) AddToErrors(ref Errors, failedForenameLength);
+            if (Surname.Length > 50) AddToErrors(ref Errors, failedSurnameLength);
+            if (!CheckCharsAreLetters(Forename) || !CheckCharsAreLetters(Surname)) AddToErrors(ref Errors, failedNameFormat);
+            if ((FirstLine.Length > 35) || (SecondLine.Length > 35)) AddToErrors(ref Errors, failedAddressLength);
+            if (Town.Length > 64) AddToErrors(ref Errors, failedTownLength);
+            if ((Postcode.Length > 8) || (!Verification.VerifyPostcode(Postcode))) AddToErrors(ref Errors, failedPostCode);
+            bool ContactDetailsPresent = false;
+            if (Email != "")
+            {
+                ContactDetailsPresent = true;
+                if ((Email.Length > 255) || (!Verification.VerifyEmail(Email))) AddToErrors(ref Errors, failedEmail);
+            }
+            if (Mobile != "")
+            {
+                ContactDetailsPresent = true;
+                if ((Mobile.Length > 32) || (!Verification.VerifyPhoneNumber(Mobile))) AddToErrors(ref Errors, failedPhone);
+            }
+            if (HomePhone != "")
+            {
+                ContactDetailsPresent = true;
+                if ((HomePhone.Length > 32) || (!Verification.VerifyPhoneNumber(HomePhone))) AddToErrors(ref Errors, failedPhone);
+            }
+            if (!ContactDetailsPresent) { AddToErrors(ref Errors, failedContactDetail); }
+            if (Errors != "") { MessageBox.Show(Errors, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+            else
+            {
+                String Start = "INSERT INTO [Client] ([Surname], [Forename], [FirstLine], [Town], [Postcode]";
+                String End = String.Format("VALUES('{0}', '{1}', '{2}', '{3}', '{4}'", Surname, Forename, FirstLine, Town, Postcode);
+                if (Email != "") { Start += ", [Email]"; End += ", '" + Email + "'"; }
+                if (HomePhone != "") { Start += ", [HomePhone]"; End += ", '" + HomePhone + "'"; } // fix
+                if (Mobile != "") { Start += ", [Mobile]"; End += ", '" + Mobile + "'"; } // fix
+                if (SecondLine != "") { Start += ", [SecondLine]"; End += ", '" + SecondLine + "'"; }
+                ((App)Application.Current).query.QueryDatabase(Start + ") " + End + ");");
+                MessageBox.Show("Client registered successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        /// <summary>
+        /// Registers a supplied dog to the database and verifies in info fits criteria
+        /// </summary>
+        /// <param name="DogName">Name of dog</param>
+        /// <param name="ClientName">Name of owner</param>
+        /// <param name="BreedName">The dog's breed</param>
+        /// <param name="AdditionalInfo">Staff notes on dog</param>
+        /// <param name="Img_Source">Name of dog's image file.</param>
+        /// <param name="DOB">Dog Date of Birth</param>
+        public void RegisterDog(String DogName, String ClientName, String BreedName, String AdditionalInfo, String Img_Source, DateTime DOB)
         {
             // add null checks + whitespace for name etc check user reqs
             const String failedNameFormat = "\u2022 Names must consist of letters.";

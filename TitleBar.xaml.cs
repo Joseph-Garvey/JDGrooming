@@ -21,6 +21,8 @@ namespace JDGrooming
     public partial class TitleBar : UserControl
     {
         public String Title { get; set; }
+        private App JDApp { get}
+
         public TitleBar()
         {
             InitializeComponent();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +20,111 @@ namespace JDGrooming
     /// <summary>
     /// Interaction logic for ClientRegistration.xaml
     /// </summary>
-    public partial class ClientRegistration : UserControl
+    public partial class ClientRegistration : UserControl, INotifyPropertyChanged
     {
+        #region Variables and Properties
+        private string forename;
+        public String Forename
+        {
+            get { return forename; }
+            set
+            {
+                if (forename == value) return;
+                forename = value;
+                this.NotifyPropertyChanged("Forename");
+            }
+        }
+        private string surname;
+        public String Surname
+        {
+            get { return surname; }
+            set
+            {
+                if (surname == value) return;
+                surname = value;
+                this.NotifyPropertyChanged("Surname");
+            }
+        }
+        private string firstline;
+        public String FirstLine
+        {
+            get { return firstline; }
+            set
+            {
+                if (firstline == value) return;
+                firstline = value;
+                this.NotifyPropertyChanged("FirstLine");
+            }
+        }
+        private string secondline;
+        public String SecondLine
+        {
+            get { return secondline; }
+            set
+            {
+                if (secondline == value) return;
+                secondline = value;
+                this.NotifyPropertyChanged("SecondLine");
+            }
+        }
+        private string postcode;
+        public String Postcode
+        {
+            get { return postcode; }
+            set
+            {
+                if (postcode == value) return;
+                postcode = value;
+                this.NotifyPropertyChanged("PostCode");
+            }
+        }
+        private string town;
+        public String Town
+        {
+            get { return town; }
+            set
+            {
+                if (town == value) return;
+                town = value;
+                this.NotifyPropertyChanged("Town");
+            }
+        }
+        private string email;
+        public String Email
+        {
+            get { return email; }
+            set
+            {
+                if (email == value) return;
+                email = value;
+                this.NotifyPropertyChanged("Email");
+            }
+        }
+        private string mobile;
+        public String Mobile
+        {
+            get { return mobile; }
+            set
+            {
+                if (mobile == value) return;
+                mobile = value;
+                this.NotifyPropertyChanged("Mobile");
+            }
+        }
+        private string homephone;
+        public String HomePhone
+        {
+            get { return homephone; }
+            set
+            {
+                if (homephone == value) return;
+                homephone = value;
+                this.NotifyPropertyChanged("HomePhone");
+            }
+        }
+        private App JDApp { get => ((App)Application.Current); }
+        #endregion
+
         public ClientRegistration()
         {
             InitializeComponent();
@@ -55,79 +159,21 @@ namespace JDGrooming
 
         private void Register(object sender, RoutedEventArgs e)
         {
-            // add letter validation for names etc
-            // try something similar to last year's system but more efficient.
-            // this time get something that works, then improve on it.
-            // also auto format the strings in future.
-            const String failedNameFormat = "\u2022 Names must consist of letters.";
-            const String failedForenameLength = "\u2022 Forename must be less than 35 characters.";
-            const String failedSurnameLength = "\u2022 Surname must be less than 50 characters.";
-            const String failedAddressLength = "\u2022 Address line must be less than 35 characters.";
-            const String failedTownLength = "\u2022 Town/City name must be less than 64 characters.";
-            const String failedPostCode = "\u2022 Postcode must be of valid format and length eg. XX0 XX0.";
-            const String failedEmail = "\u2022 Email must be of valid format and length (<255 chars) eg. JoeBloggs@mail.com";
-            const String failedPhone = "\u2022 PhoneNo must be of valid format and length (<32 chars)";
-            const String failedContactDetail = "\u2022 Customer must provide at least one method of contact.";
             const String failedMissingInfo = "\u2022 All fields marked * must be completed.";
-            String Errors = "";
-            if ((txt_Forename.Text == "")
-                || (txt_Surname.Text == "")
-                || (txtAddress1.Text == "")
-                || (txt_Postcode.Text == "")
-                || (txt_Town.Text == "")
-                ) { AddToErrors(ref Errors, failedMissingInfo); }
-            if ((txt_Email.Text == "")
-                && (txt_HomePhone.Text == "")
-                && (txt_Mobile.Text == "")
-                ) { AddToErrors(ref Errors, failedContactDetail); }
-            if (txt_Forename.Text.Length > 35)  AddToErrors(ref Errors,failedForenameLength);
-            if (txt_Surname.Text.Length > 50)  AddToErrors(ref Errors, failedSurnameLength);
-            if(!CheckCharacters(txt_Forename.Text) || !CheckCharacters(txt_Surname.Text))  AddToErrors(ref Errors,failedNameFormat);
-            if ((txtAddress1.Text.Length > 35) || (txtAddress2.Text.Length > 35))  AddToErrors(ref Errors, failedAddressLength);
-            if (txt_Town.Text.Length > 64)  AddToErrors(ref Errors, failedTownLength);
-            if ((txt_Postcode.Text.Length > 8) || (!Verification.VerifyPostcode(txt_Postcode.Text)))  AddToErrors(ref Errors, failedPostCode);
-            bool ContactDetailsPresent = false;
-            if(txt_Email.Text != "")
+            try
             {
-                ContactDetailsPresent = true;
-                if((txt_Email.Text.Length > 255) || (!Verification.VerifyEmail(txt_Email.Text))) AddToErrors(ref Errors, failedEmail);
+                if ((Forename == "") || (Surname == "") || (FirstLine == "") || (Postcode == "")|| (Town == "")) throw new NullReferenceException();
+                JDApp.query.RegisterClient(Forename, Surname, FirstLine, Secondline ?? "", Postcode, Town, Email ?? "", Mobile ?? "", HomePhone ?? "");
             }
-            if (txt_Mobile.Text != "")
-            {
-                ContactDetailsPresent = true;
-                if ((txt_Mobile.Text.Length > 32) || (!Verification.VerifyPhoneNumber(txt_Mobile.Text))) AddToErrors(ref Errors, failedPhone);
-            }
-            if (txt_HomePhone.Text != "")
-            {
-                ContactDetailsPresent = true;
-                if ((txt_HomePhone.Text.Length > 32) || (!Verification.VerifyPhoneNumber(txt_HomePhone.Text))) AddToErrors(ref Errors, failedPhone);
-            }
-            if (!ContactDetailsPresent) { AddToErrors(ref Errors,failedContactDetail); }
-            if(Errors != "") { MessageBox.Show(Errors, "Error", MessageBoxButton.OK ,MessageBoxImage.Error); }
-            else
-            {
-                String Start = "INSERT INTO [Client] ([Surname], [Forename], [FirstLine], [Town], [Postcode]";
-                String End = String.Format("VALUES('{0}', '{1}', '{2}', '{3}', '{4}'", txt_Surname.Text, txt_Forename.Text, txtAddress1.Text, txt_Town.Text, txt_Postcode.Text);
-                if (txt_Email.Text != "") { Start += ", [Email]"; End += ", '" + txt_Email.Text + "'"; }
-                if (txt_HomePhone.Text != "") { Start += ", [HomePhone]"; End += ", '" + txt_HomePhone.Text + "'"; } // fix
-                if (txt_Mobile.Text != "") { Start += ", [Mobile]"; End += ", '" + txt_Mobile.Text + "'"; } // fix
-                if (txtAddress2.Text != "") { Start += ", [SecondLine]"; End += ", '" + txtAddress2.Text + "'"; }
-                ((App)Application.Current).query.QueryDatabase(Start + ") " + End + ");");
-                MessageBox.Show("Client registered successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
+            catch (NullReferenceException) { MessageBox.Show(failedMissingInfo, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
-        private void AddToErrors(ref String ErrorList, String Error)
+
+        #region NotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propName)
         {
-            Error += Environment.NewLine;
-            ErrorList += Error;
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
-        private bool CheckCharacters(String test)
-        {
-            foreach(Char c in test)
-            {
-                if (!Char.IsLetter(c)) { return false; }
-            }
-            return true;
-        }
+        #endregion
     }
 }
