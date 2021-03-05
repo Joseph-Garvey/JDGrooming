@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,11 +20,46 @@ namespace JDGrooming
     /// <summary>
     /// Interaction logic for UpdateClient.xaml
     /// </summary>
-    public partial class UpdateClient : UserControl
+    public partial class UpdateClient : UserControl, INotifyPropertyChanged
     {
+        #region Variables and Properties
+        /// <summary>
+        /// References the application code.
+        /// </summary>
+        private App JDApp { get => ((App)Application.Current); }
+
+        private string forename;
+        private String Forename
+        {
+            get { return forename; }
+            set
+            {
+                if (forename == value) return;
+                forename = value;
+                this.NotifyPropertyChanged("Forename");
+            }
+        }
+        private string surname;
+        private String Surname
+        {
+            get { return surname; }
+            set
+            {
+                if (surname == value) return;
+                surname = value;
+                this.NotifyPropertyChanged("Surname");
+            }
+        }
+        /// <summary>
+        /// TODO Bindable properties
+        /// </summary>
+        #endregion
         public UpdateClient()
         {
+            this.DataContext = this;
             InitializeComponent();
+            ClientView.DataList = JDApp.query.FillClientTable();
+            ClientView.dataview.SelectionChanged += DataGrid_SelectionChanged;
         }
 
         private void VerifyText(object sender, TextChangedEventArgs e)
@@ -52,5 +88,22 @@ namespace JDGrooming
             }
             chkBox.IsChecked = pass;
         }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                object[] selectedrow = ClientView.SelectedItem;
+            }
+            catch (NullReferenceException) { }
+        }
+
+        #region PropertyChanged Event Handlers
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
+        #endregion
     }
 }
