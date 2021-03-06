@@ -153,6 +153,7 @@ namespace JDGrooming
                 // add notification that an element has changed etc
                 JDApp.query.UpdateDog(id, DogName, Breed, DogInfo, Status);
                 MessageBox.Show("Dog Updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                DogView.DataList = JDApp.query.FillDogTable();
             }
             catch { }
         }

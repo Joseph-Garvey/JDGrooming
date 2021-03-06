@@ -143,6 +143,7 @@ namespace JDGrooming
         }
         #region Events
 
+        //
         private void VerifyText(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -186,7 +187,18 @@ namespace JDGrooming
                 Mobile = ClientDetails[7] ?? "";
                 HomePhone = ClientDetails[8] ?? "";
             }
-            catch (NullReferenceException) { }
+            catch (NullReferenceException)
+            {
+                Forename = "";
+                Surname = "";
+                FirstLine = "";
+                SecondLine = "";
+                Postcode = "";
+                Town = "";
+                Email = "";
+                Mobile = "";
+                HomePhone = "";
+            }
         }
 
         private void btn_UpdateClientClick(object sender, RoutedEventArgs e)
@@ -196,6 +208,8 @@ namespace JDGrooming
                 int id = JDApp.query.GetClientIDFromString(ClientInfo);
                 JDApp.query.UpdateClient(id.ToString(), Forename, Surname, FirstLine, SecondLine, Town, Postcode, Email, Mobile, HomePhone);
                 MessageBox.Show("Client Updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                ClientList = new ObservableCollection<string>(JDApp.query.GetClientStringShort());
+                ClientIndex = -1;
             }
             catch { }
         }
