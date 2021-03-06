@@ -181,11 +181,12 @@ namespace JDGrooming
                 Surname = ClientDetails[1];
                 FirstLine = ClientDetails[2];
                 SecondLine = ClientDetails[3] ?? "";
-                Postcode = ClientDetails[4];
-                Town = ClientDetails[5];
+                Town = ClientDetails[4];
+                Postcode = ClientDetails[5];       
                 Email = ClientDetails[6] ?? "";
-                Mobile = ClientDetails[7] ?? "";
-                HomePhone = ClientDetails[8] ?? "";
+                HomePhone = ClientDetails[7] ?? "";
+                Mobile = ClientDetails[8] ?? "";
+                
             }
             catch (NullReferenceException)
             {
