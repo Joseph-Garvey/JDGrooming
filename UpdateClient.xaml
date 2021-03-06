@@ -51,33 +51,34 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label FontSize="12" Margin="5,0,5,0">Client Details:</Label>
-                            <ComboBox x:Name="cmb_Client" Grid.Column="1" Margin="5" SelectedItem="{Binding ClientName}"
+                            <ComboBox x:Name="cmb_Client" Grid.Column="1" Margin="5" SelectedItem="{Binding ClientInfo}"
                                   Style="{StaticResource Searchable}" DropDownClosed="cmb_DropDownClosed" SelectedIndex="{Binding ClientIndex}"
-                                  Text="{Binding Client_searchtext}" ItemsSource="{Binding ClientList}" SelectionChanged="cmb_Client_SelectionChanged"></ComboBox>
+                                  Text="{Binding Client_searchtext}" DropDownOpened="cmb_DropDownOpened" ItemsSource="{Binding ClientList}" SelectionChanged="cmb_Client_SelectionChanged"></ComboBox>
                         </Grid>
                     </Border>
                     <Label Grid.Row="1" Content="Forename*"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" Name="txt_Forename"></TextBox>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Forename, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Label Grid.Row="1" Grid.Column="3" Content="Surname*"/>
-                    <TextBox Grid.Row="1" Grid.Column="4" Name="txt_Surname"></TextBox>
+                    <TextBox Grid.Row="1" Grid.Column="4"  Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Label Grid.Row="3" Content="First Line*"/>
-                    <TextBox x:Name="txtAddress1" Grid.Row="3" Grid.Column="1"></TextBox>
+                    <TextBox  Text="{Binding FirstLine, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1"></TextBox>
                     <Label Grid.Row="3" Grid.Column="3" Content="Second Line"/>
-                    <TextBox x:Name="txtAddress2" Grid.Row="3" Grid.Column="4"></TextBox>
+                    <TextBox  Text="{Binding SecondLine, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="4"></TextBox>
                     <Label Grid.Row="4" Content="Postcode*"/>
-                    <TextBox Grid.Row="4" Grid.Column="1" Name="txt_Postcode" TextChanged="VerifyText"></TextBox>
+                    <TextBox Grid.Row="4" Grid.Column="1"  Text="{Binding Postcode, UpdateSourceTrigger=PropertyChanged}" TextChanged="VerifyText"></TextBox>
                     <CheckBox Grid.Row="4" Grid.Column="2" x:Name="chk_Postcode" Style="{StaticResource Verification}" ></CheckBox>
                     <Label Grid.Row="4" Grid.Column="3" Content="Town*"/>
-                    <TextBox x:Name="txt_Town" Grid.Row="4" Grid.Column="4"></TextBox>
+                    <TextBox  Text="{Binding Town, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="4"></TextBox>
                     <Label Grid.Row="6">Email Address:</Label>
-                    <TextBox Name="txt_Email" TextChanged="VerifyText" Grid.Row="6" Grid.Column="1"></TextBox>
+                    <TextBox  Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" TextChanged="VerifyText" Grid.Row="6" Grid.Column="1"></TextBox>
                     <CheckBox Grid.Row="6" Grid.Column="2" x:Name="chk_Email" Style="{StaticResource Verification}"></CheckBox>
                     <Label Grid.Row="7">Home Phone:</Label>
-                    <TextBox Name="txt_HomePhone" TextChanged="VerifyText" Grid.Row="7" Grid.Column="1"></TextBox>
+                    <TextBox  Text="{Binding HomePhone, UpdateSourceTrigger=PropertyChanged}" TextChanged="VerifyText" Grid.Row="7" Grid.Column="1"></TextBox>
                     <CheckBox Grid.Row="7" Grid.Column="2" x:Name="chk_HomePhone" Style="{StaticResource Verification}"></CheckBox>
                     <Label Grid.Row="6" Grid.Column="3"  Width="Auto" Content="Mobile:"/>
-                    <TextBox Name="txt_Mobile" TextChanged="VerifyText" Grid.Row="6" Grid.Column="4"></TextBox>
+                    <TextBox  Text="{Binding Mobile, UpdateSourceTrigger=PropertyChanged}" TextChanged="VerifyText" Grid.Row="6" Grid.Column="4"></TextBox>
                     <CheckBox Grid.Row="6" Grid.Column="5" x:Name="chk_Mobile" Style="{StaticResource Verification}"></CheckBox>
+                    
                 </Grid>
             </Border>
             <Border Style="{StaticResource brd_1}" Margin="5,0,5,5">

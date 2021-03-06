@@ -23,6 +23,7 @@ namespace JDGrooming
     /// </summary>
     public partial class UpdateClient : UserControl, INotifyPropertyChanged
     {
+        // switch this to an editable data grid approach if i get the time so that all aspects can be searched
         #region Variables and Properties
         /// <summary>
         /// References the application code.
@@ -133,7 +134,7 @@ namespace JDGrooming
         public UpdateClient()
         {
             this.DataContext = this;
-            ClientList = new ObservableCollection<string>(JDApp.query.GetClientsString());
+            ClientList = new ObservableCollection<string>(JDApp.query.GetClientStringShort());
             ClientIndex = -1;
             InitializeComponent();
             // from datagrid implementation copy this to booking
@@ -166,6 +167,24 @@ namespace JDGrooming
                     break;
             }
             chkBox.IsChecked = pass;
+        }
+        private void cmb_Client_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (ClientInfo == "" || ClientIndex == -1) { throw new NullReferenceException(); }
+                String[] ClientDetails = JDApp.query.GetClientString(ClientInfo.ToString());
+                Forename = ClientDetails[0];
+                Surname = ClientDetails[1];
+                FirstLine = ClientDetails[2];
+                SecondLine = ClientDetails[3] ?? "";
+                Postcode = ClientDetails[4];
+                Town = ClientDetails[5];
+                Email = ClientDetails[6] ?? "";
+                Mobile = ClientDetails[7] ?? "";
+                HomePhone = ClientDetails[8] ?? "";
+            }
+            catch (NullReferenceException) { }
         }
 
         #region Client Search
@@ -228,6 +247,14 @@ namespace JDGrooming
         private void cmb_DropDownClosed(object sender, EventArgs e)
         {
             // move this to multi vm approach
+            ClearSearch();
+        }
+        private void cmb_DropDownOpened(object sender, EventArgs e)
+        {
+            ClearSearch();
+        }
+        private void ClearSearch()
+        {
             Client_searchtext = "";
         }
         #endregion
@@ -239,10 +266,5 @@ namespace JDGrooming
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
         #endregion
-
-        private void cmb_Client_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }

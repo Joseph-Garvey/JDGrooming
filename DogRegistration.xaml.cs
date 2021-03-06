@@ -160,7 +160,7 @@ namespace JDGrooming
             BreedList = new ObservableCollection<string>(JDApp.query.GetBreeds());
             BreedIndex = -1;
             // change client search in future
-            ClientList = new ObservableCollection<string>(JDApp.query.GetClientsString());
+            ClientList = new ObservableCollection<string>(JDApp.query.GetClientStringShort());
             ClientIndex = -1;
             DOB = DateTime.Today;
             InitializeComponent();

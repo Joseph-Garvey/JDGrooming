@@ -64,7 +64,36 @@ namespace JDGrooming.Classes.Database_Management
             catch { }
             return image;
         }
-        public List<String> GetClientsString()
+        /// <summary>
+        /// Returns Client Details as list
+        /// </summary>
+        /// <param name="ClientString"></param>
+        /// <returns></returns>
+        public string[] GetClientString(String ClientString)
+        {
+            String[] client = new String[9];
+            try
+            {
+                int clientid = GetClientIDFromString(ClientString);
+                SqlDataReader reader = ReadDatabase("SELECT Surname, Forename, FirstLine, SecondLine, Town, Postcode, Email, HomePhone, Mobile FROM [Client] WHERE ID = " + clientid + " ;");
+                while (reader.Read())
+                {
+                    if (!reader.IsDBNull(0)) client[0] = (reader.GetString(0));
+                    if (!reader.IsDBNull(1)) client[1] = (reader.GetString(1));
+                    if (!reader.IsDBNull(2)) client[2] = (reader.GetString(2));
+                    if (!reader.IsDBNull(3)) client[3] = (reader.GetString(3));
+                    if (!reader.IsDBNull(4)) client[4] = (reader.GetString(4));
+                    if (!reader.IsDBNull(5)) client[5] = (reader.GetString(5));
+                    if (!reader.IsDBNull(6)) client[6] = (reader.GetString(6));
+                    if (!reader.IsDBNull(7)) client[7] = (reader.GetString(7));
+                    if (!reader.IsDBNull(8)) client[8] = (reader.GetString(8));
+                }
+                reader.Close();
+            }
+            catch { db.Rdr.Close(); }
+            return client;
+        }
+        public List<String> GetClientStringShort()
         {
             List<String> clients = new List<string> { };
             try
