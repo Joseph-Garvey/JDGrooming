@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -29,7 +30,7 @@ namespace JDGrooming
         private App JDApp { get => ((App)Application.Current); }
 
         private string forename;
-        private String Forename
+        public String Forename
         {
             get { return forename; }
             set
@@ -40,7 +41,7 @@ namespace JDGrooming
             }
         }
         private string surname;
-        private String Surname
+        public String Surname
         {
             get { return surname; }
             set
@@ -50,16 +51,94 @@ namespace JDGrooming
                 this.NotifyPropertyChanged("Surname");
             }
         }
-        /// <summary>
-        /// TODO Bindable properties
-        /// </summary>
+        private string firstline;
+        public String FirstLine
+        {
+            get { return firstline; }
+            set
+            {
+                if (firstline == value) return;
+                firstline = value;
+                this.NotifyPropertyChanged("FirstLine");
+            }
+        }
+        private string secondline;
+        public String SecondLine
+        {
+            get { return secondline; }
+            set
+            {
+                if (secondline == value) return;
+                secondline = value;
+                this.NotifyPropertyChanged("SecondLine");
+            }
+        }
+        private string postcode;
+        public String Postcode
+        {
+            get { return postcode; }
+            set
+            {
+                if (postcode == value) return;
+                postcode = value;
+                this.NotifyPropertyChanged("PostCode");
+            }
+        }
+        private string town;
+        public String Town
+        {
+            get { return town; }
+            set
+            {
+                if (town == value) return;
+                town = value;
+                this.NotifyPropertyChanged("Town");
+            }
+        }
+        private string email;
+        public String Email
+        {
+            get { return email; }
+            set
+            {
+                if (email == value) return;
+                email = value;
+                this.NotifyPropertyChanged("Email");
+            }
+        }
+        private string mobile;
+        public String Mobile
+        {
+            get { return mobile; }
+            set
+            {
+                if (mobile == value) return;
+                mobile = value;
+                this.NotifyPropertyChanged("Mobile");
+            }
+        }
+        private string homephone;
+        public String HomePhone
+        {
+            get { return homephone; }
+            set
+            {
+                if (homephone == value) return;
+                homephone = value;
+                this.NotifyPropertyChanged("HomePhone");
+            }
+        }
+
         #endregion
         public UpdateClient()
         {
             this.DataContext = this;
+            ClientList = new ObservableCollection<string>(JDApp.query.GetClientsString());
+            ClientIndex = -1;
             InitializeComponent();
-            ClientView.DataList = JDApp.query.FillClientTable();
-            ClientView.dataview.SelectionChanged += DataGrid_SelectionChanged;
+            // from datagrid implementation copy this to booking
+            //ClientView.DataList = JDApp.query.FillClientTable();
+            //ClientView.dataview.SelectionChanged += DataGrid_SelectionChanged;
         }
 
         private void VerifyText(object sender, TextChangedEventArgs e)
@@ -89,14 +168,69 @@ namespace JDGrooming
             chkBox.IsChecked = pass;
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        #region Client Search
+        private string clientinfo;
+        /// <summary>
+        /// Info of currently selected client
+        /// </summary>
+        public String ClientInfo
         {
-            try
+            get { return clientinfo; }
+            set
             {
-                object[] selectedrow = ClientView.SelectedItem;
+                if (clientinfo == value) return;
+                clientinfo = value;
+                this.NotifyPropertyChanged("ClientInfo");
             }
-            catch (NullReferenceException) { }
         }
+        private int clientindex;
+        /// <summary>
+        /// Selected index of client
+        /// </summary>
+        public int ClientIndex
+        {
+            get { return clientindex; }
+            set
+            {
+                if (clientindex == value) return;
+                clientindex = value;
+                this.NotifyPropertyChanged("ClientIndex");
+            }
+        }
+        private ObservableCollection<String> clientList;
+        public ObservableCollection<String> ClientList
+        {
+            get { return clientList; }
+            set
+            {
+                if (clientList == value) return;
+                clientList = value;
+                this.NotifyPropertyChanged("ClientList");
+            }
+        }
+        private string client_searchtext;
+        public string Client_searchtext
+        {
+            get { return client_searchtext; }
+            set
+            {
+                if (client_searchtext == value) return;
+                client_searchtext = value;
+                this.NotifyPropertyChanged("Client_searchtext");
+                cmb_Client.Items.Filter += FilterClient;
+            }
+        }
+        public bool FilterClient(object item)
+        {
+            return (((String)item).ToLowerInvariant()).Contains(Client_searchtext.ToLowerInvariant());
+        }
+        // end_client
+        private void cmb_DropDownClosed(object sender, EventArgs e)
+        {
+            // move this to multi vm approach
+            Client_searchtext = "";
+        }
+        #endregion
 
         #region PropertyChanged Event Handlers
         public event PropertyChangedEventHandler PropertyChanged;
@@ -105,5 +239,10 @@ namespace JDGrooming
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
         #endregion
+
+        private void cmb_Client_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -6,21 +6,18 @@
              xmlns:local="clr-namespace:JDGrooming"
              mc:Ignorable="d"
              >
-    <StackPanel Style="{StaticResource Horizontal}" Background="#121212">
-        <Border Style="{StaticResource brd_1}" Margin="5,5,2.5,5">
-            <local:Search_DataGrid x:Name="ClientView" Width="180"></local:Search_DataGrid>
-        </Border>
-        <StackPanel>
+    <StackPanel >
+        <StackPanel Background="#121212">
             <StackPanel.Resources>
                 <Style TargetType="Label" BasedOn="{StaticResource lbl_WhiteHeading}">
-                    <Setter Property="FontSize" Value="9"/>
-                    <Setter Property="Margin" Value="2"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Setter Property="Margin" Value="3"/>
                 </Style>
                 <Style TargetType="TextBox">
-                    <Setter Property="FontSize" Value="10"/>
-                    <Setter Property="Margin" Value="3"/>
+                    <Setter Property="FontSize" Value="13"/>
+                    <Setter Property="Margin" Value="5"/>
                     <Setter Property="BorderBrush" Value="Black"/>
-                    <Setter Property="Width" Value="90"/>
+                    <Setter Property="Width" Value="100"/>
                     <Setter Property="VerticalAlignment" Value="Center"/>
                 </Style>
             </StackPanel.Resources>
@@ -47,7 +44,18 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button Style="{StaticResource btnDark}" Grid.ColumnSpan="6" >Client Details:</Button>
+                    <Border Grid.ColumnSpan="6" BorderBrush="Black" BorderThickness="1">
+                        <Grid Grid.ColumnSpan="6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label FontSize="12" Margin="5,0,5,0">Client Details:</Label>
+                            <ComboBox x:Name="cmb_Client" Grid.Column="1" Margin="5" SelectedItem="{Binding ClientName}"
+                                  Style="{StaticResource Searchable}" DropDownClosed="cmb_DropDownClosed" SelectedIndex="{Binding ClientIndex}"
+                                  Text="{Binding Client_searchtext}" ItemsSource="{Binding ClientList}" SelectionChanged="cmb_Client_SelectionChanged"></ComboBox>
+                        </Grid>
+                    </Border>
                     <Label Grid.Row="1" Content="Forename*"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Name="txt_Forename"></TextBox>
                     <Label Grid.Row="1" Grid.Column="3" Content="Surname*"/>
@@ -67,9 +75,9 @@
                     <Label Grid.Row="7">Home Phone:</Label>
                     <TextBox Name="txt_HomePhone" TextChanged="VerifyText" Grid.Row="7" Grid.Column="1"></TextBox>
                     <CheckBox Grid.Row="7" Grid.Column="2" x:Name="chk_HomePhone" Style="{StaticResource Verification}"></CheckBox>
-                    <Label Grid.Row="8"  Width="Auto" Content="Mobile:"/>
-                    <TextBox Name="txt_Mobile" TextChanged="VerifyText" Grid.Row="8" Grid.Column="1"></TextBox>
-                    <CheckBox Grid.Row="8" Grid.Column="2" x:Name="chk_Mobile" Style="{StaticResource Verification}"></CheckBox>
+                    <Label Grid.Row="6" Grid.Column="3"  Width="Auto" Content="Mobile:"/>
+                    <TextBox Name="txt_Mobile" TextChanged="VerifyText" Grid.Row="6" Grid.Column="4"></TextBox>
+                    <CheckBox Grid.Row="6" Grid.Column="5" x:Name="chk_Mobile" Style="{StaticResource Verification}"></CheckBox>
                 </Grid>
             </Border>
             <Border Style="{StaticResource brd_1}" Margin="5,0,5,5">

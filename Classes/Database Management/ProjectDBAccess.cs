@@ -83,7 +83,7 @@ namespace JDGrooming.Classes.Database_Management
         }
         public DataView FillClientTable()
         {
-            return CreateDataView("SELECT ID, Surname, Forename, FirstLine + ' ' + SecondLine AS [Address], Town, Postcode, Email, HomePhone, Mobile FROM [Client]");
+            return CreateDataView("SELECT ID, Surname, Forename, FirstLine, SecondLine, Town, Postcode, Email, HomePhone, Mobile FROM [Client]");
         }
         public DataView FillDogTable()
         {
