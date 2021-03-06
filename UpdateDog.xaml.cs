@@ -186,12 +186,20 @@ namespace JDGrooming
                     String folder = Path.Combine(Environment.CurrentDirectory + @"/DogImages/");
                     if (File.Exists(Path.Combine(folder, DogImage))) { img_Dog.Img_Source = DogImage; }
                     else if (File.Exists(Path.Combine(folder, BreedImage))) { img_Dog.Img_Source = BreedImage; }
+                    else img_Dog.Img_Source = "";
                 }
-                catch
-                {
-                }
+                catch { }
             }
-            catch (NullReferenceException) { }
+            catch (NullReferenceException)
+            {
+                DogName = "";
+                Breed = "";
+                ClientName = "";
+                DOB = "";
+                DogInfo = "";
+                BreedInfo = "";
+                img_Dog.Img_Source = "";
+            }
         }
         #endregion
         #region PropertyChanged Event Handlers

@@ -50,10 +50,13 @@ namespace JDGrooming
             {
                 if (img_source == value) return;
                 img_source = value;
-                // fix all of this
-                Uri uri = new Uri("pack://siteoforigin:,,," + ImageDirectory + img_source);
-                Image = new BitmapImage(uri);
-                this.NotifyPropertyChanged("Img_Source");
+                if (img_source == "") { img_source = null; Image = null; }
+                else
+                {
+                    Uri uri = new Uri("pack://siteoforigin:,,," + ImageDirectory + img_source);
+                    Image = new BitmapImage(uri);
+                    this.NotifyPropertyChanged("Img_Source");
+                }
             }
         }
         public String ImageDirectory = "/DogImages/";
