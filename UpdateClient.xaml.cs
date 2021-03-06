@@ -141,6 +141,7 @@ namespace JDGrooming
             //ClientView.DataList = JDApp.query.FillClientTable();
             //ClientView.dataview.SelectionChanged += DataGrid_SelectionChanged;
         }
+        #region Events
 
         private void VerifyText(object sender, TextChangedEventArgs e)
         {
@@ -168,6 +169,7 @@ namespace JDGrooming
             }
             chkBox.IsChecked = pass;
         }
+
         private void cmb_Client_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -186,6 +188,18 @@ namespace JDGrooming
             }
             catch (NullReferenceException) { }
         }
+
+        private void btn_UpdateClientClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int id = JDApp.query.GetClientIDFromString(ClientInfo);
+                JDApp.query.UpdateClient(id.ToString(), Forename, Surname, FirstLine, SecondLine, Town, Postcode, Email, Mobile, HomePhone);
+                MessageBox.Show("Client Updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch { }
+        }
+        #endregion
 
         #region Client Search
         private string clientinfo;

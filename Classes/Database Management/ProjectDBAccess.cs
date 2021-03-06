@@ -75,7 +75,7 @@ namespace JDGrooming.Classes.Database_Management
             try
             {
                 int clientid = GetClientIDFromString(ClientString);
-                SqlDataReader reader = ReadDatabase("SELECT Surname, Forename, FirstLine, SecondLine, Town, Postcode, Email, HomePhone, Mobile FROM [Client] WHERE ID = " + clientid + " ;");
+                SqlDataReader reader = ReadDatabase("SELECT Forename, Surname, FirstLine, SecondLine, Town, Postcode, Email, HomePhone, Mobile FROM [Client] WHERE ID = " + clientid + " ;");
                 while (reader.Read())
                 {
                     if (!reader.IsDBNull(0)) client[0] = (reader.GetString(0));
@@ -133,8 +133,21 @@ namespace JDGrooming.Classes.Database_Management
                 return dt.DefaultView;
             }
         }
+        public void UpdateClient(string id, string forename, string surname, string firstline, string secondline, string town, string postcode, string email, string mobile, string homephone)
+        {
+            String Start = String.Format("UPDATE [Client] SET [Forename] = '{0}', [Surname] = '{1}', [FirstLine] = '{2}', [Town] = '{3}', [Postcode] = '{4}'",
+                forename, surname, firstline, town, postcode);
+            String SQL = Start;
+            if (secondline != "") { SQL += ", [SecondLine] = '" + secondline + "'"; }
+            if (email != "") { SQL += ", [Email] = '" + email + "'"; }
+            if (mobile != "") { SQL += ", [Mobile] = '" + mobile + "'"; }
+            if (homephone!= "") { SQL += ", [HomePhone] = '" + homephone + "'"; }
+            SQL += " WHERE [ID] = " + id + " ;";
+            QueryDatabase(SQL);
+            // secondline and contact are nullable
+        }
         /// <summary>
-        /// only update the changed field in future
+        /// only update the changed field in future + nullable values
         /// </summary>
         /// <param name="id"></param>
         /// <param name="name"></param>

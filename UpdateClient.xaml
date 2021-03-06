@@ -78,7 +78,7 @@
                     <Label Grid.Row="6" Grid.Column="3"  Width="Auto" Content="Mobile:"/>
                     <TextBox  Text="{Binding Mobile, UpdateSourceTrigger=PropertyChanged}" TextChanged="VerifyText" Grid.Row="6" Grid.Column="4"></TextBox>
                     <CheckBox Grid.Row="6" Grid.Column="5" x:Name="chk_Mobile" Style="{StaticResource Verification}"></CheckBox>
-                    
+                    <Button Style="{StaticResource btnDark}" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="3" Margin="10,5,10,5" Click="btn_UpdateClientClick" Background="#3f3f46">Update Client</Button>
                 </Grid>
             </Border>
             <Border Style="{StaticResource brd_1}" Margin="5,0,5,5">
