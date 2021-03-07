@@ -15,27 +15,16 @@
                     <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                 </Trigger>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="#FFBEE6FD"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF3C7FB1"/>
+                    <!--<Setter Property="Background" TargetName="border" Value="#3f3f36"/>-->
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="#FFC4E5F6"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF2C628B"/>
-                </Trigger>
-                <Trigger Property="ToggleButton.IsChecked" Value="True">
-                    <Setter Property="Background" TargetName="border" Value="#FFBCDDEE"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FF245A83"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" TargetName="border" Value="#FFF4F4F4"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="#FFADB2B5"/>
-                    <Setter Property="Foreground" Value="#FF838383"/>
+                    <Setter Property="Background" TargetName="border" Value="#3f3f36"/>
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </UserControl.Resources>
 
-    <Button Template="{StaticResource Template_MenuBtn}" Style="{StaticResource btnDark}" Padding="10,0,0,0" HorizontalAlignment="Stretch">
+    <Button Template="{StaticResource Template_MenuBtn}" Style="{StaticResource btnDark}" Padding="10,0,0,0" HorizontalContentAlignment="Stretch">
         <Expander>
             <Expander.Header>
                 <Grid VerticalAlignment="Center">
@@ -49,7 +38,7 @@
                     <Image Margin="0,20" Height="40" Source="{Binding Image}"></Image>
                 </Grid>
             </Expander.Header>
-            <ListView Background="#2d2d30" BorderThickness="0" ItemsSource="{Binding Items}">
+            <ListView SelectionMode="Single" Background="#2d2d30" BorderThickness="0" ItemsSource="{Binding Items}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Button Style="{StaticResource btnDark}" Height="20" Content="{Binding Item}"></Button>
