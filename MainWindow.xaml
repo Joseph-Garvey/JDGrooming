@@ -43,25 +43,76 @@
                 </Style>
             </StackPanel.Resources>
             <Button Name="BtnOpenMenu" Click="BtnOpenMenu_Click">
-                <Image Source="pack://siteoforigin:,,,/Icons/menu.png" Margin="0,20,0,20"></Image>
+                <Image Source="pack://siteoforigin:,,,/Icons/menu.png" Margin="10,20,0,20"></Image>
             </Button>
             <Button Name="BtnCloseMenu"  Visibility="Collapsed" Click="BtnCloseMenu_Click">
-                <Image Source="pack://siteoforigin:,,,/Icons/menu.png" Margin="0,20,0,20"></Image>
+                <Image Source="pack://siteoforigin:,,,/Icons/menu.png" Margin="10,20,0,20"></Image>
             </Button>
             <Button x:Name="btnBooking">
                 <Image Source="pack://siteoforigin:,,,/Icons/grooming.png" Margin="0,10,0,10"></Image>
             </Button>
-            <Button x:Name="btnAddDog">
-                <Image Source="pack://siteoforigin:,,,/Icons/dog.png" Margin="0,20,0,20"></Image>
-            </Button>
-            <Button x:Name="btnUpdateDog">Update Dog</Button>
-            <Button x:Name="btnUpdateClient">Update Client</Button>
             <Button x:Name="btnEmailTest">Test Email</Button>
             <!--I should add a plus button to the dog logo-->
-            <Button x:Name="btnAddClient">
-                <Image Source="pack://siteoforigin:,,,/Icons/client.png" Margin="0,15,0,15"></Image>
+            <Button Template="{StaticResource Template_MenuBtn}" Style="{StaticResource btnDark}" Padding="5,0,0,0" HorizontalContentAlignment="Stretch">
+                <Expander>
+                    <Expander.Header>
+                        <Grid VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Margin="0,20" Height="40" Source="pack://siteoforigin:,,,/Icons/client.png"></Image>
+                            <Label Grid.Column="1"  Margin="5" FontSize="20" Style="{StaticResource lbl_WhiteHeading}">Client</Label>
+                        </Grid>
+                    </Expander.Header>
+                    <ListView SelectionMode="Single" HorizontalContentAlignment="Stretch" Background="#2d2d30" BorderThickness="0" Margin="20,0,0,0">
+                        <ListView.Resources>
+                            <Style TargetType="Button" BasedOn="{StaticResource btnDark}">
+                                <Setter Property="Height" Value="20"></Setter>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <EventSetter Event="Click" Handler="Button_Click"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </ListView.Resources>
+                        <Button x:Name="btnUpdateClient">Update</Button>
+                        <Button x:Name="btnAddClient">Register</Button>
+                    </ListView>
+                </Expander>
             </Button>
-            <local:MenuButton Img_Source="dog.png" x:Name="btnUpdateDog2" ButtonBase.Click="BtnOpenMenu_Click"></local:MenuButton>
+            <Button Template="{StaticResource Template_MenuBtn}" Style="{StaticResource btnDark}" Padding="5,0,0,0" HorizontalContentAlignment="Stretch">
+                <Expander>
+                    <Expander.Header>
+                        <Grid VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Margin="0,20" Height="40" Source="pack://siteoforigin:,,,/Icons/dog.png"></Image>
+                            <Label Grid.Column="1"  Margin="5" FontSize="20" Style="{StaticResource lbl_WhiteHeading}">Dog</Label>
+                        </Grid>
+                    </Expander.Header>
+                    <ListView SelectionMode="Single" HorizontalContentAlignment="Stretch" Background="#2d2d30" BorderThickness="0" Margin="20,0,0,0">
+                        <ListView.Resources>
+                            <Style TargetType="Button" BasedOn="{StaticResource btnDark}">
+                                <Setter Property="Height" Value="20"></Setter>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <EventSetter Event="Click" Handler="Button_Click"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            </Style>
+                        </ListView.Resources>
+                        <Button x:Name="btnUpdateDog">Update</Button>
+                        <Button x:Name="btnAddDog">Register</Button>
+                    </ListView>
+                </Expander>
+            </Button>
         </StackPanel>
         <Viewbox Name="View" DockPanel.Dock="Bottom">
             <local:ClientRegistration></local:ClientRegistration>
