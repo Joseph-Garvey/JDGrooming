@@ -8,10 +8,7 @@
     <UserControl.Resources>
         <ControlTemplate x:Key="Template_MenuBtn" TargetType="{x:Type ButtonBase}">
             <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                    <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    <Expander></Expander>
-                </StackPanel>
+                <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="Button.IsDefaulted" Value="True">
@@ -37,6 +34,42 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </UserControl.Resources>
-    <Button Template="{StaticResource Template_MenuBtn}"
-            Height="80">Update Dog</Button>
+
+    <Button Template="{StaticResource Template_MenuBtn}" Style="{StaticResource btnDark}" Padding="10,0,0,0" HorizontalAlignment="Stretch">
+        <Expander>
+            <Expander.Header>
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image Margin="0,20" Height="40" Source="{Binding Image}"></Image>
+                </Grid>
+            </Expander.Header>
+            <ListView Background="#2d2d30" BorderThickness="0" ItemsSource="{Binding Items}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Button Style="{StaticResource btnDark}" Height="20" Content="{Binding Item}"></Button>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Expander>
+
+    </Button>
 </UserControl>
+<!-- Bind image to image after i get it working-->
+
+<!--<ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>-->
+<!--<Expander Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+
+                        <Expander.Header>
+                            <Label Style="{StaticResource lbl_WhiteHeading}">Dog</Label>
+                        </Expander.Header>
+                        <ListView Background="{TemplateBinding Background}" BorderThickness="0">
+                            <Button Style="{TemplateBinding Style}" BorderThickness="0">Update</Button>
+                            <Button Style="{TemplateBinding Style}" BorderThickness="0">Add</Button>
+                        </ListView>
+                    </Expander>-->

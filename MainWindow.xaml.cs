@@ -23,6 +23,7 @@ namespace JDGrooming
         public MainWindow()
         {
             InitializeComponent();
+            btnUpdateDog2.Items = new List<MenuItem> { new MenuItem("Update"), new MenuItem("Register") };
         }
 
         #region Button Events

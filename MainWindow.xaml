@@ -20,7 +20,6 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.25" Value="80"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
-
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="BtnOpenMenu">
@@ -62,6 +61,7 @@
             <Button x:Name="btnAddClient">
                 <Image Source="pack://siteoforigin:,,,/Icons/client.png" Margin="0,15,0,15"></Image>
             </Button>
+            <local:MenuButton Img_Source="dog.png" x:Name="btnUpdateDog2" ButtonBase.Click="BtnOpenMenu_Click"></local:MenuButton>
         </StackPanel>
         <Viewbox Name="View" DockPanel.Dock="Bottom">
             <local:ClientRegistration></local:ClientRegistration>
