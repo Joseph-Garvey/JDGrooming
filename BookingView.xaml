@@ -11,22 +11,22 @@
         <Border Background="#2d2d30" Height="40" BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Top">
             <StackPanel Style="{StaticResource HorizontalLeft}">
                 <Button Style="{StaticResource btnSimpleDark}">
-                    <Image Source="pack://siteoforigin:,,,/icons/Numbers/1_Filled.png" Margin="2"></Image>
+                    <Image x:Name="img_1" Source="pack://siteoforigin:,,,/icons/Numbers/1_Blank.png" Margin="2"></Image>
                 </Button>
                 <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18">Select Client</Label>
                 <Image Source="pack://siteoforigin:,,,/icons/Right_Arrow.png" Margin="2"></Image>
                 <Button Style="{StaticResource btnSimpleDark}">
-                    <Image Source="pack://siteoforigin:,,,/icons/Numbers/2_Filled.png" Margin="2"></Image>
+                    <Image x:Name="img_2" Source="pack://siteoforigin:,,,/icons/Numbers/2_Blank.png" Margin="2"></Image>
                 </Button>
                 <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18">Select Dog(s)</Label>
                 <Image Source="pack://siteoforigin:,,,/icons/Right_Arrow.png" Margin="2"></Image>
                 <Button Style="{StaticResource btnSimpleDark}">
-                    <Image Source="pack://siteoforigin:,,,/icons/Numbers/3_Filled.png" Margin="2"></Image>
+                    <Image x:Name="img_3" Source="pack://siteoforigin:,,,/icons/Numbers/3_Blank.png" Margin="2"></Image>
                 </Button>
                 <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18">Select Grooming Option</Label>
                 <Image Source="pack://siteoforigin:,,,/icons/Right_Arrow.png" Margin="2"></Image>
                 <Button Style="{StaticResource btnSimpleDark}">
-                    <Image Source="pack://siteoforigin:,,,/icons/Numbers/4_Filled.png" Margin="2"></Image>
+                    <Image x:Name="img_4" Source="pack://siteoforigin:,,,/icons/Numbers/4_Blank.png" Margin="2"></Image>
                 </Button>
                 <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18">Select Date + Time</Label>
             </StackPanel>

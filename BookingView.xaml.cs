@@ -27,6 +27,18 @@ namespace JDGrooming
             set
             {
                 UIView.Child = value;
+                switch (UIView.Child)
+                {
+                    case BookClient client:
+                        ChangeProgress(1);
+                        break;
+                    case BookDog dog:
+                        ChangeProgress(2);
+                        break;
+                    case BookGroom groom:
+                        ChangeProgress(3);
+                        break;
+                }
             }
         }
         private BookClient clientView;
@@ -105,6 +117,22 @@ namespace JDGrooming
             }
         }
 
+        private void ChangeProgress(int id) // maybe make it into a template of a progress bar in future
+        {
+            if(id != 1) SetImage(img_1, "1_Blank.png");
+            else { SetImage(img_1, "1_Filled.png"); }
+            if (id != 2) SetImage(img_2, "2_Blank.png");
+            else { SetImage(img_2, "2_Filled.png"); }
+            if (id != 3) SetImage(img_3, "3_Blank.png");
+            else { SetImage(img_3, "3_Filled.png"); }
+            if (id != 4) SetImage(img_4, "4_Blank.png");
+            else { SetImage(img_4, "4_Filled.png"); }
+        }
+        private void SetImage(Image image, String source)
+        {
+            Uri uri = new Uri("pack://siteoforigin:,,,/Icons/Numbers/" +source);
+            image.Source = new BitmapImage(uri);
+        }
         #region PropertyChanged Event Handlers
         public event PropertyChangedEventHandler PropertyChanged;
         public void NotifyPropertyChanged(string propName)
