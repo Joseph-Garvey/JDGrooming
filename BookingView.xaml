@@ -34,13 +34,13 @@
 
         <!-- Bottom Bar -->
         <DockPanel HorizontalAlignment="Stretch" DockPanel.Dock="Bottom" Background="#2d2d30">
-            <Button DockPanel.Dock="Left" HorizontalAlignment="Left" Style="{StaticResource btnDark}" Padding="10,5" Click="Next">
+            <Button DockPanel.Dock="Left" HorizontalAlignment="Left" Style="{StaticResource btnDark}" Padding="10,5" Click="Previous">
                 <StackPanel Style="{StaticResource HorizontalCentred}">
                     <Image Source="pack://siteoforigin:,,,/Icons/previous.png" Height="30"></Image>
                     <Label FontSize="18" Style="{StaticResource lbl_WhiteHeading}">Previous</Label>
                 </StackPanel>
             </Button>
-            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Style="{StaticResource btnDark}" FontSize="18" Padding="10,5">
+            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Style="{StaticResource btnDark}" Padding="10,5" Click="Next">
                 <StackPanel Style="{StaticResource HorizontalCentred}">
                     <Label FontSize="18" Style="{StaticResource lbl_WhiteHeading}">Next</Label>
                     <Image Source="pack://siteoforigin:,,,/Icons/next.png" Height="30"></Image>

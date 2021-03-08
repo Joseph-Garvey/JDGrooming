@@ -24,7 +24,10 @@ namespace JDGrooming
         public UserControl View
         {
             get { return (UserControl)UIView.Child; }
-            set { UIView.Child = value; }
+            set
+            {
+                UIView.Child = value;
+            }
         }
         private BookClient clientView;
         public BookClient ClientView
@@ -37,17 +40,69 @@ namespace JDGrooming
                 this.NotifyPropertyChanged("ClientView");
             }
         }
+        private BookDog dogView;
+        public BookDog DogView
+        {
+            get { return dogView; }
+            set
+            {
+                if (dogView == value) return;
+                dogView = value;
+                this.NotifyPropertyChanged("DogView");
+            }
+        }
 
         public BookingView()
         {
-            ClientView = new BookClient();
-            View = ClientView;
             InitializeComponent();
+            ShowClientBooking();
         }
 
         private void Next(object sender, RoutedEventArgs e)
         {
+            switch (View)
+            {
+                case BookClient client:
+                    object[] obj = client.SelectedItem; // fix null check
+                    int ID = int.Parse(client.SelectedItem[0].ToString());
+                    ShowDogBooking(ID);
+                    break;
+                case BookDog dog:
 
+                    break;
+            }
+        }
+
+        private void Previous(object sender, RoutedEventArgs e)
+        {
+            switch (View)
+            {
+                case BookDog dog:
+                    ShowClientBooking();
+                    break;
+            }
+        }
+
+        private void ShowClientBooking()
+        {
+            try
+            {
+                ClientView = new BookClient();
+                View = ClientView;
+            }
+            catch { }
+        }
+        private void ShowDogBooking(int ID)
+        {
+            try
+            {
+                DogView = new BookDog(ID);
+                View = DogView;
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Please select a client from the list.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         #region PropertyChanged Event Handlers
@@ -57,13 +112,5 @@ namespace JDGrooming
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
         #endregion
-    }
-
-    public enum BookingStatus
-    {
-        Client,
-        Dog,
-        Option,
-        Date
     }
 }

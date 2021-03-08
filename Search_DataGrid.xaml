@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:JDGrooming"
-             mc:Ignorable="d"
+             mc:Ignorable="d" MaxHeight="355"
              >
     <StackPanel>
         <Grid Margin="5">
@@ -17,10 +17,10 @@
                      Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
         <!-- fix appearance later -->
-        <DataGrid Name="dataview" Margin="5,0,5,5" BorderBrush="Black"
+        <DataGrid Name="dataview" Margin="5,0,5,10" BorderBrush="Black"
                           ItemsSource="{Binding DataList}" Width="600"
                           IsReadOnly="True" SelectionMode="Single"
-                  FontSize="18">
+                  FontSize="14" AutoGenerateColumns="True">
         </DataGrid>
     </StackPanel>
 </UserControl>

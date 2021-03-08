@@ -76,6 +76,12 @@
     <Compile Include="BookClient.xaml.cs">
       <DependentUpon>BookClient.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BookDog.xaml.cs">
+      <DependentUpon>BookDog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BookGroom.xaml.cs">
+      <DependentUpon>BookGroom.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BookingView.xaml.cs">
       <DependentUpon>BookingView.xaml</DependentUpon>
     </Compile>
@@ -106,6 +112,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BookClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BookDog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BookGroom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

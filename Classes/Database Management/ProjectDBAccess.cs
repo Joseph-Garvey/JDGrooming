@@ -110,9 +110,18 @@ namespace JDGrooming.Classes.Database_Management
             int id = int.Parse(input.Substring(0, input.IndexOf(' ')));
             return id;
         }
+        public DataView FillClientDogTable(int id)
+        {
+            return CreateDataView("SELECT [Dog].ID, [Dog].[Name], [Breed].[Name] AS Breed, " +
+        "DOB FROM [Dog] " +
+        "INNER JOIN [Client] ON [Dog].ClientID = [Client].Id " +
+        "INNER JOIN [Breed] ON [Dog].BreedName = [Breed].Name " +
+        "WHERE [Client].ID = " + id.ToString() + " " +
+        "AND Status = 1 ;");
+        }
         public DataView FillClientTable()
         {
-            return CreateDataView("SELECT ID, Surname, Forename, FirstLine, SecondLine, Town, Postcode, Email, HomePhone, Mobile FROM [Client]");
+            return CreateDataView("SELECT [ID], [Surname] + ' ' + [Forename] AS Name, FirstLine + ', ' + SecondLine AS Address, Town, Postcode, Email, HomePhone, Mobile FROM [Client]");
         }
         public DataView FillDogTable()
         {

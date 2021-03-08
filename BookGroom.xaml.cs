@@ -16,19 +16,13 @@ using System.Windows.Shapes;
 namespace JDGrooming
 {
     /// <summary>
-    /// Interaction logic for BookClient.xaml
+    /// Interaction logic for BookGroom.xaml
     /// </summary>
-    public partial class BookClient : UserControl
+    public partial class BookGroom : UserControl
     {
-        public App JDApp { get => ((App)Application.Current); }
-
-        public object[] SelectedItem { get => ClientData.SelectedItem; }
-
-        public BookClient()
+        public BookGroom()
         {
-            this.DataContext = this; 
             InitializeComponent();
-            ClientData.DataList = JDApp.query.FillClientTable();
         }
     }
 }
