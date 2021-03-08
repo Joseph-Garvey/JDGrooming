@@ -20,6 +20,8 @@ namespace JDGrooming
     /// </summary>
     public partial class MainWindow : Window
     {
+        private BookingView Booking { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -50,6 +52,7 @@ namespace JDGrooming
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (Dock_Window.Children.Contains(Booking)) { Dock_Window.Children.Remove(Booking); }
             // try user control v window
             // grid v viewbox v stackpanel
             switch (((Button)sender).Name)
