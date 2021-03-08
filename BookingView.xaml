@@ -34,7 +34,7 @@
 
         <!-- Bottom Bar -->
         <DockPanel HorizontalAlignment="Stretch" DockPanel.Dock="Bottom" Background="#2d2d30">
-            <Button DockPanel.Dock="Left" HorizontalAlignment="Left" Style="{StaticResource btnDark}" Padding="10,5">
+            <Button DockPanel.Dock="Left" HorizontalAlignment="Left" Style="{StaticResource btnDark}" Padding="10,5" Click="Next">
                 <StackPanel Style="{StaticResource HorizontalCentred}">
                     <Image Source="pack://siteoforigin:,,,/Icons/previous.png" Height="30"></Image>
                     <Label FontSize="18" Style="{StaticResource lbl_WhiteHeading}">Previous</Label>
@@ -49,8 +49,6 @@
         </DockPanel>
 
         <!-- Viewable Area -->
-        <Viewbox VerticalAlignment="Top">
-            <local:BookClient></local:BookClient>
-        </Viewbox>
+        <Viewbox x:Name="UIView" VerticalAlignment="Top"/>
     </DockPanel>
 </UserControl>

@@ -85,11 +85,11 @@ namespace JDGrooming
         }
 
         #region Methods
-        public void FilterDog(object sender, FilterEventArgs e)
+        public void Filter(object sender, FilterEventArgs e)
         {
             var item = e.Item;
         }
-        public bool FilterDog(object item)
+        public bool Filter(object item)
         {
             var items = item;
             return (((String)item).ToLowerInvariant()).Contains(SearchText.ToLowerInvariant());

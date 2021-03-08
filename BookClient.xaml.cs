@@ -20,8 +20,14 @@ namespace JDGrooming
     /// </summary>
     public partial class BookClient : UserControl
     {
+        public App JDApp { get => ((App)Application.Current); }
+
+        public object[] SelectedItem { get => ClientData.SelectedItem; }
+
         public BookClient()
         {
+            this.DataContext = this;
+            ClientData.DataList = JDApp.query.FillClientTable();
             InitializeComponent();
         }
     }

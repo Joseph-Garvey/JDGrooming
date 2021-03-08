@@ -7,6 +7,6 @@
              mc:Ignorable="d"
              >
     <Border Style="{StaticResource brd_1}" Margin="5">
-        <local:Search_DataGrid></local:Search_DataGrid>
+        <local:Search_DataGrid x:Name="ClientData"></local:Search_DataGrid>
     </Border>
 </UserControl>
