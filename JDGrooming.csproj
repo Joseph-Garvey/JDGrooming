@@ -76,9 +76,6 @@
     <Compile Include="BookClient.xaml.cs">
       <DependentUpon>BookClient.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BookingProgress.xaml.cs">
-      <DependentUpon>BookingProgress.xaml</DependentUpon>
-    </Compile>
     <Compile Include="BookingView.xaml.cs">
       <DependentUpon>BookingView.xaml</DependentUpon>
     </Compile>
@@ -109,10 +106,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BookClient.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="BookingProgress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

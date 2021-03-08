@@ -7,8 +7,32 @@
              mc:Ignorable="d" Background="#121212"
             >
     <DockPanel>
-        <local:BookingProgress DockPanel.Dock="Top"></local:BookingProgress> <!--Replace after-->
+        <!-- Progress Bar -->
+        <Border Background="#2d2d30" Height="40" BorderThickness="1" BorderBrush="Black" DockPanel.Dock="Top">
+            <StackPanel Style="{StaticResource HorizontalLeft}">
+                <Button Style="{StaticResource btnSimpleDark}">
+                    <Image Source="pack://siteoforigin:,,,/icons/Numbers/1_Filled.png" Margin="2"></Image>
+                </Button>
+                <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18">Select Client</Label>
+                <Image Source="pack://siteoforigin:,,,/icons/Right_Arrow.png" Margin="2"></Image>
+                <Button Style="{StaticResource btnSimpleDark}">
+                    <Image Source="pack://siteoforigin:,,,/icons/Numbers/2_Filled.png" Margin="2"></Image>
+                </Button>
+                <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18">Select Dog(s)</Label>
+                <Image Source="pack://siteoforigin:,,,/icons/Right_Arrow.png" Margin="2"></Image>
+                <Button Style="{StaticResource btnSimpleDark}">
+                    <Image Source="pack://siteoforigin:,,,/icons/Numbers/3_Filled.png" Margin="2"></Image>
+                </Button>
+                <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18">Select Grooming Option</Label>
+                <Image Source="pack://siteoforigin:,,,/icons/Right_Arrow.png" Margin="2"></Image>
+                <Button Style="{StaticResource btnSimpleDark}">
+                    <Image Source="pack://siteoforigin:,,,/icons/Numbers/4_Filled.png" Margin="2"></Image>
+                </Button>
+                <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18">Select Date + Time</Label>
+            </StackPanel>
+        </Border>
 
+        <!-- Bottom Bar -->
         <DockPanel HorizontalAlignment="Stretch" DockPanel.Dock="Bottom" Background="#2d2d30">
             <Button DockPanel.Dock="Left" HorizontalAlignment="Left" Style="{StaticResource btnDark}" Padding="10,5">
                 <StackPanel Style="{StaticResource HorizontalCentred}">
@@ -23,6 +47,8 @@
                 </StackPanel>
             </Button>
         </DockPanel>
+
+        <!-- Viewable Area -->
         <Viewbox VerticalAlignment="Top">
             <local:BookClient></local:BookClient>
         </Viewbox>
