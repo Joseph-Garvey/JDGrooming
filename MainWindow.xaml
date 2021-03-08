@@ -1,7 +1,7 @@
 ﻿<Window x:Class="JDGrooming.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JDGrooming"
         mc:Ignorable="d"
@@ -43,10 +43,30 @@
                 </Style>
             </StackPanel.Resources>
             <Button Name="BtnOpenMenu" Click="BtnOpenMenu_Click">
-                <Image Source="pack://siteoforigin:,,,/Icons/menu.png" Margin="10,20,0,20"></Image>
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="pack://siteoforigin:,,,/Icons/menu.png" Margin="10,20,0,20" Height="38"></Image>
+                    <Label Grid.Column="1"  Margin="5" FontSize="20" Style="{StaticResource lbl_WhiteHeading}">Menu</Label>
+                </Grid>
             </Button>
             <Button Name="BtnCloseMenu"  Visibility="Collapsed" Click="BtnCloseMenu_Click">
-                <Image Source="pack://siteoforigin:,,,/Icons/menu.png" Margin="10,20,0,20"></Image>
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="pack://siteoforigin:,,,/Icons/menu.png" Margin="10,20,0,20" Height="38"></Image>
+                    <Label Grid.Column="1"  Margin="5" FontSize="20" Style="{StaticResource lbl_WhiteHeading}">Menu</Label>
+                </Grid>
             </Button>
             <Button x:Name="btnBooking">
                 <Image Source="pack://siteoforigin:,,,/Icons/grooming.png" Margin="0,10,0,10"></Image>
