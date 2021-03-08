@@ -70,13 +70,9 @@ namespace JDGrooming
                     View.Child = new _2FA_Test();
                     break;
                 case "btnBooking":
-                    //fix this later
-                    BookingProgress b = new BookingProgress();
-
-                    DockPanel.SetDock(b, Dock.Top);
+                    View.Child = null;
+                    BookingView b = new BookingView();
                     Dock_Window.Children.Add(b);
-                    Dock_Window.Visibility = Visibility.Collapsed;
-                    Dock_Window.Visibility = Visibility.Visible;
                     break;
             }
         }

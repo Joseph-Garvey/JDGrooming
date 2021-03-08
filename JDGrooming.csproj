@@ -73,8 +73,14 @@
     <Compile Include="2FA Test.xaml.cs">
       <DependentUpon>2FA Test.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BookClient.xaml.cs">
+      <DependentUpon>BookClient.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BookingProgress.xaml.cs">
       <DependentUpon>BookingProgress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BookingView.xaml.cs">
+      <DependentUpon>BookingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Email.cs" />
     <Compile Include="ImageManager.xaml.cs">
@@ -102,7 +108,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="BookClient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BookingProgress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BookingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -203,6 +217,9 @@
     <Content Include="Icons\grooming.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Icons\next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icons\Numbers\1_Blank.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -231,6 +248,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\Numbers\5_Filled.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\previous.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\Right_Arrow.png">

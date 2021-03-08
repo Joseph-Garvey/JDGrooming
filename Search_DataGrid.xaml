@@ -12,15 +12,15 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Style="{StaticResource lbl_WhiteHeading}">Search:</Label>
-            <TextBox Grid.Column="1"
+            <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18">Search:</Label>
+            <TextBox Grid.Column="1" FontSize="18"
                      Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
         <!-- fix appearance later -->
         <DataGrid Name="dataview" Margin="5,0,5,5" BorderBrush="Black"
-                          ItemsSource="{Binding DataList}" Width="250"
+                          ItemsSource="{Binding DataList}" Width="600"
                           IsReadOnly="True" SelectionMode="Single"
-                  FontSize="8">
+                  FontSize="18">
         </DataGrid>
     </StackPanel>
 </UserControl>
