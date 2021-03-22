@@ -54,7 +54,7 @@ namespace JDGrooming
             }
         }
 
-        public object[] SelectedItem { get => ((DataRowView)dataview.SelectedItem).Row.ItemArray; }
+        public object[] SelectedItem { get => ((DataRowView)dataview.SelectedItem).Row.ItemArray; } // fix null ref exception on button click
 
         // old way?
 

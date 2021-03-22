@@ -35,7 +35,7 @@ namespace JDGrooming
                     case BookDog dog:
                         ChangeProgress(2);
                         break;
-                    case BookGroom groom:
+                    case BookService service:
                         ChangeProgress(3);
                         break;
                 }
@@ -63,6 +63,17 @@ namespace JDGrooming
                 this.NotifyPropertyChanged("DogView");
             }
         }
+        private BookService serviceView;
+        public BookService ServiceView
+        {
+            get { return serviceView; }
+            set
+            {
+                if (serviceView == value) return;
+                serviceView = value;
+                this.NotifyPropertyChanged("ServiceView");
+            }
+        }
 
         public BookingView()
         {
@@ -75,12 +86,10 @@ namespace JDGrooming
             switch (View)
             {
                 case BookClient client:
-                    object[] obj = client.SelectedItem; // fix null check
-                    int ID = int.Parse(client.SelectedItem[0].ToString());
-                    ShowDogBooking(ID);
+                    ShowDogBooking(int.Parse(client.SelectedItem[0].ToString()));
                     break;
                 case BookDog dog:
-
+                    ShowServices(int.Parse(dog.SelectedItem[0].ToString()));
                     break;
             }
         }
@@ -102,7 +111,7 @@ namespace JDGrooming
                 ClientView = new BookClient();
                 View = ClientView;
             }
-            catch { }
+            catch { MessageBox.Show("An error has occurred.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
         private void ShowDogBooking(int ID)
         {
@@ -114,6 +123,22 @@ namespace JDGrooming
             catch (NullReferenceException)
             {
                 MessageBox.Show("Please select a client from the list.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        /// <summary>
+        /// Displays the service selection view
+        /// </summary>
+        /// <param name="ID">ID belonging to Dog</param>
+        private void ShowServices(int ID)
+        {
+            try
+            {
+                ServiceView = new BookService(ID);
+                View = ServiceView;
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Please select a dog from the list.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

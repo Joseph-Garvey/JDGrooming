@@ -16,11 +16,15 @@ using System.Windows.Shapes;
 namespace JDGrooming
 {
     /// <summary>
-    /// Interaction logic for BookGroom.xaml
+    /// Interaction logic for BookService.xaml
     /// </summary>
-    public partial class BookGroom : UserControl
+    public partial class BookService : UserControl
     {
-        public BookGroom()
+        /// <summary>
+        /// ID of dog to be booked.
+        /// </summary>
+        /// <param name="ID"></param>
+        public BookService(int ID)
         {
             InitializeComponent();
         }
