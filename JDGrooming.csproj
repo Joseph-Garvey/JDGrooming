@@ -86,6 +86,7 @@
       <DependentUpon>BookService.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Email.cs" />
+    <Compile Include="Classes\Service.cs" />
     <Compile Include="ImageManager.xaml.cs">
       <DependentUpon>ImageManager.xaml</DependentUpon>
     </Compile>

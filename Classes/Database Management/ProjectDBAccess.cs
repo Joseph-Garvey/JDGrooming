@@ -190,6 +190,40 @@ namespace JDGrooming.Classes.Database_Management
             return results;
         }
 
+        /// <summary>
+        /// Checks if this is the dog's first time with JDGrooming
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool CheckFirstAppointment(int id)
+        {
+            bool first = true;
+            // put in try catch??
+            try
+            {
+                SqlDataReader reader = ReadDatabase("SELECT COUNT([DogID]) FROM [Appointment] WHERE [DogID] = " + id + " ;");
+                while((reader.Read())) if(reader.GetInt32(0) > 0) { first = false; }
+            }
+            catch { db.Rdr.Close(); }
+            return first;
+        }
+        public List<Service> GetServices()
+        {
+            List<Service> services = new List<Service> { };
+            try
+            {
+                SqlDataReader reader = ReadDatabase("SELECT * FROM [Service];");
+                while (reader.Read())
+                {
+                    Service s = new Service(reader.GetString(0), reader.GetTimeSpan(1), (reader.GetSqlMoney(2)).ToDouble());
+                    services.Add(s);
+                }
+                reader.Close();
+            }
+            catch { db.Rdr.Close(); }
+            return services;
+        }
+
         public void RegisterClient(String Forename, String Surname, String FirstLine, String SecondLine, String Postcode, String Town, String Email, String Mobile, String HomePhone)
         {
             // add letter validation for names etc
