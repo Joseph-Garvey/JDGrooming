@@ -85,6 +85,9 @@
     <Compile Include="BookService.xaml.cs">
       <DependentUpon>BookService.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BookTime.xaml.cs">
+      <DependentUpon>BookTime.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Email.cs" />
     <Compile Include="Classes\Service.cs" />
     <Compile Include="ImageManager.xaml.cs">
@@ -125,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BookService.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BookTime.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

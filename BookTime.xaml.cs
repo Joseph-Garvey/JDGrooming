@@ -16,22 +16,17 @@ using System.Windows.Shapes;
 namespace JDGrooming
 {
     /// <summary>
-    /// Interaction logic for BookDog.xaml
+    /// Interaction logic for BookTime.xaml
     /// </summary>
-    public partial class BookDog : UserControl
+    public partial class BookTime : UserControl
     {
-        public App JDApp { get => ((App)Application.Current); }
-
-        public object[] SelectedItem { get => DogData.SelectedItem; }
-
         public int ClientID { get; set; }
+        public int DogID { get; set; }
+        public String SelectedService { get; set; }
 
-        public BookDog(int ClientID)
+        public BookTime(int ClientID, int DogID, String SelectedService)
         {
-            this.ClientID = ClientID;
-            this.DataContext = this;
             InitializeComponent();
-            DogData.DataList = JDApp.query.FillClientDogTable(ClientID);
         }
     }
 }

@@ -207,9 +207,9 @@ namespace JDGrooming.Classes.Database_Management
             catch { db.Rdr.Close(); }
             return first;
         }
-        public List<Service> GetServices()
+        public ObservableCollection<Service> GetServices()
         {
-            List<Service> services = new List<Service> { };
+            ObservableCollection<Service> services = new ObservableCollection<Service> { };
             try
             {
                 SqlDataReader reader = ReadDatabase("SELECT * FROM [Service];");

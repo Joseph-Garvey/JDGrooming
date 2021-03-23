@@ -74,8 +74,8 @@ namespace JDGrooming
                     break;
                 case "btnBooking":
                     View.Child = null;
-                    BookingView b = new BookingView();
-                    Dock_Window.Children.Add(b);
+                    Booking = new BookingView();
+                    Dock_Window.Children.Add(Booking);
                     break;
             }
         }

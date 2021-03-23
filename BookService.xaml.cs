@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using JDGrooming.Classes;
+using System.Data;
+using System.Collections.ObjectModel;
 
 namespace JDGrooming
 {
@@ -26,8 +28,8 @@ namespace JDGrooming
 
         private TimeSpan FirstAppointmentOffset = new TimeSpan(0,15,0);
 
-        private List<Service> services;
-        public List<Service> Services
+        private ObservableCollection<Service> services;
+        public ObservableCollection<Service> Services
         {
             get { return services; }
             set
@@ -37,22 +39,28 @@ namespace JDGrooming
                 this.NotifyPropertyChanged("Services");
             }
         }
+
+        public int DogID { get; set; }
+        public int ClientID { get; set; }
+        public String SelectedService { get => ((Service)data_Services.SelectedItem).Name; }
         /// <summary>
         /// ID of dog to be booked.
         /// </summary>
-        /// <param name="ID"></param>
-        public BookService(int ID)
+        /// <param name="DogID"></param>
+        public BookService(int DogID, int ClientID)
         {
-            InitializeComponent();
             this.DataContext = this;
-            Services = JDApp.query.GetServices();
-            if (JDApp.query.CheckFirstAppointment(ID))
+            this.DogID = DogID;
+            this.ClientID = ClientID;
+            this.Services = JDApp.query.GetServices();
+            if (JDApp.query.CheckFirstAppointment(DogID))
             {
-                foreach(Service s in Services)
+                foreach (Service s in Services)
                 {
                     s.Duration += FirstAppointmentOffset;
                 }
             }
+            InitializeComponent();
         }
 
         #region NotifyPropertyChanged

@@ -74,6 +74,17 @@ namespace JDGrooming
                 this.NotifyPropertyChanged("ServiceView");
             }
         }
+        private BookTime timeView;
+        public BookTime TimeView
+        {
+            get { return timeView; }
+            set
+            {
+                if (timeView == value) return;
+                timeView = value;
+                this.NotifyPropertyChanged("TimeView");
+            }
+        }
 
         public BookingView()
         {
@@ -89,7 +100,10 @@ namespace JDGrooming
                     ShowDogBooking(int.Parse(client.SelectedItem[0].ToString()));
                     break;
                 case BookDog dog:
-                    ShowServices(int.Parse(dog.SelectedItem[0].ToString()));
+                    ShowServices(int.Parse(dog.SelectedItem[0].ToString()), dog.ClientID);
+                    break;
+                case BookService service:
+                    ShowTimes(service.DogID, service.ClientID, service.SelectedService);
                     break;
             }
         }
@@ -100,6 +114,12 @@ namespace JDGrooming
             {
                 case BookDog dog:
                     ShowClientBooking();
+                    break;
+                case BookService service:
+                    ShowDogBooking(service.ClientID);
+                    break;
+                case BookTime time:
+                    ShowServices(time.DogID, time.ClientID);
                     break;
             }
         }
@@ -113,11 +133,15 @@ namespace JDGrooming
             }
             catch { MessageBox.Show("An error has occurred.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
-        private void ShowDogBooking(int ID)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="ClientID"></param>
+        private void ShowDogBooking(int ClientID)
         {
             try
             {
-                DogView = new BookDog(ID);
+                DogView = new BookDog(ClientID);
                 View = DogView;
             }
             catch (NullReferenceException)
@@ -128,17 +152,35 @@ namespace JDGrooming
         /// <summary>
         /// Displays the service selection view
         /// </summary>
-        /// <param name="ID">ID belonging to Dog</param>
-        private void ShowServices(int ID)
+        /// <param name="DogID">ID belonging to Dog</param>
+        private void ShowServices(int DogID, int ClientID)
         {
             try
             {
-                ServiceView = new BookService(ID);
+                ServiceView = new BookService(DogID, ClientID);
                 View = ServiceView;
             }
             catch (NullReferenceException)
             {
                 MessageBox.Show("Please select a dog from the list.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="DogID"></param>
+        /// <param name="ClientID"></param>
+        /// <param name="GroomingOption"></param>
+        private void ShowTimes(int DogID, int ClientID, String GroomingOption)
+        {
+            try
+            {
+                TimeView = new BookTime(ClientID, DogID, GroomingOption);
+                View = TimeView;
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Please select an option from the list.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
