@@ -189,7 +189,23 @@ namespace JDGrooming.Classes.Database_Management
             catch { db.Rdr.Close(); }
             return results;
         }
-
+        public List<Staff> GetStaff()
+        {
+            List<Staff> results = new List<Staff> { };
+            try
+            {
+                SqlDataReader reader = ReadDatabase("SELECT * FROM [Staff]");
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);
+                    string name = reader.GetString(3);
+                    results.Add(new Staff(id, name));
+                }
+                reader.Close();
+            }
+            catch { db.Rdr.Close(); }
+            return results;
+        }
         /// <summary>
         /// Checks if this is the dog's first time with JDGrooming
         /// </summary>

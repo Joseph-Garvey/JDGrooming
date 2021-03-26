@@ -73,6 +73,22 @@ namespace JDGrooming
                 //{
                 //    query.QueryDatabase("INSERT INTO [Breed] (Name) VALUES ('" + lines[i] + "');");
                 //}
+                query.QueryDatabase("DELETE FROM [Shift]");
+                foreach (JDGrooming.Classes.Staff s in query.GetStaff())
+                {
+                    DateTime startime = DateTime.Today.AddHours(9);
+                    DateTime endtime = startime.AddHours(8);
+                    if (s.Name == "Jane")
+                    {
+                        endtime = endtime.AddHours(-4);
+                    }
+                    for (int i = 1; i <= 5; i++)
+                    {
+                        String str = $"INSERT INTO [Shift] ([StaffID], [Day], [StartTime], [EndTime]) VALUES ({s.ID}, {i}, '{startime.TimeOfDay}', '{endtime.TimeOfDay}');";
+                        query.QueryDatabase(str);
+                    }
+
+                }
                 #endregion
             }
             catch (TaskCanceledException) { }
