@@ -73,6 +73,9 @@
     <Compile Include="2FA Test.xaml.cs">
       <DependentUpon>2FA Test.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Availability Calendar.xaml.cs">
+      <DependentUpon>Availability Calendar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BookClient.xaml.cs">
       <DependentUpon>BookClient.xaml</DependentUpon>
     </Compile>
@@ -89,6 +92,7 @@
       <DependentUpon>BookTime.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Email.cs" />
+    <Compile Include="Classes\RedLetterDayConverter.cs" />
     <Compile Include="Classes\Service.cs" />
     <Compile Include="Classes\Staff.cs" />
     <Compile Include="ImageManager.xaml.cs">
@@ -116,6 +120,10 @@
       <DependentUpon>UpdateDog.xaml</DependentUpon>
     </Compile>
     <Page Include="2FA Test.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Availability Calendar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,7 +6,15 @@
              xmlns:local="clr-namespace:JDGrooming"
              mc:Ignorable="d"
              >
-    <Grid>
-        <Button>STAFF MANAGEMENT</Button>
-    </Grid>
+    <StackPanel Style="{StaticResource Horizontal}">
+        <Border Style="{StaticResource brd_1}">
+            <DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding ID}"></DataGridTextColumn>
+                    <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </StackPanel>
 </UserControl>
