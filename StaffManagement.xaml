@@ -8,11 +8,32 @@
              >
     <StackPanel Style="{StaticResource Horizontal}">
         <Border Style="{StaticResource brd_1}">
-            <DataGrid>
+            <DataGrid x:Name="data_Staff" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding ID}"></DataGridTextColumn>
                     <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
-
+                    <DataGridTextColumn IsReadOnly="True" Header="Role" Binding="{Binding Role}"></DataGridTextColumn>
+                    <DataGridComboBoxColumn Header="Monday Start" SelectedItemBinding="{Binding Monday_Start}">
+                        <DataGridComboBoxColumn.ElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.ElementStyle>
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="End" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Monday_End}"></DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="Tuesday Start" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Tuesday_Start}"></DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="End" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Tuesday_End}"></DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="Wednesday Start" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Wednesday_Start}"></DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="End" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Wednesday_End}"></DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="Thursday Start" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Thursday_Start}"></DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="End" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Thursday_End}"></DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="Friday Start" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Friday_Start}"></DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="End" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Friday_End}"></DataGridComboBoxColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

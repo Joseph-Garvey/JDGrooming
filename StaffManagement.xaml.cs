@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using JDGrooming.Classes;
 
 namespace JDGrooming
 {
@@ -20,9 +22,14 @@ namespace JDGrooming
     /// </summary>
     public partial class StaffManagement : UserControl
     {
+        public App JDApp { get => ((App)Application.Current); }
+
         public StaffManagement()
         {
             InitializeComponent();
+            data_Staff.ItemsSource = JDApp.query.GetShifts();
         }
+
+        public ObservableCollection<Staff> StaffList { get; set; }
     }
 }

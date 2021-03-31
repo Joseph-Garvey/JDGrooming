@@ -206,6 +206,54 @@ namespace JDGrooming.Classes.Database_Management
             catch { db.Rdr.Close(); }
             return results;
         }
+        public ObservableCollection<Staff> GetShifts()
+        {
+            // either get staff then their shifts in two queries or try and loop it
+            ObservableCollection<Staff> results = new ObservableCollection<Staff> { };
+            try
+            {
+                SqlDataReader reader = ReadDatabase("SELECT [Staff].[Id], [Forename] + ' ' + [Surname] AS [Name], [Role], [Day], [StartTime], [EndTime]  FROM [Staff], [Shift] WHERE [Staff].[Id] = [Shift].[StaffID] ORDER BY [Id], [Day];");
+                Staff s = new Staff(-1, "staff");
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);
+                    if(s.ID != id)
+                    {
+                        string name = reader.GetString(1);
+                        string role = reader.GetString(2);
+                        s = new Staff(id, name, role);
+                    }
+                    int day = reader.GetInt32(3);
+                    switch (day)
+                    {
+                        case 1:
+                            s.Monday_Start = reader.GetTimeSpan(4);
+                            s.Monday_End = reader.GetTimeSpan(5);
+                            break;
+                        case 2:
+                            s.Tuesday_Start = reader.GetTimeSpan(4);
+                            s.Tuesday_End = reader.GetTimeSpan(5);
+                            break;
+                        case 3:
+                            s.Wednesday_Start = reader.GetTimeSpan(4);
+                            s.Wednesday_End = reader.GetTimeSpan(5);
+                            break;
+                        case 4:
+                            s.Thursday_Start = reader.GetTimeSpan(4);
+                            s.Thursday_End = reader.GetTimeSpan(5);
+                            break;
+                        case 5:
+                            s.Friday_Start = reader.GetTimeSpan(4);
+                            s.Friday_End = reader.GetTimeSpan(5);
+                            results.Add(s);
+                            break;
+                    }
+                }
+                reader.Close();
+            }
+            catch { db.Rdr.Close(); }
+            return results;
+        }
         /// <summary>
         /// Checks if this is the dog's first time with JDGrooming
         /// </summary>

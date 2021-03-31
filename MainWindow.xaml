@@ -144,6 +144,7 @@
                     </ListView>
                 </Expander>
             </Button>
+            <Button x:Name="btnStaffManagement">Manage Staff</Button>
         </StackPanel>
         <Viewbox Name="View" DockPanel.Dock="Bottom">
             <local:ClientRegistration></local:ClientRegistration>

@@ -77,6 +77,9 @@ namespace JDGrooming
                     Booking = new BookingView();
                     Dock_Window.Children.Add(Booking);
                     break;
+                case "btnStaffManagement":
+                    View.Child = new StaffManagement();
+                    break;
             }
         }
         #endregion
