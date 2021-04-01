@@ -57,7 +57,16 @@ namespace JDGrooming.Classes
         public TimeSpan Friday_Start { get; set; }
         public TimeSpan Friday_End { get; set; }
 
-        public static ObservableCollection<TimeSpan> Times;
+        private static ObservableCollection<TimeSpan> times { get; set; }
+        public static ObservableCollection<TimeSpan> Times
+        {
+            get { return times; }
+            set
+            {
+                if (times == value) return;
+                times = value;
+            }
+        }
 
         private void CreateTimes()
         {

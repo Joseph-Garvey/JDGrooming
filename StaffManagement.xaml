@@ -8,7 +8,7 @@
              >
     <StackPanel Style="{StaticResource Horizontal}">
         <Border Style="{StaticResource brd_1}">
-            <DataGrid x:Name="data_Staff" AutoGenerateColumns="False">
+            <DataGrid x:Name="data_Staff" AutoGenerateColumns="False" ColumnWidth="Auto">
                 <DataGrid.Columns>
                     <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding ID}"></DataGridTextColumn>
                     <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
@@ -25,15 +25,114 @@
                             </Style>
                         </DataGridComboBoxColumn.EditingElementStyle>
                     </DataGridComboBoxColumn>
-                    <DataGridComboBoxColumn Header="End" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Monday_End}"></DataGridComboBoxColumn>
-                    <DataGridComboBoxColumn Header="Tuesday Start" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Tuesday_Start}"></DataGridComboBoxColumn>
-                    <DataGridComboBoxColumn Header="End" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Tuesday_End}"></DataGridComboBoxColumn>
-                    <DataGridComboBoxColumn Header="Wednesday Start" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Wednesday_Start}"></DataGridComboBoxColumn>
-                    <DataGridComboBoxColumn Header="End" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Wednesday_End}"></DataGridComboBoxColumn>
-                    <DataGridComboBoxColumn Header="Thursday Start" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Thursday_Start}"></DataGridComboBoxColumn>
-                    <DataGridComboBoxColumn Header="End" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Thursday_End}"></DataGridComboBoxColumn>
-                    <DataGridComboBoxColumn Header="Friday Start" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Friday_Start}"></DataGridComboBoxColumn>
-                    <DataGridComboBoxColumn Header="End" ItemsSource="{Binding Times}" SelectedItemBinding="{Binding Friday_End}"></DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="End" SelectedItemBinding="{Binding Monday_End}">
+                        <DataGridComboBoxColumn.ElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.ElementStyle>
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="Tuesday Start" SelectedItemBinding="{Binding Tuesday_Start}">
+                        <DataGridComboBoxColumn.ElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.ElementStyle>
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="End" SelectedItemBinding="{Binding Tuesday_End}">
+                        <DataGridComboBoxColumn.ElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.ElementStyle>
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="Wednesday Start" SelectedItemBinding="{Binding Wednesday_Start}">
+                        <DataGridComboBoxColumn.ElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.ElementStyle>
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="End" SelectedItemBinding="{Binding Wednesday_End}">
+                        <DataGridComboBoxColumn.ElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.ElementStyle>
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="Thursday Start" SelectedItemBinding="{Binding Thursday_Start}">
+                        <DataGridComboBoxColumn.ElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.ElementStyle>
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="End" SelectedItemBinding="{Binding Thursday_End}">
+                        <DataGridComboBoxColumn.ElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.ElementStyle>
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="Friday Start" SelectedItemBinding="{Binding Friday_Start}">
+                        <DataGridComboBoxColumn.ElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.ElementStyle>
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="End" SelectedItemBinding="{Binding Friday_End}">
+                        <DataGridComboBoxColumn.ElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.ElementStyle>
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="{x:Type ComboBox}">
+                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
