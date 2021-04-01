@@ -51,5 +51,20 @@ namespace JDGrooming
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
         #endregion
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

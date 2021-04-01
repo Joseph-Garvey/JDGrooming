@@ -141,9 +141,19 @@
         </Border>
         <Button Style="{StaticResource btnDark}" Margin="5" Click="Update_Rota">Confirm Changes</Button>
         <Border Style="{StaticResource brd_1}">
-            <StackPanel>
-                <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18">Absences:</Label>
-                <DataGrid x:Name="data_Exceptions" AutoGenerateColumns="False" ColumnWidth="Auto" Margin="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18" Grid.ColumnSpan="3">Absences:</Label>
+                <DataGrid x:Name="data_Exceptions" AutoGenerateColumns="False" ColumnWidth="Auto" Margin="5" Grid.Row="1" Grid.ColumnSpan="3">
                     <DataGrid.Columns>
                         <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding ID}"></DataGridTextColumn>
                         <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
@@ -164,7 +174,10 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-            </StackPanel>
+                <Button Style="{StaticResource btnDark}" Grid.Row="2" Click="btnAdd_Click">Add Absence</Button>
+                <Button Style="{StaticResource btnDark}" Grid.Row="2" Grid.Column="1" Click="btnUpdate_Click">Confirm Values</Button>
+                <Button Style="{StaticResource btnDark}" Grid.Row="2" Grid.Column="2" Click="btnDelete_Click">Delete Value</Button>
+            </Grid>
         </Border>
     </StackPanel>
 </UserControl>
