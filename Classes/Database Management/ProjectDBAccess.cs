@@ -254,6 +254,13 @@ namespace JDGrooming.Classes.Database_Management
             catch { db.Rdr.Close(); }
             return results;
         }
+        public void UpdateShifts(Staff s)
+        {
+            for(int i=0; i<5; i++)
+            {
+                QueryDatabase($"UPDATE[SHIFT] SET[StartTime] = '{s.ShiftStarts[i]}', [EndTime] = '{s.ShiftEnds[i]}' WHERE[StaffID] = {s.ID} AND [DAY] = {i+1};");
+            }
+        }
         /// <summary>
         /// Checks if this is the dog's first time with JDGrooming
         /// </summary>

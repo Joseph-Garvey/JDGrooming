@@ -139,6 +139,7 @@
                 </DataGrid>
             </StackPanel>
         </Border>
+        <Button Style="{StaticResource btnDark}" Margin="5" Click="Update_Rota">Confirm Changes</Button>
         <Border Style="{StaticResource brd_1}">
             <StackPanel>
                 <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18">Absences:</Label>

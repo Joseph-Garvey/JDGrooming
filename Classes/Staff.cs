@@ -57,6 +57,9 @@ namespace JDGrooming.Classes
         public TimeSpan Friday_Start { get; set; }
         public TimeSpan Friday_End { get; set; }
 
+        public List<TimeSpan> ShiftStarts { get => new List<TimeSpan> { Monday_Start, Tuesday_Start, Wednesday_Start, Thursday_Start, Friday_Start }; }
+        public List<TimeSpan> ShiftEnds { get => new List<TimeSpan> { Monday_End, Tuesday_End, Wednesday_End, Thursday_End, Friday_End }; }
+
         private static ObservableCollection<TimeSpan> times { get; set; }
         public static ObservableCollection<TimeSpan> Times
         {

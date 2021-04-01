@@ -21,7 +21,7 @@ namespace JDGrooming
     /// <summary>
     /// Interaction logic for StaffManagement.xaml
     /// </summary>
-    public partial class StaffManagement : UserControl
+    public partial class StaffManagement : UserControl, INotifyPropertyChanged
     {
         public App JDApp { get => ((App)Application.Current); }
 
@@ -30,5 +30,26 @@ namespace JDGrooming
             InitializeComponent();
             data_Staff.ItemsSource = JDApp.query.GetShifts();
         }
+
+        private void Update_Rota(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                foreach (Staff s in data_Staff.ItemsSource)
+                {
+                    JDApp.query.UpdateShifts(s);
+                }
+                MessageBox.Show("Staff Rota Successfully Updated");
+            }
+            catch { }
+        }
+
+        #region NotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void NotifyPropertyChanged(string propName)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
+        #endregion
     }
 }
