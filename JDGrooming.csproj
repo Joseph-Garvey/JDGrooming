@@ -95,6 +95,7 @@
     <Compile Include="Classes\RedLetterDayConverter.cs" />
     <Compile Include="Classes\Service.cs" />
     <Compile Include="Classes\Staff.cs" />
+    <Compile Include="Classes\TimeSpan Converter.cs" />
     <Compile Include="ImageManager.xaml.cs">
       <DependentUpon>ImageManager.xaml</DependentUpon>
     </Compile>

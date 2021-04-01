@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:JDGrooming"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+
         <!--#region Border Styles -->
         <Style TargetType="Border" x:Key="brd_1">
             <Setter Property="Background" Value="#2d2d30"></Setter>

@@ -13,15 +13,15 @@
                     <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding ID}"></DataGridTextColumn>
                     <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
                     <DataGridTextColumn IsReadOnly="True" Header="Role" Binding="{Binding Role}"></DataGridTextColumn>
-                    <DataGridComboBoxColumn Header="Monday Start" SelectedItemBinding="{Binding Monday_Start}">
+                    <DataGridComboBoxColumn Header="Monday Start" SelectedItemBinding="{Binding Monday_Start, StringFormat={}{0:hh}:{0:mm}}">
                         <DataGridComboBoxColumn.ElementStyle>
                             <Style TargetType="{x:Type ComboBox}">
-                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                                <Setter Property="ItemsSource" Value="{Binding Times, StringFormat={}{0:hh//:mm}}"/>
                             </Style>
                         </DataGridComboBoxColumn.ElementStyle>
                         <DataGridComboBoxColumn.EditingElementStyle>
                             <Style TargetType="{x:Type ComboBox}">
-                                <Setter Property="ItemsSource" Value="{Binding Times}" />
+                                <Setter Property="ItemsSource" Value="{Binding Times, StringFormat={}{0:hh}:{0:mm}:{0:ss}}" />
                             </Style>
                         </DataGridComboBoxColumn.EditingElementStyle>
                     </DataGridComboBoxColumn>
