@@ -25,7 +25,6 @@ namespace JDGrooming
     {
         public App JDApp { get => ((App)Application.Current); }
 
-
         private Absence selectedabsence;
         public Absence Selectedabsence
         {
@@ -41,7 +40,11 @@ namespace JDGrooming
         public StaffManagement()
         {
             InitializeComponent();
-            data_Staff.ItemsSource = JDApp.query.GetShifts();
+            ObservableCollection<Staff> StaffList = JDApp.query.GetShifts();
+            data_Staff.ItemsSource = StaffList;
+            cmb_Staff.ItemsSource = StaffList;
+            cmb_StartTimes.ItemsSource = Staff.Times;
+            cmb_EndTimes.ItemsSource = Staff.Times;
             data_Exceptions.ItemsSource = JDApp.query.GetAbsences();
         }
 

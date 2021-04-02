@@ -18,7 +18,6 @@ namespace JDGrooming.Classes
 
         public Staff(int iD, string name, string role, TimeSpan monday_Start, TimeSpan monday_End, TimeSpan tuesday_Start, TimeSpan tuesday_End, TimeSpan wednesday_Start, TimeSpan wednesday_End, TimeSpan thursday_Start, TimeSpan thursday_End, TimeSpan friday_Start, TimeSpan friday_End) : this(iD, name)
         {
-            CreateTimes();
             Role = role;
             Monday_Start = monday_Start;
             Monday_End = monday_End;
@@ -34,7 +33,6 @@ namespace JDGrooming.Classes
 
         public Staff(int iD, string name, string role) : this(iD, name)
         {
-            CreateTimes();
             Role = role ?? throw new ArgumentNullException(nameof(role));
         }
 
@@ -60,10 +58,14 @@ namespace JDGrooming.Classes
         public List<TimeSpan> ShiftStarts { get => new List<TimeSpan> { Monday_Start, Tuesday_Start, Wednesday_Start, Thursday_Start, Friday_Start }; }
         public List<TimeSpan> ShiftEnds { get => new List<TimeSpan> { Monday_End, Tuesday_End, Wednesday_End, Thursday_End, Friday_End }; }
 
-        private static ObservableCollection<TimeSpan> times { get; set; }
+        private static ObservableCollection<TimeSpan> times;
         public static ObservableCollection<TimeSpan> Times
         {
-            get { return times; }
+            get
+            {
+                if(times == null) { CreateTimes(); }
+                return times;
+            }
             set
             {
                 if (times == value) return;
@@ -71,10 +73,8 @@ namespace JDGrooming.Classes
             }
         }
 
-        private void CreateTimes()
+        private static void CreateTimes()
         {
-            if (Times == null)
-            {
                 Times = new ObservableCollection<TimeSpan> { };
                 for (int i = 9; i <= 17; i++)
                 {
@@ -83,7 +83,11 @@ namespace JDGrooming.Classes
                         Times.Add(new TimeSpan(i, j, 0));
                     }
                 }
-            }
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
 
         #region NotifyPropertyChanged

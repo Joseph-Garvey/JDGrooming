@@ -6,10 +6,19 @@
              xmlns:local="clr-namespace:JDGrooming"
              mc:Ignorable="d"
              >
-    <StackPanel>
-        <Border Style="{StaticResource brd_1}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Style="{StaticResource brd_1}" Grid.ColumnSpan="2">
             <StackPanel>
-                <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18">Staff Rota</Label>
+                <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18"  Margin="10,5,0,0">Staff Rota</Label>
                 <DataGrid x:Name="data_Staff" AutoGenerateColumns="False" ColumnWidth="Auto" Margin="5">
                     <DataGrid.Columns>
                         <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding ID}"></DataGridTextColumn>
@@ -139,32 +148,20 @@
                 </DataGrid>
             </StackPanel>
         </Border>
-        <Button Style="{StaticResource btnDark}" Margin="5" Click="Update_Rota">Confirm Changes</Button>
-        <Border Style="{StaticResource brd_1}">
+        <Button Style="{StaticResource btnDark}" Margin="5" Click="Update_Rota" Grid.Row="1" Grid.ColumnSpan="2">Confirm Changes</Button>
+        <Border Style="{StaticResource brd_1}" Grid.Row="2">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18" Grid.ColumnSpan="3">Absences:</Label>
-                <DataGrid x:Name="data_Exceptions" AutoGenerateColumns="False" SelectedItem="{Binding SelectedException}" RowEditEnding="data_Exceptions_RowEditEnding" CellEditEnding="data_Exceptions_CellEditEnding" ColumnWidth="Auto" Margin="5" Grid.Row="1" Grid.ColumnSpan="3" CanUserAddRows="True">
+                <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18" Margin="10,5,0,0">Absences:</Label>
+                <DataGrid x:Name="data_Exceptions" AutoGenerateColumns="False" SelectedItem="{Binding SelectedException}" ColumnWidth="Auto" Margin="5" Grid.Row="1" MaxHeight="250">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding StaffID}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Role" Binding="{Binding Role}"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Start Date">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <DatePicker SelectedDate="{Binding StartTime}"></DatePicker>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Start Date" Binding="{Binding StartTime, StringFormat={}{0:dd/MM/yyyy hh:mm tt}}"/>
                         <!--<DataGridComboBoxColumn Header="End" SelectedItemBinding="{Binding Friday_End}">
                             <DataGridComboBoxColumn.ElementStyle>
                                 <Style TargetType="{x:Type ComboBox}">
@@ -177,19 +174,47 @@
                                 </Style>
                             </DataGridComboBoxColumn.EditingElementStyle>
                         </DataGridComboBoxColumn>-->
-                        <DataGridTemplateColumn Header="End Date">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <DatePicker SelectedDate="{Binding EndTime}"></DatePicker>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="End Date" Binding="{Binding EndTime, StringFormat={}{0:dd/MM/yyyy hh:mm tt}}"/>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="150"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button Style="{StaticResource btnDark}" Grid.Row="2" Click="btnAdd_Click">Add Absence</Button>
-                <Button Style="{StaticResource btnDark}" Grid.Row="2" Grid.Column="1" Click="btnUpdate_Click">Confirm Values</Button>
-                <Button Style="{StaticResource btnDark}" Grid.Row="2" Grid.Column="2" Click="btnDelete_Click">Delete Value</Button>
+
             </Grid>
         </Border>
-    </StackPanel>
+        <Border Style="{StaticResource brd_1}" Grid.Row="2" Grid.Column="1">
+            <Grid Margin="5,5,10,10">
+                <Grid.Resources>
+                    <Style TargetType="Label" BasedOn="{StaticResource lbl_WhiteHeading}">
+                        <Setter Property="FontSize" Value="12"></Setter>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18" Margin="0,0,10,0">Add Absence:</Label>
+                <Label  Grid.Row="1">Select Staff Member:</Label>
+                <ComboBox Grid.Column="1" Grid.Row="1" x:Name="cmb_Staff"></ComboBox>
+                <Label Grid.Row="2">Select Start Date:</Label>
+                <DatePicker Grid.Row="2" Grid.Column="3" Margin="0,5"></DatePicker>
+                <Label  Grid.Row="3">Select Start Time:</Label>
+                <ComboBox x:Name="cmb_StartTimes" Grid.Column="1" Grid.Row="3"></ComboBox>
+                <Label Grid.Row="4">Select End Date:</Label>
+                <DatePicker Grid.Row="4" Grid.Column="1"  Margin="0,5"></DatePicker>
+                <Label  Grid.Row="5">Select End Time:</Label>
+                <ComboBox x:Name="cmb_EndTimes" Grid.Column="1" Grid.Row="5"></ComboBox>
+                <Button Style="{StaticResource btnDark}" Grid.Row="6" Margin="5,10,5,0">Add Absence</Button>
+                <Button Style="{StaticResource btnDark}" Grid.Row="6" Grid.Column="1" Margin="5,10,5,0">Delete Absence</Button>
+            </Grid>
+        </Border>
+    </Grid>
 </UserControl>
