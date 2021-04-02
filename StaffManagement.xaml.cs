@@ -25,10 +25,24 @@ namespace JDGrooming
     {
         public App JDApp { get => ((App)Application.Current); }
 
+
+        private Absence selectedabsence;
+        public Absence Selectedabsence
+        {
+            get { return selectedabsence; }
+            set
+            {
+                if (selectedabsence == value) return;
+                selectedabsence = value;
+                this.NotifyPropertyChanged("SelectedAbsence");
+            }
+        }
+
         public StaffManagement()
         {
             InitializeComponent();
             data_Staff.ItemsSource = JDApp.query.GetShifts();
+            data_Exceptions.ItemsSource = JDApp.query.GetAbsences();
         }
 
         private void Update_Rota(object sender, RoutedEventArgs e)
@@ -54,7 +68,6 @@ namespace JDGrooming
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
@@ -64,7 +77,21 @@ namespace JDGrooming
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
 
+            }
+            catch { MessageBox.Show("Error deleting record"); }
+        }
+
+        private void data_Exceptions_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            MessageBox.Show("Row edit end called");
+        }
+
+        private void data_Exceptions_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            MessageBox.Show("Cell edit end called");
         }
     }
 }

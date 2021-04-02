@@ -15,15 +15,15 @@
                         <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding ID}"></DataGridTextColumn>
                         <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
                         <DataGridTextColumn IsReadOnly="True" Header="Role" Binding="{Binding Role}"></DataGridTextColumn>
-                        <DataGridComboBoxColumn Header="Monday Start" SelectedItemBinding="{Binding Monday_Start, StringFormat={}{0:hh}:{0:mm}}">
+                        <DataGridComboBoxColumn Header="Monday Start" SelectedItemBinding="{Binding Monday_Start,StringFormat=@{}{0:hh}:{0:mm}}">
                             <DataGridComboBoxColumn.ElementStyle>
                                 <Style TargetType="{x:Type ComboBox}">
-                                    <Setter Property="ItemsSource" Value="{Binding Times, StringFormat={}{0:hh//:mm}}"/>
+                                    <Setter Property="ItemsSource" Value="{Binding Times, StringFormat=@{}{0:hh\\:mm}}"/>
                                 </Style>
                             </DataGridComboBoxColumn.ElementStyle>
                             <DataGridComboBoxColumn.EditingElementStyle>
                                 <Style TargetType="{x:Type ComboBox}">
-                                    <Setter Property="ItemsSource" Value="{Binding Times, StringFormat={}{0:hh}:{0:mm}:{0:ss}}" />
+                                    <Setter Property="ItemsSource" Value="{Binding Times, StringFormat=@{0:hh}:{0:mm}}" />
                                 </Style>
                             </DataGridComboBoxColumn.EditingElementStyle>
                         </DataGridComboBoxColumn>
@@ -153,7 +153,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18" Grid.ColumnSpan="3">Absences:</Label>
-                <DataGrid x:Name="data_Exceptions" AutoGenerateColumns="False" ColumnWidth="Auto" Margin="5" Grid.Row="1" Grid.ColumnSpan="3">
+                <DataGrid x:Name="data_Exceptions" AutoGenerateColumns="False" SelectedItem="{Binding SelectedException}" RowEditEnding="data_Exceptions_RowEditEnding" CellEditEnding="data_Exceptions_CellEditEnding" ColumnWidth="Auto" Margin="5" Grid.Row="1" Grid.ColumnSpan="3" CanUserAddRows="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding ID}"></DataGridTextColumn>
                         <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}"></DataGridTextColumn>

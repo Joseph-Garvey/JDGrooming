@@ -294,6 +294,22 @@ namespace JDGrooming.Classes.Database_Management
             catch { db.Rdr.Close(); }
             return services;
         }
+        public ObservableCollection<Absence> GetAbsences()
+        {
+            ObservableCollection<Absence> Results = new ObservableCollection<Absence> { };
+            try
+            {
+                SqlDataReader reader = ReadDatabase("SELECT [Staff.Id], [Forename] + ' ' + [Surname] AS [Name], [StartTime], [EndTime], [Description] FROM [RotaException], [Staff] WHERE [RotaException].[StaffID] = [Staff].[Id];"); // incl name after
+                int id = reader.GetInt32(0);
+                string name = reader.GetString(1);
+                DateTime startime = reader.GetDateTime(2);
+                DateTime endtime = reader.GetDateTime(3);
+                string description = reader.GetString(4);
+                Results.Add(new Absence(id, name, startime, endtime, description));
+            }
+            catch { }
+            return Results;
+        }
 
         public void RegisterClient(String Forename, String Surname, String FirstLine, String SecondLine, String Postcode, String Town, String Email, String Mobile, String HomePhone)
         {
