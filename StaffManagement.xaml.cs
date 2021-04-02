@@ -68,18 +68,19 @@ namespace JDGrooming
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Feature not part of checklist");
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-
+                MessageBox.Show("Feature not part of checklist");
             }
             catch { MessageBox.Show("Error deleting record"); }
         }

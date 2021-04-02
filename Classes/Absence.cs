@@ -9,14 +9,7 @@ namespace JDGrooming.Classes
 {
     public class Absence : INotifyPropertyChanged
     {
-        public Absence(int staffID, string name, DateTime startTime, DateTime endTime, string description)
-        {
-            StaffID = staffID;
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            StartTime = startTime;
-            EndTime = endTime;
-            Description = description ?? throw new ArgumentNullException(nameof(description));
-        }
+
 
         private int staffID { get; set; }
         public int StaffID
@@ -38,6 +31,17 @@ namespace JDGrooming.Classes
                 if (name == value) return;
                 name = value;
                 this.NotifyPropertyChanged("Name");
+            }
+        }
+        private string role;
+        public String Role
+        {
+            get { return role; }
+            set
+            {
+                if (role == value) return;
+                role = value;
+                this.NotifyPropertyChanged("Role");
             }
         }
         private DateTime startime;
@@ -85,6 +89,17 @@ namespace JDGrooming.Classes
             }
         }
         private string description;
+
+        public Absence(int staffID, string name, string role, DateTime startTime, DateTime endTime, string description)
+        {
+            StaffID = staffID;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Role = role ?? throw new ArgumentNullException(nameof(role));
+            StartTime = startTime;
+            EndTime = endTime;
+            Description = description ?? throw new ArgumentNullException(nameof(description));
+        }
+
         public String Description
         {
             get { return description; }

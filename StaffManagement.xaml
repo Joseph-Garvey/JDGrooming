@@ -155,20 +155,32 @@
                 <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18" Grid.ColumnSpan="3">Absences:</Label>
                 <DataGrid x:Name="data_Exceptions" AutoGenerateColumns="False" SelectedItem="{Binding SelectedException}" RowEditEnding="data_Exceptions_RowEditEnding" CellEditEnding="data_Exceptions_CellEditEnding" ColumnWidth="Auto" Margin="5" Grid.Row="1" Grid.ColumnSpan="3" CanUserAddRows="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn IsReadOnly="True" Header="ID" Binding="{Binding ID}"></DataGridTextColumn>
-                        <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
-                        <DataGridTextColumn IsReadOnly="True" Header="Role" Binding="{Binding Role}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="ID" Binding="{Binding StaffID}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Role" Binding="{Binding Role}"></DataGridTextColumn>
                         <DataGridTemplateColumn Header="Start Date">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <DatePicker></DatePicker>
+                                    <DatePicker SelectedDate="{Binding StartTime}"></DatePicker>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+                        <!--<DataGridComboBoxColumn Header="End" SelectedItemBinding="{Binding Friday_End}">
+                            <DataGridComboBoxColumn.ElementStyle>
+                                <Style TargetType="{x:Type ComboBox}">
+                                    <Setter Property="ItemsSource" Value="{Binding Times}" />
+                                </Style>
+                            </DataGridComboBoxColumn.ElementStyle>
+                            <DataGridComboBoxColumn.EditingElementStyle>
+                                <Style TargetType="{x:Type ComboBox}">
+                                    <Setter Property="ItemsSource" Value="{Binding Times}" />
+                                </Style>
+                            </DataGridComboBoxColumn.EditingElementStyle>
+                        </DataGridComboBoxColumn>-->
                         <DataGridTemplateColumn Header="End Date">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <DatePicker></DatePicker>
+                                    <DatePicker SelectedDate="{Binding EndTime}"></DatePicker>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

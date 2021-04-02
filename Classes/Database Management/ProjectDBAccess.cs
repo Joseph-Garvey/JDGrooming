@@ -299,15 +299,21 @@ namespace JDGrooming.Classes.Database_Management
             ObservableCollection<Absence> Results = new ObservableCollection<Absence> { };
             try
             {
-                SqlDataReader reader = ReadDatabase("SELECT [Staff.Id], [Forename] + ' ' + [Surname] AS [Name], [StartTime], [EndTime], [Description] FROM [RotaException], [Staff] WHERE [RotaException].[StaffID] = [Staff].[Id];"); // incl name after
-                int id = reader.GetInt32(0);
-                string name = reader.GetString(1);
-                DateTime startime = reader.GetDateTime(2);
-                DateTime endtime = reader.GetDateTime(3);
-                string description = reader.GetString(4);
-                Results.Add(new Absence(id, name, startime, endtime, description));
+                SqlDataReader reader = ReadDatabase("SELECT [Staff].[Id], [Forename] + ' ' + [Surname] AS [Name], [StartTime], [EndTime], [Description], [Staff].[Role] FROM [RotaException], [Staff] WHERE [RotaException].[StaffID] = [Staff].[Id];"); // incl name after
+                while (reader.Read())
+                {
+                    int id = reader.GetInt32(0);
+                    string name = reader.GetString(1);
+                    DateTime startime = reader.GetDateTime(2);
+                    DateTime endtime = reader.GetDateTime(3);
+                    string description = reader.GetString(4);
+                    string role = reader.GetString(5);
+                    Results.Add(new Absence(id, name, role, startime, endtime, description));
+
+                }
+                reader.Close();
             }
-            catch { }
+            catch { db.Rdr.Close(); }
             return Results;
         }
 
