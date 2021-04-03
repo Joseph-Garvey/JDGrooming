@@ -205,13 +205,13 @@
                 <Label  Grid.Row="1">Select Staff Member:</Label>
                 <ComboBox Grid.Column="1" Grid.Row="1" x:Name="cmb_Staff"></ComboBox>
                 <Label Grid.Row="2">Select Start Date:</Label>
-                <DatePicker Grid.Row="2" Grid.Column="3" Margin="0,5"></DatePicker>
+                <DatePicker x:Name="date_StartDate" Grid.Row="2" Grid.Column="3" Margin="0,5" SelectedDateChanged="date_StartDate_SelectedDateChanged"></DatePicker>
                 <Label  Grid.Row="3">Select Start Time:</Label>
-                <ComboBox x:Name="cmb_StartTimes" Grid.Column="1" Grid.Row="3"></ComboBox>
+                <ComboBox x:Name="cmb_StartTimes" Grid.Column="1" SelectedItem="{Binding Selected_StartTime}" Grid.Row="3" SelectionChanged="cmb_StartTimes_SelectionChanged"></ComboBox>
                 <Label Grid.Row="4">Select End Date:</Label>
-                <DatePicker Grid.Row="4" Grid.Column="1"  Margin="0,5"></DatePicker>
+                <DatePicker x:Name="date_EndDate" Grid.Row="4" Grid.Column="1"  Margin="0,5" SelectedDateChanged="date_EndDate_SelectedDateChanged"></DatePicker>
                 <Label  Grid.Row="5">Select End Time:</Label>
-                <ComboBox x:Name="cmb_EndTimes" Grid.Column="1" Grid.Row="5"></ComboBox>
+                <ComboBox x:Name="cmb_EndTimes" Grid.Column="1" Grid.Row="5" ItemsSource="{Binding EndTimeList, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
                 <Button Style="{StaticResource btnDark}" Grid.Row="6" Margin="5,10,5,0">Add Absence</Button>
                 <Button Style="{StaticResource btnDark}" Grid.Row="6" Grid.Column="1" Margin="5,10,5,0">Delete Absence</Button>
             </Grid>

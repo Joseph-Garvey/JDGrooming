@@ -39,13 +39,16 @@ namespace JDGrooming
 
         public StaffManagement()
         {
+            this.DataContext = this;
             InitializeComponent();
             ObservableCollection<Staff> StaffList = JDApp.query.GetShifts();
             data_Staff.ItemsSource = StaffList;
             cmb_Staff.ItemsSource = StaffList;
-            cmb_StartTimes.ItemsSource = Staff.Times;
-            cmb_EndTimes.ItemsSource = Staff.Times;
+            cmb_StartTimes.ItemsSource = new ObservableCollection<TimeSpan>(Staff.Times);
+            EndTimeList = new ObservableCollection<TimeSpan> (Staff.Times);
             data_Exceptions.ItemsSource = JDApp.query.GetAbsences();
+            date_StartDate.BlackoutDates.AddDatesInPast();
+            date_EndDate.BlackoutDates.AddDatesInPast();
         }
 
         private void Update_Rota(object sender, RoutedEventArgs e)
@@ -96,6 +99,78 @@ namespace JDGrooming
         private void data_Exceptions_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             MessageBox.Show("Cell edit end called");
+        }
+
+        private void date_StartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (date_StartDate.SelectedDate.HasValue)
+            {
+                if (date_StartDate.SelectedDate.Value != DateTime.Today)
+                {
+                    date_EndDate.BlackoutDates.Add(new CalendarDateRange(DateTime.Today, date_StartDate.SelectedDate.Value.AddDays(-1)));
+                }
+                date_EndDate.DisplayDate = date_StartDate.SelectedDate.Value;
+            }
+         }
+
+        private void date_EndDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CallFilterEndTimes();
+        }
+
+        private void cmb_StartTimes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CallFilterEndTimes();
+        }
+
+        private void CallFilterEndTimes()
+        {
+            if (date_StartDate.SelectedDate.HasValue)
+            {
+                if (date_EndDate.SelectedDate.HasValue)
+                {
+                    if (date_StartDate.SelectedDate.Value == date_EndDate.SelectedDate.Value)
+                    {
+                        try
+                        {
+                            cmb_EndTimes.Items.Filter += FilterEndTimes;
+                        }
+                        catch
+                        { }
+                    }
+                }
+            }
+        }
+
+        private object selected_StartTime;
+        public object Selected_StartTime // debug this
+        {
+            get { return selected_StartTime; }
+            set
+            {
+                if (selected_StartTime == value) return;
+                selected_StartTime = value;
+                this.NotifyPropertyChanged("Selected_StartTime");
+            }
+        }
+
+        private ObservableCollection<TimeSpan> endtimelist;
+        public ObservableCollection<TimeSpan> EndTimeList
+        {
+            get { return endtimelist; }
+            set
+            {
+                if (endtimelist == value) return;
+                endtimelist = value;
+                this.NotifyPropertyChanged("EndTimeList");
+            }
+        }
+
+        public bool FilterEndTimes(object item) // this does not fucking work
+        {
+            DateTime starttime = date_StartDate.SelectedDate.Value.Add((TimeSpan)selected_StartTime);
+            DateTime endtime = date_EndDate.SelectedDate.Value.Add((TimeSpan)item);
+            return (starttime < endtime);
         }
     }
 }
