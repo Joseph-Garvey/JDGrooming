@@ -25,18 +25,6 @@ namespace JDGrooming
     {
         public App JDApp { get => ((App)Application.Current); }
 
-        private Absence selectedabsence;
-        public Absence Selectedabsence
-        {
-            get { return selectedabsence; }
-            set
-            {
-                if (selectedabsence == value) return;
-                selectedabsence = value;
-                this.NotifyPropertyChanged("SelectedAbsence");
-            }
-        }
-
         public StaffManagement()
         {
             this.DataContext = this;
@@ -74,7 +62,28 @@ namespace JDGrooming
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            // add verification of length of descp
+            try
+            {
+                Staff s = (Staff)cmb_Staff.SelectedItem;
+                DateTime starttime = date_StartDate.SelectedDate.Value.Add((TimeSpan)selected_StartTime);
+                DateTime endtime = date_EndDate.SelectedDate.Value.Add((TimeSpan)cmb_EndTimes.SelectedItem);
+                String description = txt_Description.Text;
+                Absence a = new Absence(s.ID, s.Name, s.Role, starttime, endtime, description);
+                JDApp.query.AddAbsence(a);
+                MessageBox.Show("Absence has been added to database.", "Success", MessageBoxButton.OK);
+                data_Exceptions.ItemsSource = JDApp.query.GetAbsences();
+                // there is a bug when selecting a start date after end date
+            }
+            catch (InvalidCastException)
+            {
+                MessageBox.Show("An error has occurred.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch(NullReferenceException)
+            {
+                MessageBox.Show("Please ensure all fields are filled.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception) { }
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)

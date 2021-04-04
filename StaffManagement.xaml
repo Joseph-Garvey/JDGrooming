@@ -156,7 +156,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18" Margin="10,5,0,0">Absences:</Label>
-                <DataGrid x:Name="data_Exceptions" AutoGenerateColumns="False" SelectedItem="{Binding SelectedException}" ColumnWidth="Auto" Margin="5" Grid.Row="1" MaxHeight="250">
+                <DataGrid x:Name="data_Exceptions" AutoGenerateColumns="False"  ColumnWidth="Auto" Margin="5" Grid.Row="1" MaxHeight="250">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding StaffID}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
@@ -200,6 +200,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="18" Margin="0,0,10,0">Add Absence:</Label>
                 <Label  Grid.Row="1">Select Staff Member:</Label>
@@ -212,8 +213,10 @@
                 <DatePicker x:Name="date_EndDate" Grid.Row="4" Grid.Column="1"  Margin="0,5" SelectedDateChanged="date_EndDate_SelectedDateChanged"></DatePicker>
                 <Label  Grid.Row="5">Select End Time:</Label>
                 <ComboBox x:Name="cmb_EndTimes" Grid.Column="1" Grid.Row="5" ItemsSource="{Binding EndTimeList, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                <Button Style="{StaticResource btnDark}" Grid.Row="6" Margin="5,10,5,0">Add Absence</Button>
-                <Button Style="{StaticResource btnDark}" Grid.Row="6" Grid.Column="1" Margin="5,10,5,0">Delete Absence</Button>
+                <Label Grid.Row="6">Description:</Label>
+                <TextBox Grid.Row="6" Grid.Column="1" Margin="0,5,0,0" FontSize="12" Height="70" TextWrapping="WrapWithOverflow" x:Name="txt_Description"></TextBox>
+                <Button Style="{StaticResource btnDark}" Grid.Row="7" Margin="5,10,5,0" Click="btnAdd_Click">Add Absence</Button>
+                <Button Style="{StaticResource btnDark}" Grid.Row="7" Grid.Column="1" Margin="5,10,5,0" Click="btnDelete_Click">Delete Absence</Button>
             </Grid>
         </Border>
     </Grid>

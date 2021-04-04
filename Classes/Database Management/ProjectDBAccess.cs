@@ -316,6 +316,10 @@ namespace JDGrooming.Classes.Database_Management
             catch { db.Rdr.Close(); }
             return Results;
         }
+        public void AddAbsence(Absence a)
+        {
+            QueryDatabase($"INSERT INTO [RotaException] ([StaffID], [StartTime], [EndTime], [Description]) VALUES ({a.StaffID}, '{a.StartTime:yyyy-MM-dd HH:mm:ss}', '{a.EndTime:yyyy-MM-dd HH:mm:ss}', '{a.Description}');");
+        }
 
         public void RegisterClient(String Forename, String Surname, String FirstLine, String SecondLine, String Postcode, String Town, String Email, String Mobile, String HomePhone)
         {
