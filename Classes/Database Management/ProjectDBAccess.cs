@@ -321,7 +321,54 @@ namespace JDGrooming.Classes.Database_Management
         {
             QueryDatabase($"INSERT INTO [RotaException] ([StaffID], [StartTime], [EndTime], [Description]) VALUES ({a.StaffID}, '{a.StartTime:yyyy-MM-dd HH:mm:ss}', '{a.EndTime:yyyy-MM-dd HH:mm:ss}', '{a.Description}');");
         }
-
+        /// <summary>
+        /// no idea whether this actually works
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<Schedule> GetSchedules(DateTime date)
+        {
+            List<Schedule> timetable = new List<Schedule> { };
+            List<Appointment> appointments = RetrieveAppointments_Day(date);
+            bool[] b = new bool[48] { true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, };
+            if (appointments.Count == 0)
+            {
+                List<Staff> stafflist = GetStaff();
+                foreach(Staff s in stafflist)
+                {
+                    Schedule item = new Schedule(s, b);
+                }
+            }
+            else
+            {
+                ObservableCollection<Staff> stafflist = GetShifts();
+                foreach (Staff s in stafflist)
+                {
+                    b = new bool[48] { true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, };
+                    if (s.Monday_End.Hours < 17)
+                    {
+                        for(int i = 24; i<=47; i++)
+                        {
+                            b[i] = false;
+                        }
+                    }
+                    foreach (Appointment a in appointments)
+                    {
+                        if(a.StaffID == s.ID)
+                        {
+                            int blockstart = (int)((a.Time.TimeOfDay - (new TimeSpan(9, 0, 0))).TotalMinutes / 10);
+                            int blockcount = (int)a.SelectedService_Duration.TotalMinutes / 10;
+                            for(int i = blockstart; i < blockcount; i++)
+                            {
+                                b[i] = false;
+                            }
+                        }
+                    }
+                    Schedule item = new Schedule(s, b);
+                }
+            }
+            return timetable;
+        }
         // unnecessary code from booking calendar
 
         //public List<CalendarDateRange> CalculateMonthAvailability (DateTime testdate)
@@ -331,6 +378,22 @@ namespace JDGrooming.Classes.Database_Management
         //    if()
         //    return results;
         //}
+        public List<Appointment> RetrieveAppointments_Day(DateTime testdate)
+        {
+            List<Appointment> results = new List<Appointment> { };
+            try
+            {
+                DateTime endsearch = testdate.AddMonths(1);
+                SqlDataReader reader = ReadDatabase($"SELECT [Time], [StaffID], [SelectedService], [Duration] FROM [Appointment], [Service] WHERE [Time] = '{testdate:yyyy-MM-dd}' AND [Appointment].[SelectedService] = [Service].[Name];");
+                while (reader.Read())
+                {
+                    Appointment a = new Appointment(reader.GetDateTime(0), reader.GetInt32(1), reader.GetString(2), reader.GetTimeSpan(3));
+                    results.Add(a);
+                }
+            }
+            catch { db.Rdr.Close(); }
+            return results;
+        }
         //public List<Appointment> RetrieveAppointments_Month (DateTime testdate)
         //{
         //    List<Appointment> results = new List<Appointment> { };
