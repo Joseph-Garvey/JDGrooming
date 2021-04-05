@@ -1,5 +1,7 @@
-﻿using System;
+﻿using JDGrooming.Classes;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,9 +26,21 @@ namespace JDGrooming
         public int DogID { get; set; }
         public String SelectedService { get; set; }
 
+        public App JDApp { get => ((App)Application.Current); }
+
+        private ObservableCollection<Staff> StaffList { get; set; }
+
         public BookTime(int ClientID, int DogID, String SelectedService)
         {
+            this.DataContext = this;
             InitializeComponent();
+            ObservableCollection<Staff> StaffList = JDApp.query.GetShifts();
+            calendar.BlackoutDates.AddDatesInPast();
+        }
+
+        private void calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // update data grid
         }
     }
 }

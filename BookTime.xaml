@@ -6,5 +6,26 @@
              xmlns:local="clr-namespace:JDGrooming"
              mc:Ignorable="d"
              >
-    <Button>UI TBD</Button>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Calendar Name="calendar" SelectedDatesChanged="calendar_SelectedDatesChanged"></Calendar>
+            <DataGrid x:Name="data_Availability" AutoGenerateColumns="False">
+
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+        </Grid>
+    </Grid>
 </UserControl>

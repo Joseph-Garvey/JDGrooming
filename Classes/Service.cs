@@ -16,6 +16,10 @@ namespace JDGrooming.Classes
             price = _price;
         }
 
+        public Service()
+        {
+
+        }
         public String Name { get; set; }
         public TimeSpan Duration { get; set; }
         private double price;

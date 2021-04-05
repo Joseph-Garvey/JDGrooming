@@ -18,7 +18,8 @@ namespace JDTesting
         [TestMethod]
         public void TestMethod()
         {
-
+            DateTime t = DateTime.Today;
+            String s = $"{t:yyyy-MM+1-01}";
         }
         //[TestMethod]
         //public void InsertShifts()

@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using System.Data;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace JDGrooming.Classes.Database_Management
 {
@@ -150,7 +151,7 @@ namespace JDGrooming.Classes.Database_Management
             if (secondline != "") { SQL += ", [SecondLine] = '" + secondline + "'"; }
             if (email != "") { SQL += ", [Email] = '" + email + "'"; }
             if (mobile != "") { SQL += ", [Mobile] = '" + mobile + "'"; }
-            if (homephone!= "") { SQL += ", [HomePhone] = '" + homephone + "'"; }
+            if (homephone != "") { SQL += ", [HomePhone] = '" + homephone + "'"; }
             SQL += " WHERE [ID] = " + id + " ;";
             QueryDatabase(SQL);
             // secondline and contact are nullable
@@ -164,9 +165,9 @@ namespace JDGrooming.Classes.Database_Management
         public void UpdateDog(string id, string name, string breedname, string doginfo, bool status)
         {
             String Start = String.Format("UPDATE [Dog] SET [Name] = '{0}', [BreedName] = '{1}', [Status] = '{2}'",
-                name, breedname, status ? 1:0);
+                name, breedname, status ? 1 : 0);
             String SQL = Start;
-            if(doginfo != "") { SQL += ", [AdditionalInfo] = '" + doginfo + "'"; }
+            if (doginfo != "") { SQL += ", [AdditionalInfo] = '" + doginfo + "'"; }
             SQL += " WHERE [ID] = " + id + " ;";
             QueryDatabase(SQL);
         }
@@ -179,11 +180,11 @@ namespace JDGrooming.Classes.Database_Management
                     "INNER JOIN [Breed] ON [Dog].BreedName = [Breed].Name" +
                     " WHERE [Dog].ID = " + id + ";");
                 while (reader.Read()) {
-                    if(!reader.IsDBNull(0)) results[0] = (reader.GetString(0));
+                    if (!reader.IsDBNull(0)) results[0] = (reader.GetString(0));
                     if (!reader.IsDBNull(1)) results[1] = (reader.GetString(1));
                     if (!reader.IsDBNull(2)) results[2] = (reader.GetString(2));
                     if (!reader.IsDBNull(3)) results[3] = (reader.GetString(3));
-                        }
+                }
                 reader.Close();
             }
             catch { db.Rdr.Close(); }
@@ -217,7 +218,7 @@ namespace JDGrooming.Classes.Database_Management
                 while (reader.Read())
                 {
                     int id = reader.GetInt32(0);
-                    if(s.ID != id)
+                    if (s.ID != id)
                     {
                         string name = reader.GetString(1);
                         string role = reader.GetString(2);
@@ -256,9 +257,9 @@ namespace JDGrooming.Classes.Database_Management
         }
         public void UpdateShifts(Staff s)
         {
-            for(int i=0; i<5; i++)
+            for (int i = 0; i < 5; i++)
             {
-                QueryDatabase($"UPDATE[SHIFT] SET[StartTime] = '{s.ShiftStarts[i]}', [EndTime] = '{s.ShiftEnds[i]}' WHERE[StaffID] = {s.ID} AND [DAY] = {i+1};");
+                QueryDatabase($"UPDATE[SHIFT] SET[StartTime] = '{s.ShiftStarts[i]}', [EndTime] = '{s.ShiftEnds[i]}' WHERE[StaffID] = {s.ID} AND [DAY] = {i + 1};");
             }
         }
         /// <summary>
@@ -273,7 +274,7 @@ namespace JDGrooming.Classes.Database_Management
             try
             {
                 SqlDataReader reader = ReadDatabase("SELECT COUNT([DogID]) FROM [Appointment] WHERE [DogID] = " + id + " ;");
-                while((reader.Read())) if(reader.GetInt32(0) > 0) { first = false; }
+                while ((reader.Read())) if (reader.GetInt32(0) > 0) { first = false; }
             }
             catch { db.Rdr.Close(); }
             return first;
@@ -320,6 +321,27 @@ namespace JDGrooming.Classes.Database_Management
         {
             QueryDatabase($"INSERT INTO [RotaException] ([StaffID], [StartTime], [EndTime], [Description]) VALUES ({a.StaffID}, '{a.StartTime:yyyy-MM-dd HH:mm:ss}', '{a.EndTime:yyyy-MM-dd HH:mm:ss}', '{a.Description}');");
         }
+
+        // unnecessary code from booking calendar
+
+        //public List<CalendarDateRange> CalculateMonthAvailability (DateTime testdate)
+        //{
+        //    List<CalendarDateRange> results = new List<CalendarDateRange> { };
+        //    // try both
+        //    if()
+        //    return results;
+        //}
+        //public List<Appointment> RetrieveAppointments_Month (DateTime testdate)
+        //{
+        //    List<Appointment> results = new List<Appointment> { };
+        //    try
+        //    {
+        //        DateTime endsearch = testdate.AddMonths(1);
+        //        SqlDataReader reader = ReadDatabase($"SELECT FROM [Appointment] WHERE [Time] >= '{testdate:yyyy-MM-01}' AND [Time] < '{endsearch:yyyy-MM-01'};");
+        //    }
+        //    catch { db.Rdr.Close(); }
+        //    return results;
+        //}
 
         public void RegisterClient(String Forename, String Surname, String FirstLine, String SecondLine, String Postcode, String Town, String Email, String Mobile, String HomePhone)
         {
