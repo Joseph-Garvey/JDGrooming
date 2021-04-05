@@ -17,7 +17,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Calendar Name="calendar" SelectedDatesChanged="calendar_SelectedDatesChanged"></Calendar>
-            <DataGrid x:Name="data_Availability" AutoGenerateColumns="False" Grid.Row="1"  ColumnWidth="Auto">
+            <DataGrid x:Name="data_Availability" AutoGenerateColumns="False" Grid.Row="1"  ColumnWidth="Auto" IsReadOnly="True" SelectionMode="Single" SelectionUnit="Cell" CurrentCellChanged="data_Availability_CurrentCellChanged">
                 <DataGrid.Resources>
                     <Style TargetType="CheckBox" BasedOn="{StaticResource StatusButton}" x:Key="x">
                         <Setter Property="Template">

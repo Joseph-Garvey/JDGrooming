@@ -24,15 +24,16 @@ namespace JDGrooming
     {
         public int ClientID { get; set; }
         public int DogID { get; set; }
-        public String SelectedService { get; set; }
+        public Service Selected_Service { get; set; }
 
         public App JDApp { get => ((App)Application.Current); }
 
         private ObservableCollection<Staff> StaffList { get; set; }
 
-        public BookTime(int ClientID, int DogID, String SelectedService)
+        public BookTime(int ClientID, int DogID, Service SelectedService)
         {
             this.DataContext = this;
+            Selected_Service = SelectedService;
             InitializeComponent();
             ObservableCollection<Staff> StaffList = JDApp.query.GetShifts();
             calendar.BlackoutDates.AddDatesInPast();
@@ -45,6 +46,11 @@ namespace JDGrooming
         private void calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             // update data grid
+        }
+
+        private void data_Availability_CurrentCellChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show("Current cell changed");
         }
     }
 }

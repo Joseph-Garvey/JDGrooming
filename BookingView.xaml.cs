@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JDGrooming.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -171,7 +172,7 @@ namespace JDGrooming
         /// <param name="DogID"></param>
         /// <param name="ClientID"></param>
         /// <param name="GroomingOption"></param>
-        private void ShowTimes(int DogID, int ClientID, String GroomingOption)
+        private void ShowTimes(int DogID, int ClientID, Service GroomingOption)
         {
             try
             {

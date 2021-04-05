@@ -42,7 +42,7 @@ namespace JDGrooming
 
         public int DogID { get; set; }
         public int ClientID { get; set; }
-        public String SelectedService { get => ((Service)data_Services.SelectedItem).Name; }
+        public Service SelectedService { get => ((Service)data_Services.SelectedItem); }
         /// <summary>
         /// ID of dog to be booked.
         /// </summary>
