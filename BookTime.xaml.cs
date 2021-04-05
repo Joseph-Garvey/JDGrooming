@@ -36,6 +36,10 @@ namespace JDGrooming
             InitializeComponent();
             ObservableCollection<Staff> StaffList = JDApp.query.GetShifts();
             calendar.BlackoutDates.AddDatesInPast();
+            bool[] b = new bool[48] { true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, };
+            Schedule s = new Schedule(StaffList[0], b);
+            List<Schedule> ls = new List<Schedule> { s };
+            data_Availability.ItemsSource = ls;
         }
 
         private void calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)

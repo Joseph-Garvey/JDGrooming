@@ -95,6 +95,7 @@
     <Compile Include="Classes\Appointment.cs" />
     <Compile Include="Classes\Email.cs" />
     <Compile Include="Classes\RedLetterDayConverter.cs" />
+    <Compile Include="Classes\Schedule.cs" />
     <Compile Include="Classes\Service.cs" />
     <Compile Include="Classes\Staff.cs" />
     <Compile Include="Classes\TimeSpan Converter.cs" />
