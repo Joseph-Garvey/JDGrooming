@@ -91,8 +91,6 @@
                     <DataGridCheckBoxColumn Binding="{Binding time[46]}" ElementStyle="{StaticResource x}"/>
                     <DataGridCheckBoxColumn Binding="{Binding time[47]}" ElementStyle="{StaticResource x}"/>
                     <DataGridCheckBoxColumn Header="17:00" Binding="{Binding time[48]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[49]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[50]}" ElementStyle="{StaticResource x}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

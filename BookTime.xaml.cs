@@ -35,21 +35,21 @@ namespace JDGrooming
             this.DataContext = this;
             Selected_Service = SelectedService;
             InitializeComponent();
-            ObservableCollection<Staff> StaffList = JDApp.query.GetShifts();
+            StaffList = JDApp.query.GetShifts();
             calendar.BlackoutDates.AddDatesInPast();
             //eg data
-            bool[] b = new bool[48] { true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, };
-            Schedule s = new Schedule(StaffList[0], b);
-            List<Schedule> ls = new List<Schedule> { s };
-            //
-            data_Availability.ItemsSource = ls;
+            //bool[] b = new bool[48] { true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, };
+            //Schedule s = new Schedule(StaffList[0], b);
+            //List<Schedule> ls = new List<Schedule> { s };
+            ////
+            //data_Availability.ItemsSource = ls;
         }
 
         private void calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             if (calendar.SelectedDate.HasValue)
             {
-                data_Availability.ItemsSource = JDApp.query.GetSchedules(calendar.SelectedDate.Value);
+                data_Availability.ItemsSource = JDApp.query.GetSchedules(calendar.SelectedDate.Value, StaffList);
             }
         }
 

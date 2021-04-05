@@ -195,11 +195,11 @@ namespace JDGrooming.Classes.Database_Management
             List<Staff> results = new List<Staff> { };
             try
             {
-                SqlDataReader reader = ReadDatabase("SELECT * FROM [Staff]");
+                SqlDataReader reader = ReadDatabase("SELECT [Id], [Forename] + ' ' + [Surname] AS [Name]  FROM [Staff];");
                 while (reader.Read())
                 {
                     int id = reader.GetInt32(0);
-                    string name = reader.GetString(3);
+                    string name = reader.GetString(1);
                     results.Add(new Staff(id, name));
                 }
                 reader.Close();
@@ -326,22 +326,21 @@ namespace JDGrooming.Classes.Database_Management
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<Schedule> GetSchedules(DateTime date)
+        public List<Schedule> GetSchedules(DateTime date, ObservableCollection<Staff> stafflist)
         {
             List<Schedule> timetable = new List<Schedule> { };
             List<Appointment> appointments = RetrieveAppointments_Day(date);
             bool[] b = new bool[48] { true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, };
             if (appointments.Count == 0)
             {
-                List<Staff> stafflist = GetStaff();
                 foreach(Staff s in stafflist)
                 {
                     Schedule item = new Schedule(s, b);
+                    timetable.Add(item);
                 }
             }
             else
             {
-                ObservableCollection<Staff> stafflist = GetShifts();
                 foreach (Staff s in stafflist)
                 {
                     b = new bool[48] { true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, };
@@ -357,7 +356,7 @@ namespace JDGrooming.Classes.Database_Management
                         if(a.StaffID == s.ID)
                         {
                             int blockstart = (int)((a.Time.TimeOfDay - (new TimeSpan(9, 0, 0))).TotalMinutes / 10);
-                            int blockcount = (int)a.SelectedService_Duration.TotalMinutes / 10;
+                            int blockcount = (int)Math.Ceiling(a.SelectedService_Duration.TotalMinutes / 10);
                             for(int i = blockstart; i < blockcount; i++)
                             {
                                 b[i] = false;
