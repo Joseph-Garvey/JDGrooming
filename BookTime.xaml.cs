@@ -72,16 +72,17 @@ namespace JDGrooming
                 int blockcount = (int)(Selected_Service.Duration.TotalMinutes / 15);
                 for (int i = blockstart; i < blockcount + blockstart - 1; i++) // fix change on click
                 {
-                    if (((Schedule)data_Availability.SelectedItem).time[i] == false) return; // databind this
+                    if (((Schedule)(data_Availability.SelectedCells[0].Item)).time[i] == false) return; // databind this
                 }
                 for (int i = blockstart; i < blockcount + blockstart - 1; i++)
                 {
-                    ((Schedule)data_Availability.SelectedItem).time[i] = false;
+                    ((Schedule)(data_Availability.SelectedCells[0].Item)).time[i] = false; // needs databind + notifypropertychanged
                 }
                 // selected time =
                 // selected staff =
                 // confirm
                 // add to list resets it all
+                // if buggy use combobox
             }
             catch { }
         }
