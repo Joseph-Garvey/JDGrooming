@@ -30,6 +30,8 @@ namespace JDGrooming
 
         private ObservableCollection<Staff> StaffList { get; set; }
 
+        public List<Schedule> Schedules { get; set; }
+
         public BookTime(int ClientID, int DogID, Service SelectedService)
         {
             this.DataContext = this;
@@ -49,13 +51,39 @@ namespace JDGrooming
         {
             if (calendar.SelectedDate.HasValue)
             {
-                data_Availability.ItemsSource = JDApp.query.GetSchedules(calendar.SelectedDate.Value, StaffList);
+                Schedules = JDApp.query.GetSchedules(calendar.SelectedDate.Value, StaffList);
+                data_Availability.ItemsSource = Schedules;
             }
         }
 
         private void data_Availability_CurrentCellChanged(object sender, EventArgs e)
         {
-            MessageBox.Show("Current cell changed");
+        }
+
+        private void data_Availability_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            // update grid after or when changing selection
+            try
+            {
+                string s = data_Availability.SelectedCells[0].Column.SortMemberPath;
+                int start = 5;
+                int fin = s.IndexOf(']');
+                int blockstart = int.Parse(s.Substring(start, fin - start));
+                int blockcount = (int)(Selected_Service.Duration.TotalMinutes / 15);
+                for (int i = blockstart; i < blockcount + blockstart - 1; i++) // fix change on click
+                {
+                    if (((Schedule)data_Availability.SelectedItem).time[i] == false) return; // databind this
+                }
+                for (int i = blockstart; i < blockcount + blockstart - 1; i++)
+                {
+                    ((Schedule)data_Availability.SelectedItem).time[i] = false;
+                }
+                // selected time =
+                // selected staff =
+                // confirm
+                // add to list resets it all
+            }
+            catch { }
         }
     }
 }

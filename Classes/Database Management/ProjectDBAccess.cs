@@ -330,12 +330,13 @@ namespace JDGrooming.Classes.Database_Management
         {
             List<Schedule> timetable = new List<Schedule> { };
             List<Appointment> appointments = RetrieveAppointments_Day(date);
-            bool[] b = new bool[48] { true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, };
+            bool[] b = new bool[32] { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
             if (appointments.Count == 0)
             {
                 foreach(Staff s in stafflist)
                 {
                     Schedule item = new Schedule(s, b);
+                    if (s.Monday_End.Hours < 17) item = new Schedule(s, GetHalfDaySchedule());
                     timetable.Add(item);
                 }
             }
@@ -343,21 +344,15 @@ namespace JDGrooming.Classes.Database_Management
             {
                 foreach (Staff s in stafflist)
                 {
-                    b = new bool[48] { true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, };
-                    if (s.Monday_End.Hours < 17)
-                    {
-                        for(int i = 24; i<=47; i++)
-                        {
-                            b[i] = false;
-                        }
-                    }
+                    b = new bool[32] { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
+                    if (s.Monday_End.Hours < 17) b = GetHalfDaySchedule();
                     foreach (Appointment a in appointments)
                     {
                         if(a.StaffID == s.ID)
                         {
-                            int blockstart = (int)((a.Time.TimeOfDay - (new TimeSpan(9, 0, 0))).TotalMinutes / 10);
-                            int blockcount = (int)Math.Ceiling(a.SelectedService_Duration.TotalMinutes / 10);
-                            for(int i = blockstart; i < blockcount; i++)
+                            int blockstart = (int)((a.Time.TimeOfDay - (new TimeSpan(9, 0, 0))).TotalMinutes / 15);
+                            int blockcount = (int)(a.SelectedService_Duration.TotalMinutes / 15);
+                            for(int i = blockstart; i < blockcount+blockstart-1; i++)
                             {
                                 b[i] = false;
                             }
@@ -367,6 +362,10 @@ namespace JDGrooming.Classes.Database_Management
                 }
             }
             return timetable;
+        }
+        private bool[] GetHalfDaySchedule()
+        {
+            return new bool[32] { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
         }
         // unnecessary code from booking calendar
 
