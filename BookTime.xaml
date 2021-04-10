@@ -17,7 +17,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Calendar Name="calendar" SelectedDatesChanged="calendar_SelectedDatesChanged"></Calendar>
-            <DataGrid x:Name="data_Availability" AutoGenerateColumns="False" Grid.Row="1"  ColumnWidth="Auto" IsReadOnly="True" SelectionMode="Single" SelectionUnit="Cell" SelectedCellsChanged="data_Availability_SelectedCellsChanged" CurrentCellChanged="data_Availability_CurrentCellChanged">
+            <DataGrid x:Name="data_Availability" AutoGenerateColumns="False" Grid.Row="1"  ColumnWidth="Auto" IsReadOnly="True" SelectionMode="Single" SelectionUnit="Cell" SelectedCellsChanged="data_Availability_SelectedCellsChanged">
                 <DataGrid.Resources>
                     <Style TargetType="CheckBox" BasedOn="{StaticResource StatusButton}" x:Key="x">
                         <Setter Property="Template">
@@ -42,38 +42,38 @@
                 </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Staff Member" Binding="{Binding staff}"></DataGridTextColumn>
-                    <DataGridCheckBoxColumn Header="9:00" Binding="{Binding time[0]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[1]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="9:30"  Binding="{Binding time[2]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[3]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="10:00" Binding="{Binding time[4]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[5]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="10:30" Binding="{Binding time[6]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[7]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="11:00" Binding="{Binding time[8]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[9]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="11:30" Binding="{Binding time[10]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn  Binding="{Binding time[11]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="12:00" Binding="{Binding time[12]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[13]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="12:30" Binding="{Binding time[14]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[15]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="13:00" Binding="{Binding time[16]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[17]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="13:30" Binding="{Binding time[18]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[19]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="14:00" Binding="{Binding time[20]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[21]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="14:30" Binding="{Binding time[22]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[23]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="15:00" Binding="{Binding time[24]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[25]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="15:30" Binding="{Binding time[26]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[27]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="16:00" Binding="{Binding time[28]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[29]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Header="16:30" Binding="{Binding time[30]}" ElementStyle="{StaticResource x}"/>
-                    <DataGridCheckBoxColumn Binding="{Binding time[31]}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="9:00" Binding="{Binding time[0], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[1], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="9:30"  Binding="{Binding time[2], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[3], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="10:00" Binding="{Binding time[4], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[5], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="10:30" Binding="{Binding time[6],UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[7], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="11:00" Binding="{Binding time[8], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[9], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="11:30" Binding="{Binding time[10], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn  Binding="{Binding time[11], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="12:00" Binding="{Binding time[12], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[13], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="12:30" Binding="{Binding time[14], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[15], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="13:00" Binding="{Binding time[16], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[17], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="13:30" Binding="{Binding time[18], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[19], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="14:00" Binding="{Binding time[20], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[21], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="14:30" Binding="{Binding time[22], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[23], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="15:00" Binding="{Binding time[24], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[25], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="15:30" Binding="{Binding time[26], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[27], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="16:00" Binding="{Binding time[28], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[29], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Header="16:30" Binding="{Binding time[30], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
+                    <DataGridCheckBoxColumn Binding="{Binding time[31], UpdateSourceTrigger=PropertyChanged}" ElementStyle="{StaticResource x}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

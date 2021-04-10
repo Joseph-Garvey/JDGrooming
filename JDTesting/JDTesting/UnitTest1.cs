@@ -3,6 +3,8 @@ using System;
 using JDGrooming.Classes.Database_Management;
 using JDGrooming.Classes;
 using JDGrooming;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace JDTesting
 {
@@ -18,8 +20,28 @@ namespace JDTesting
         [TestMethod]
         public void TestMethod()
         {
+            db.Connect();
+            if (db.Rdr is null) { }
+            else
+            {
+                db.Rdr.Close();
+            }
             DateTime t = DateTime.Today;
-            String s = $"{t:yyyy-MM+1-01}";
+            ObservableCollection<Staff> staff = new ObservableCollection<Staff>(query.GetShifts());
+            ObservableCollection<Schedule> Schedules = query.GetSchedules(t, staff);
+            int blockstart = 5;
+            int blockcount = 3;
+            int itemindex = 0;
+            for (int i = blockstart; i < blockcount + blockstart - 1; i++) // fix change on click  /// either get item or get grid
+            {
+                if (Schedules[itemindex].time[i] == false) return; // databind this
+            }
+            for (int i = blockstart; i < blockcount + blockstart - 1; i++)
+            {
+                //((Schedule)(data_Availability.SelectedCells[0].Item)).time[i] = false;
+                Schedules[itemindex].time[i] = false;
+            }
+            Schedules[0].time[2] = false;
         }
         //[TestMethod]
         //public void InsertShifts()

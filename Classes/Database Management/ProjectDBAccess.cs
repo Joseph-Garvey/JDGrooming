@@ -190,7 +190,7 @@ namespace JDGrooming.Classes.Database_Management
             catch { db.Rdr.Close(); }
             return results;
         }
-        public List<Staff> GetStaff()
+        public List<Staff> GetStaff() // very broken
         {
             List<Staff> results = new List<Staff> { };
             try
@@ -326,25 +326,25 @@ namespace JDGrooming.Classes.Database_Management
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public List<Schedule> GetSchedules(DateTime date, ObservableCollection<Staff> stafflist)
+        public ObservableCollection<Schedule> GetSchedules(DateTime date, ObservableCollection<Staff> stafflist)
         {
-            List<Schedule> timetable = new List<Schedule> { };
+            ObservableCollection<Schedule> timetable = new ObservableCollection<Schedule> { };
             List<Appointment> appointments = RetrieveAppointments_Day(date);
-            bool[] b = new bool[32] { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
+            //bool[] b = new bool[32] { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
             if (appointments.Count == 0)
             {
                 foreach(Staff s in stafflist)
                 {
-                    Schedule item = new Schedule(s, b);
+                    Schedule item = new Schedule(s, new bool[32] { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true });
                     if (s.Monday_End.Hours < 17) item = new Schedule(s, GetHalfDaySchedule());
                     timetable.Add(item);
                 }
             }
             else
-            {
+            { // check this code does not suffer same bug
                 foreach (Staff s in stafflist)
                 {
-                    b = new bool[32] { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
+                    bool[] b = new bool[32] { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
                     if (s.Monday_End.Hours < 17) b = GetHalfDaySchedule();
                     foreach (Appointment a in appointments)
                     {
