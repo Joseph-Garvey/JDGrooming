@@ -30,6 +30,9 @@ namespace JDGrooming
 
         public App JDApp { get => ((App)Application.Current); }
 
+        public DateTime SelectedDateTime { get; set; }
+        public Staff SelectedStaff { get; set; }
+
         private ObservableCollection<Staff> StaffList { get; set; }
 
         private DataView datalist;
@@ -85,33 +88,38 @@ namespace JDGrooming
 
         private void data_Availability_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            // update grid after or when changing selection
-            try
+            if (calendar.SelectedDate.HasValue)
             {
-                string s = data_Availability.SelectedCells[0].Column.SortMemberPath;
-                int start = 5;
-                int fin = s.IndexOf(']');
-                int blockstart = int.Parse(s.Substring(start, fin - start));
-                int blockcount = (int)(Selected_Service.Duration.TotalMinutes / 15);
-                int itemindex = Schedules.IndexOf((Schedule)data_Availability.SelectedCells[0].Item);
-                for (int i = blockstart; i < blockcount + blockstart - 1; i++) // fix change on click  /// either get item or get grid
+                // update grid after or when changing selection // cancel // fix out of range exception
+                try
                 {
-                    if (((Schedule)(data_Availability.SelectedCells[0].Item)).time[i] == false) return; // databind this
+                    string s = data_Availability.SelectedCells[0].Column.SortMemberPath;
+                    int start = 5;
+                    int fin = s.IndexOf(']');
+                    int blockstart = int.Parse(s.Substring(start, fin - start));
+                    int blockcount = (int)(Selected_Service.Duration.TotalMinutes / 15);
+                    int itemindex = Schedules.IndexOf((Schedule)data_Availability.SelectedCells[0].Item);
+                    for (int i = blockstart; i < blockcount + blockstart - 1; i++) // fix change on click  /// either get item or get grid
+                    {
+                        if (((Schedule)(data_Availability.SelectedCells[0].Item)).time[i] == false) return; // databind this
+                    }
+                    for (int i = blockstart; i < blockcount + blockstart - 1; i++)
+                    {
+                        //((Schedule)(data_Availability.SelectedCells[0].Item)).time[i] = false;
+                        Schedules[itemindex].time[i] = false;
+                    }
+                    data_Availability.ItemsSource = null;
+                    data_Availability.ItemsSource = Schedules;
+                    TimeSpan offset = new TimeSpan(0, 15*blockstart, 0);
+                    DateTime SelectedTime = calendar.SelectedDate.Value + new TimeSpan(0, 15 * blockstart, 0);
+                    Staff selectedstaff = Schedules[itemindex].staff;
+                    // confirm
+                    // add to list resets it all
+                    // if buggy use combobox
+                    // alert then do /\ on confirm
                 }
-                for (int i = blockstart; i < blockcount + blockstart - 1; i++)
-                {
-                    //((Schedule)(data_Availability.SelectedCells[0].Item)).time[i] = false;
-                    Schedules[itemindex].time[i] = false;
-                }
-                data_Availability.ItemsSource = null;
-                data_Availability.ItemsSource = Schedules;
-                // selected time =
-                // selected staff =
-                // confirm
-                // add to list resets it all
-                // if buggy use combobox
+                catch { }
             }
-            catch { }
         }
 
         #region NotifyPropertyChanged
