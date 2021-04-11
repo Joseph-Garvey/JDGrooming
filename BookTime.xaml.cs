@@ -30,7 +30,9 @@ namespace JDGrooming
 
         public App JDApp { get => ((App)Application.Current); }
 
-        public DateTime SelectedDateTime { get; set; }
+        public DateTime TransactionTime { get; set; }
+        public int TransactionID = -1;
+
         public Staff SelectedStaff { get; set; }
 
         private ObservableCollection<Staff> StaffList { get; set; }
@@ -62,10 +64,39 @@ namespace JDGrooming
             }
         }
 
+        private DateTime selected_time;
+        public DateTime Selected_Time
+        {
+            get { return selected_time; }
+            set
+            {
+                if (selected_time == value) return;
+                selected_time = value;
+                this.NotifyPropertyChanged("Selected_Time");
+            }
+        }
+
+        private Staff selected_Staff;
+        public Staff Selected_Staff
+        {
+            get { return selected_Staff; }
+            set
+            {
+                if (selected_Staff == value) return;
+                selected_Staff = value;
+                this.NotifyPropertyChanged("Selected_Staff");
+            }
+        }
+
+        private bool bookingconfirmed = false;
+
         public BookTime(int ClientID, int DogID, Service SelectedService)
         {
+            TransactionTime = DateTime.Now;
             this.DataContext = this;
             Selected_Service = SelectedService;
+            this.DogID = DogID;
+            this.ClientID = ClientID;
             InitializeComponent();
             StaffList = JDApp.query.GetShifts();
             calendar.BlackoutDates.AddDatesInPast();
@@ -111,9 +142,8 @@ namespace JDGrooming
                     data_Availability.ItemsSource = null;
                     data_Availability.ItemsSource = Schedules;
                     TimeSpan offset = new TimeSpan(0, 15*blockstart, 0);
-                    DateTime SelectedTime = calendar.SelectedDate.Value + new TimeSpan(0, 15 * blockstart, 0);
-                    Staff selectedstaff = Schedules[itemindex].staff;
-                    // confirm
+                    Selected_Time = calendar.SelectedDate.Value + new TimeSpan(9, 15 * blockstart, 0);
+                    Selected_Staff = Schedules[itemindex].staff;
                     // add to list resets it all
                     // if buggy use combobox
                     // alert then do /\ on confirm
@@ -129,5 +159,30 @@ namespace JDGrooming
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
         #endregion
+
+        private void btn_Add_Click(object sender, RoutedEventArgs e)
+        {
+            if (bookingconfirmed == false) { MessageBox.Show("Please confirm the current booking before adding another appointment.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+            // set to false + do other stuff
+        }
+
+        private void btn_Confirm_Click(object sender, RoutedEventArgs e)
+        {
+            if (bookingconfirmed == true) { MessageBox.Show("This appointment has already been confirmed.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+            try
+            {
+                if (Selected_Time == null) throw new NullReferenceException();
+                if(TransactionID == -1)
+                {
+                    JDApp.query.InitialiseTransaction(ClientID, TransactionTime);
+                    TransactionID = JDApp.query.RetrieveTransactionID(ClientID, TransactionTime);
+                }
+                JDApp.query.BookAppointment(TransactionID, DogID, Selected_Time, Selected_Staff.ID, Selected_Service.Name);
+                MessageBox.Show("Appointment booked.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (NullReferenceException) { MessageBox.Show("Please select a date and time.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+            catch { MessageBox.Show("An error has occurred. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+
+        }
     }
 }

@@ -404,6 +404,27 @@ namespace JDGrooming.Classes.Database_Management
         //    return results;
         //}
 
+        public void InitialiseTransaction(int ClientID, DateTime TransactionTime)
+        {
+            QueryDatabase($"INSERT INTO [Transaction] ([ClientID], [Time]) VALUES ({ClientID}, '{TransactionTime:yyyy-MM-dd HH:mm:ss}');");
+        }
+        public int RetrieveTransactionID(int ClientID, DateTime TransactionTime)
+        {
+            int id = -1;
+            try
+            {
+                SqlDataReader reader = ReadDatabase($"SELECT [Id] FROM [Transaction] WHERE [ClientID] = {ClientID} AND [Time] = '{TransactionTime:yyyy-MM-dd HH:mm:ss}';");
+                while (reader.Read()) id = reader.GetInt32(0);
+                reader.Close();
+            }
+            catch { db.Rdr.Close(); }
+            return id;
+        }
+        public void BookAppointment(int TransactionID, int DogID, DateTime Appointment_Time, int StaffID, String Selected_Service)
+        {
+            QueryDatabase($"INSERT INTO [Appointment] ([TransactionID], [DogID], [Time], [StaffID], [SelectedService]) VALUES ({TransactionID}, {DogID}, '{Appointment_Time:yyyy-MM-dd HH:mm:ss}', {StaffID}, '{Selected_Service}');");
+        }
+
         public void RegisterClient(String Forename, String Surname, String FirstLine, String SecondLine, String Postcode, String Town, String Email, String Mobile, String HomePhone)
         {
             // add letter validation for names etc

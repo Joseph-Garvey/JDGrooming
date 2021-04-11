@@ -29,8 +29,8 @@
                 </Grid.ColumnDefinitions>
                 <Label Style="{StaticResource lbl_WhiteHeading}" FontSize="16" Margin="5" Grid.ColumnSpan="2">Appointments:</Label>
                 <ListView x:Name="list_Appointments" Background="Transparent" BorderThickness="0" Grid.Row="1"  Grid.ColumnSpan="2"></ListView>
-                <Button Style="{StaticResource btnDark}" FontSize="14" Grid.Row="3" Padding="5" Margin="5">Add</Button>
-                <Button Style="{StaticResource btnDark}" Grid.Row="3" FontSize="14" Grid.Column="1" Padding="5" Margin="5">Confirm</Button>
+                <Button Style="{StaticResource btnDark}" Click="btn_Add_Click" FontSize="14" Grid.Row="3" Padding="5" Margin="5">Add</Button>
+                <Button Style="{StaticResource btnDark}" Click="btn_Confirm_Click" Grid.Row="3" FontSize="14" Grid.Column="1" Padding="5" Margin="5">Confirm</Button>
             </Grid>
         </Border>
         <Border Style="{StaticResource brd_1}" Padding="5">
