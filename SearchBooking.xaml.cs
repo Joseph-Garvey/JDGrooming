@@ -28,6 +28,20 @@ namespace JDGrooming
         {
             this.DataContext = this;
             InitializeComponent();
+            data_Booking.dataview.Width = 750;
+            data_Booking.dataview.MaxHeight = 400;
+            data_Booking.dataview.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+            data_Booking.DataList = JDApp.query.FillAppointmentTable();
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            object[] selectedrow = data_Booking.SelectedItem;
+            string TransactionID = selectedrow[0].ToString();
+            string DogID = selectedrow[2].ToString();
+            DateTime time = DateTime.Parse(selectedrow[4].ToString());
+            JDApp.query.DeleteBooking(TransactionID, DogID, time);
+            data_Booking.DataList = JDApp.query.FillAppointmentTable();
         }
     }
 }

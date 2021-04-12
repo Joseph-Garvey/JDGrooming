@@ -20,7 +20,7 @@
         <DataGrid Name="dataview" Margin="5,0,5,10" BorderBrush="Black"
                           ItemsSource="{Binding DataList}" Width="600"
                           IsReadOnly="True" SelectionMode="Single"
-                  FontSize="14" AutoGenerateColumns="True">
+                   AutoGenerateColumns="True">
         </DataGrid>
     </StackPanel>
 </UserControl>

@@ -4,12 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:JDGrooming"
-             mc:Ignorable="d"
+             mc:Ignorable="d" VerticalAlignment="Top"
              >
     <Border Style="{StaticResource brd_1}" Margin="5">
         <StackPanel>
             <local:Search_DataGrid x:Name="data_Booking"></local:Search_DataGrid>
-            <Button Style="{StaticResource btnDark}" Margin="5" Padding="5" FontSize="14">Delete selected appointment</Button>
+            <Button Style="{StaticResource btnDark}" Margin="5" Padding="5" FontSize="14" Click="btnDelete_Click">Delete selected appointment</Button>
         </StackPanel>
     </Border>
 </UserControl>

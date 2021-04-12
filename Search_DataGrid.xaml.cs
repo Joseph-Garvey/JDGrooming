@@ -35,7 +35,7 @@ namespace JDGrooming
                 if (searchtext == value) return;
                 searchtext = value;
                 this.NotifyPropertyChanged("SearchText");
-                DataList.RowFilter = "Name LIKE '*" + SearchText + "*'";
+                DataList.RowFilter = "Client_Name LIKE '*" + SearchText + "*'";
             }
         }
 

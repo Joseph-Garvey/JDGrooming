@@ -80,6 +80,9 @@ namespace JDGrooming
                 case "btnStaffManagement":
                     View.Child = new StaffManagement();
                     break;
+                case "btnBookingSearch":
+                    View.Child = new SearchBooking();
+                    break;
             }
         }
         #endregion

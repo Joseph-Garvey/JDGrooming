@@ -392,9 +392,9 @@ namespace JDGrooming.Classes.Database_Management
             catch { db.Rdr.Close(); }
             return results;
         }
-        public DataView RetrieveAppointments_All()
+        public DataView FillAppointmentTable()
         {
-            return CreateDataView("SELECT [Client].[Surname] + ' ' + [Client].[Forename] AS Client_Name, [Dog].[Name], [Appointment].[Time], [SelectedService], [Duration], [Transaction].[PaymentStatus] FROM [Appointment], [Client], [Dog], [Service], [Transaction] WHERE [Appointment].[TransactionID] = [Transaction].[Id] AND [Appointment].[DogID] = [Dog].Id AND [Dog].[ClientID] = [Client].[Id] AND [Appointment].[SelectedService] = [Service].[Name];");
+            return CreateDataView("SELECT [TransactionID] AS ID, [Client].[Surname] + ' ' + [Client].[Forename] AS Client_Name, [Dog].[Id] AS DID,[Dog].[Name] AS Dog_Name, [Appointment].[Time], [SelectedService], [Duration], [Transaction].[PaymentStatus] FROM [Appointment], [Client], [Dog], [Service], [Transaction] WHERE [Appointment].[TransactionID] = [Transaction].[Id] AND [Appointment].[DogID] = [Dog].Id AND [Dog].[ClientID] = [Client].[Id] AND [Appointment].[SelectedService] = [Service].[Name];");
         }
         //public List<Appointment> RetrieveAppointments_Month (DateTime testdate)
         //{
@@ -407,7 +407,14 @@ namespace JDGrooming.Classes.Database_Management
         //    catch { db.Rdr.Close(); }
         //    return results;
         //}
+        public void DeleteBooking(string TransactionID, string DogID, DateTime Time)
+        {
+            QueryDatabase($"DELETE FROM [Appointment] WHERE [TransactionID] = {TransactionID} AND [DogID] = {DogID} AND Time = '{Time:yyyy-MM-dd HH:mm:ss}';");
+        }
+        public void GetDogID_Transaction()
+        {
 
+        }
         public void InitialiseTransaction(int ClientID, DateTime TransactionTime)
         {
             QueryDatabase($"INSERT INTO [Transaction] ([ClientID], [Time]) VALUES ({ClientID}, '{TransactionTime:yyyy-MM-dd HH:mm:ss}');");
