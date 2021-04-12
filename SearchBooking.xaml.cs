@@ -36,12 +36,21 @@ namespace JDGrooming
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            object[] selectedrow = data_Booking.SelectedItem;
-            string TransactionID = selectedrow[0].ToString();
-            string DogID = selectedrow[2].ToString();
-            DateTime time = DateTime.Parse(selectedrow[4].ToString());
-            JDApp.query.DeleteBooking(TransactionID, DogID, time);
-            data_Booking.DataList = JDApp.query.FillAppointmentTable();
+            try
+            {
+                object[] selectedrow = data_Booking.SelectedItem;
+                string TransactionID = selectedrow[0].ToString();
+                string DogID = selectedrow[2].ToString();
+                DateTime time = DateTime.Parse(selectedrow[4].ToString());
+                JDApp.query.DeleteBooking(TransactionID, DogID, time);
+                data_Booking.DataList = JDApp.query.FillAppointmentTable();
+                data_Booking.dataview.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
+            }
+            catch(NullReferenceException)
+            {
+                MessageBox.Show("Select an item to delete.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch { }
         }
     }
 }
