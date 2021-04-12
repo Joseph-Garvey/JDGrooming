@@ -60,6 +60,7 @@ namespace JDGrooming
                 foreach (Service s in Services)
                 {
                     s.Duration += FirstAppointmentOffset;
+                    s.price += 5;
                 }
             }
             InitializeComponent();

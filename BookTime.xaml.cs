@@ -88,6 +88,8 @@ namespace JDGrooming
 
         private bool apptselected = false;
 
+        public bool allergybooking { get; set; }
+
         public String Dogname { get; set; }
 
         private bool bookingconfirmed = false;
@@ -103,6 +105,12 @@ namespace JDGrooming
             InitializeComponent();
             StaffList = JDApp.query.GetShifts();
             calendar.BlackoutDates.AddDatesInPast();
+            if (Selected_Service.Name == "Allergy Treatment (x4 Min)")
+            {
+                list_Appointments.Items.Add("Note: You must book at least 4 allergy appointments.");
+                allergybooking = true;
+            }
+            else { allergybooking = false; }
             //eg data
             //bool[] b = new bool[48] { true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, };
             //Schedule s = new Schedule(StaffList[0], b);
@@ -196,6 +204,34 @@ namespace JDGrooming
             catch (NullReferenceException) { MessageBox.Show("Please select a date and time.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
             catch { MessageBox.Show("An error has occurred. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
 
+        }
+
+        public bool BlockExitAllergy()
+        {
+            if (allergybooking)
+            {
+                if(list_Appointments.Items.Count < 5) { return true; }
+            }
+            return false;
+        }
+
+        public void BlockExit()
+        {
+            MessageBoxResult m = MessageBox.Show("You must make at least 4 allergy appointments. Would you like to cancel or continue booking?", "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+            if (m is MessageBoxResult.Cancel)
+            {
+                foreach(object o in list_Appointments.Items)
+                {
+                    if(o is Appointment)
+                    {
+                        JDApp.query.DeleteBooking()
+                    }
+                }
+            }
+            else
+            {
+
+            }
         }
     }
 }

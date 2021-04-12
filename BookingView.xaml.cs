@@ -120,6 +120,10 @@ namespace JDGrooming
                     ShowDogBooking(service.ClientID);
                     break;
                 case BookTime time:
+                    if (time.BlockExitAllergy())
+                    {
+                        
+                    }
                     ShowServices(time.DogID, time.ClientID, time.Dogname);
                     break;
             }

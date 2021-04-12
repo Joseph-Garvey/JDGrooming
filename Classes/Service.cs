@@ -22,7 +22,7 @@ namespace JDGrooming.Classes
         }
         public String Name { get; set; }
         public TimeSpan Duration { get; set; }
-        private double price;
+        public double price;
         public String Price
         {
             get => price.ToString("C", CultureInfo.CurrentCulture);
