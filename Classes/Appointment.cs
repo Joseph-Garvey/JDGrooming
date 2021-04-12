@@ -8,6 +8,14 @@ namespace JDGrooming.Classes
 {
     public class Appointment
     {
+        public Appointment(String DogName, DateTime time, String StaffName, Service service)
+        {
+            this.DogName = DogName;
+            this.Time = time;
+            this.StaffName = StaffName;
+            this.SelectedService = service.Name;
+            this.SelectedService_Duration = service.Duration;
+        }
         public Appointment(DateTime time, int staffID, string selectedService)
         {
             Time = time;
@@ -29,10 +37,17 @@ namespace JDGrooming.Classes
             SelectedService = selectedService ?? throw new ArgumentNullException(nameof(selectedService));
         }
 
+        public override string ToString()
+        {
+            return $"{DogName} - {Time:HH:mm dd/MM/yyyy} - {StaffName} - Duration: {SelectedService_Duration}";
+        }
+
         public int TransactionID { get; set; }
         public int DogID { get; set; }
+        public String DogName { get; set; }
         public DateTime Time { get; set; }
         public int StaffID { get; set; }
+        public String StaffName { get; set; }
         public String SelectedService { get; set; }
         public TimeSpan SelectedService_Duration { get; set; }
         //public Staff Staff { get; set; }

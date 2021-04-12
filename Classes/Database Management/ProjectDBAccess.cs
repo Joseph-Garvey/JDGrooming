@@ -344,8 +344,8 @@ namespace JDGrooming.Classes.Database_Management
             { // check this code does not suffer same bug
                 foreach (Staff s in stafflist)
                 {
-                    bool[] b = new bool[32] { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true };
-                    if (s.Monday_End.Hours < 17) b = GetHalfDaySchedule();
+                    Schedule item = new Schedule(s, new bool[32] { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true });
+                    if (s.Monday_End.Hours < 17) item.time = GetHalfDaySchedule();
                     foreach (Appointment a in appointments)
                     {
                         if(a.StaffID == s.ID)
@@ -354,11 +354,11 @@ namespace JDGrooming.Classes.Database_Management
                             int blockcount = (int)(a.SelectedService_Duration.TotalMinutes / 15);
                             for(int i = blockstart; i < blockcount+blockstart-1; i++)
                             {
-                                b[i] = false;
+                                item.time[i] = false;
                             }
                         }
                     }
-                    Schedule item = new Schedule(s, b);
+                    timetable.Add(item);
                 }
             }
             return timetable;
@@ -381,13 +381,13 @@ namespace JDGrooming.Classes.Database_Management
             List<Appointment> results = new List<Appointment> { };
             try
             {
-                DateTime endsearch = testdate.AddMonths(1);
-                SqlDataReader reader = ReadDatabase($"SELECT [Time], [StaffID], [SelectedService], [Duration] FROM [Appointment], [Service] WHERE [Time] = '{testdate:yyyy-MM-dd}' AND [Appointment].[SelectedService] = [Service].[Name];");
+                SqlDataReader reader = ReadDatabase($"SELECT [Time], [StaffID], [SelectedService], [Duration] FROM [Appointment], [Service] WHERE [Time] BETWEEN '{testdate:yyyy-MM-dd 00:00:00}' AND '{testdate:yyyy-MM-dd 23:59:59}' AND [Appointment].[SelectedService] = [Service].[Name];");
                 while (reader.Read())
                 {
                     Appointment a = new Appointment(reader.GetDateTime(0), reader.GetInt32(1), reader.GetString(2), reader.GetTimeSpan(3));
                     results.Add(a);
                 }
+                reader.Close();
             }
             catch { db.Rdr.Close(); }
             return results;

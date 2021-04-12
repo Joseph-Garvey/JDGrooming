@@ -33,8 +33,6 @@ namespace JDGrooming
         public DateTime TransactionTime { get; set; }
         public int TransactionID = -1;
 
-        public Staff SelectedStaff { get; set; }
-
         private ObservableCollection<Staff> StaffList { get; set; }
 
         private DataView datalist;
@@ -88,15 +86,20 @@ namespace JDGrooming
             }
         }
 
+        private bool apptselected = false;
+
+        public String Dogname { get; set; }
+
         private bool bookingconfirmed = false;
 
-        public BookTime(int ClientID, int DogID, Service SelectedService)
+        public BookTime(int ClientID, int DogID, Service SelectedService, String Dogname)
         {
             TransactionTime = DateTime.Now;
             this.DataContext = this;
             Selected_Service = SelectedService;
             this.DogID = DogID;
             this.ClientID = ClientID;
+            this.Dogname = Dogname;
             InitializeComponent();
             StaffList = JDApp.query.GetShifts();
             calendar.BlackoutDates.AddDatesInPast();
@@ -110,6 +113,10 @@ namespace JDGrooming
 
         private void calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
+            UpdateTimetable();
+        }
+        private void UpdateTimetable()
+        {
             if (calendar.SelectedDate.HasValue)
             {
                 Schedules = JDApp.query.GetSchedules(calendar.SelectedDate.Value, StaffList);
@@ -121,6 +128,7 @@ namespace JDGrooming
         {
             if (calendar.SelectedDate.HasValue)
             {
+                if (apptselected) { return; }
                 // update grid after or when changing selection // cancel // fix out of range exception
                 try
                 {
@@ -144,9 +152,7 @@ namespace JDGrooming
                     TimeSpan offset = new TimeSpan(0, 15*blockstart, 0);
                     Selected_Time = calendar.SelectedDate.Value + new TimeSpan(9, 15 * blockstart, 0);
                     Selected_Staff = Schedules[itemindex].staff;
-                    // add to list resets it all
-                    // if buggy use combobox
-                    // alert then do /\ on confirm
+                    apptselected = true;
                 }
                 catch { }
             }
@@ -163,6 +169,9 @@ namespace JDGrooming
         private void btn_Add_Click(object sender, RoutedEventArgs e)
         {
             if (bookingconfirmed == false) { MessageBox.Show("Please confirm the current booking before adding another appointment.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+            bookingconfirmed = false;
+            apptselected = false;
+            data_Availability.ItemsSource = null;
             // set to false + do other stuff
         }
 
@@ -172,6 +181,7 @@ namespace JDGrooming
             try
             {
                 if (Selected_Time == null) throw new NullReferenceException();
+                if (apptselected == false) return;
                 if(TransactionID == -1)
                 {
                     JDApp.query.InitialiseTransaction(ClientID, TransactionTime);
@@ -179,6 +189,9 @@ namespace JDGrooming
                 }
                 JDApp.query.BookAppointment(TransactionID, DogID, Selected_Time, Selected_Staff.ID, Selected_Service.Name);
                 MessageBox.Show("Appointment booked.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                bookingconfirmed = true;
+                Appointment a = new Appointment(Dogname, Selected_Time, this.Selected_Staff.Name, Selected_Service);
+                list_Appointments.Items.Add(a);
             }
             catch (NullReferenceException) { MessageBox.Show("Please select a date and time.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
             catch { MessageBox.Show("An error has occurred. Please try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }

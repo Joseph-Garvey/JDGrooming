@@ -101,10 +101,10 @@ namespace JDGrooming
                     ShowDogBooking(int.Parse(client.SelectedItem[0].ToString()));
                     break;
                 case BookDog dog:
-                    ShowServices(int.Parse(dog.SelectedItem[0].ToString()), dog.ClientID);
+                    ShowServices(int.Parse(dog.SelectedItem[0].ToString()), dog.ClientID, dog.SelectedItem[1].ToString());
                     break;
                 case BookService service:
-                    ShowTimes(service.DogID, service.ClientID, service.SelectedService);
+                    ShowTimes(service.DogID, service.ClientID, service.SelectedService, service.DogName);
                     break;
             }
         }
@@ -120,7 +120,7 @@ namespace JDGrooming
                     ShowDogBooking(service.ClientID);
                     break;
                 case BookTime time:
-                    ShowServices(time.DogID, time.ClientID);
+                    ShowServices(time.DogID, time.ClientID, time.Dogname);
                     break;
             }
         }
@@ -154,11 +154,11 @@ namespace JDGrooming
         /// Displays the service selection view
         /// </summary>
         /// <param name="DogID">ID belonging to Dog</param>
-        private void ShowServices(int DogID, int ClientID)
+        private void ShowServices(int DogID, int ClientID, String DogName)
         {
             try
             {
-                ServiceView = new BookService(DogID, ClientID);
+                ServiceView = new BookService(DogID, ClientID, DogName);
                 View = ServiceView;
             }
             catch (NullReferenceException)
@@ -172,11 +172,11 @@ namespace JDGrooming
         /// <param name="DogID"></param>
         /// <param name="ClientID"></param>
         /// <param name="GroomingOption"></param>
-        private void ShowTimes(int DogID, int ClientID, Service GroomingOption)
+        private void ShowTimes(int DogID, int ClientID, Service GroomingOption, String DogName)
         {
             try
             {
-                TimeView = new BookTime(ClientID, DogID, GroomingOption);
+                TimeView = new BookTime(ClientID, DogID, GroomingOption, DogName);
                 View = TimeView;
             }
             catch (NullReferenceException)

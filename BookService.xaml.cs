@@ -40,6 +40,7 @@ namespace JDGrooming
             }
         }
 
+        public String DogName { get; set; }
         public int DogID { get; set; }
         public int ClientID { get; set; }
         public Service SelectedService { get => ((Service)data_Services.SelectedItem); }
@@ -47,11 +48,12 @@ namespace JDGrooming
         /// ID of dog to be booked.
         /// </summary>
         /// <param name="DogID"></param>
-        public BookService(int DogID, int ClientID)
+        public BookService(int DogID, int ClientID, String DogName)
         {
             this.DataContext = this;
             this.DogID = DogID;
             this.ClientID = ClientID;
+            this.DogName = DogName;
             this.Services = JDApp.query.GetServices();
             if (JDApp.query.CheckFirstAppointment(DogID))
             {
