@@ -108,6 +108,9 @@
     <Compile Include="ProgressIcon.xaml.cs">
       <DependentUpon>ProgressIcon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SearchBooking.xaml.cs">
+      <DependentUpon>SearchBooking.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Search_DataGrid.xaml.cs">
       <DependentUpon>Search_DataGrid.xaml</DependentUpon>
     </Compile>
@@ -189,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ProgressIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchBooking.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

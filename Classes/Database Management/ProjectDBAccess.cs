@@ -392,6 +392,10 @@ namespace JDGrooming.Classes.Database_Management
             catch { db.Rdr.Close(); }
             return results;
         }
+        public DataView RetrieveAppointments_All()
+        {
+            return CreateDataView("SELECT [Client].[Surname] + ' ' + [Client].[Forename] AS Client_Name, [Dog].[Name], [Appointment].[Time], [SelectedService], [Duration], [Transaction].[PaymentStatus] FROM [Appointment], [Client], [Dog], [Service], [Transaction] WHERE [Appointment].[TransactionID] = [Transaction].[Id] AND [Appointment].[DogID] = [Dog].Id AND [Dog].[ClientID] = [Client].[Id] AND [Appointment].[SelectedService] = [Service].[Name];");
+        }
         //public List<Appointment> RetrieveAppointments_Month (DateTime testdate)
         //{
         //    List<Appointment> results = new List<Appointment> { };
