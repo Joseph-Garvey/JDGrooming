@@ -107,7 +107,7 @@ namespace JDGrooming
             calendar.BlackoutDates.AddDatesInPast();
             if (Selected_Service.Name == "Allergy Treatment (x4 Min)")
             {
-                list_Appointments.Items.Add("Note: You must book at least 4 allergy appointments.");
+                list_Appointments.Items.Add("Note: You must book at least 4 allergy appointments within 6 weeks.");
                 allergybooking = true;
             }
             else { allergybooking = false; }
@@ -127,6 +127,26 @@ namespace JDGrooming
         {
             if (calendar.SelectedDate.HasValue)
             {
+                if(Selected_Service.Name == "Allergy Treatment (x4 Min)")
+                {
+                    DateTime earliest = DateTime.MaxValue;
+                    if(list_Appointments.Items.Count > 1)
+                    {
+                        foreach (object o in list_Appointments.Items)
+                        {
+                            if (o is Appointment)
+                            {
+                                Appointment a = (Appointment)o;
+                                if (earliest > a.Time) { earliest = a.Time; }
+                            }
+                        }
+                        if (calendar.SelectedDate.Value.AddDays(-42) > earliest)
+                        {
+                            MessageBox.Show("You must book allergy appointments within 6 weeks of the first appointment.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                }
                 Schedules = JDApp.query.GetSchedules(calendar.SelectedDate.Value, StaffList);
                 data_Availability.ItemsSource = Schedules;
             }
@@ -198,7 +218,7 @@ namespace JDGrooming
                 JDApp.query.BookAppointment(TransactionID, DogID, Selected_Time, Selected_Staff.ID, Selected_Service.Name);
                 MessageBox.Show("Appointment booked.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 bookingconfirmed = true;
-                Appointment a = new Appointment(Dogname, Selected_Time, this.Selected_Staff.Name, Selected_Service);
+                Appointment a = new Appointment(Dogname, Selected_Time, this.Selected_Staff.Name, Selected_Service, TransactionID, DogID);
                 list_Appointments.Items.Add(a);
             }
             catch (NullReferenceException) { MessageBox.Show("Please select a date and time.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
@@ -206,7 +226,7 @@ namespace JDGrooming
 
         }
 
-        public bool BlockExitAllergy()
+        private bool BlockExitAllergy()
         {
             if (allergybooking)
             {
@@ -217,20 +237,24 @@ namespace JDGrooming
 
         public void BlockExit()
         {
-            MessageBoxResult m = MessageBox.Show("You must make at least 4 allergy appointments. Would you like to cancel or continue booking?", "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-            if (m is MessageBoxResult.Cancel)
+            if (BlockExitAllergy())
             {
-                foreach(object o in list_Appointments.Items)
+                MessageBoxResult m = MessageBox.Show("You must make at least 4 allergy appointments. Would you like to cancel or continue booking?", "Error", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+                if (m is MessageBoxResult.Cancel)
                 {
-                    if(o is Appointment)
+                    foreach (object o in list_Appointments.Items)
                     {
-                        JDApp.query.DeleteBooking()
+                        if (o is Appointment)
+                        {
+                            Appointment a = (Appointment)o;
+                            JDApp.query.DeleteBooking(a.TransactionID.ToString(), a.DogID.ToString(), a.Time);
+                        }
                     }
                 }
-            }
-            else
-            {
-
+                else
+                {
+                    throw new AllergyException();
+                }
             }
         }
     }

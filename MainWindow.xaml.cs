@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JDGrooming.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,38 +53,60 @@ namespace JDGrooming
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (Dock_Window.Children.Contains(Booking)) { Dock_Window.Children.Remove(Booking); }
+            try
+            {
+                if (Dock_Window.Children.Contains(Booking))
+                {
+                    if(Booking.View is BookTime)
+                    {
+                        Booking.TimeView.BlockExit();
+                    }  
+                }
+            }
+            catch (AllergyException) { return; }
             // try user control v window
             // grid v viewbox v stackpanel
             switch (((Button)sender).Name)
             {
                 case "btnAddClient":
+                    RemoveBooking();
                     View.Child = new ClientRegistration();
                     break;
                 case "btnAddDog":
+                    RemoveBooking();
                     View.Child = new DogRegistration();
                     break;
                 case "btnUpdateDog":
+                    RemoveBooking();
                     View.Child = new UpdateDog();
                     break;
                 case "btnUpdateClient":
+                    RemoveBooking();
                     View.Child = new UpdateClient();
                     break;
                 case "btnEmailTest":
+                    RemoveBooking();
                     View.Child = new _2FA_Test();
                     break;
                 case "btnBooking":
+                    RemoveBooking();
                     View.Child = null;
                     Booking = new BookingView();
                     Dock_Window.Children.Add(Booking);
                     break;
                 case "btnStaffManagement":
+                    RemoveBooking();
                     View.Child = new StaffManagement();
                     break;
                 case "btnBookingSearch":
+                    RemoveBooking();
                     View.Child = new SearchBooking();
                     break;
             }
+        }
+        private void RemoveBooking()
+        {
+            if (Dock_Window.Children.Contains(Booking)) { Dock_Window.Children.Remove(Booking); }
         }
         #endregion
     }

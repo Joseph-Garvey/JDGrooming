@@ -8,13 +8,15 @@ namespace JDGrooming.Classes
 {
     public class Appointment
     {
-        public Appointment(String DogName, DateTime time, String StaffName, Service service)
+        public Appointment(String DogName, DateTime time, String StaffName, Service service, int TransactionID, int DogID)
         {
             this.DogName = DogName;
             this.Time = time;
             this.StaffName = StaffName;
             this.SelectedService = service.Name;
             this.SelectedService_Duration = service.Duration;
+            this.TransactionID = TransactionID;
+            this.DogID = DogID;
         }
         public Appointment(DateTime time, int staffID, string selectedService)
         {
