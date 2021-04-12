@@ -130,6 +130,7 @@ namespace JDGrooming
                 if(Selected_Service.Name == "Allergy Treatment (x4 Min)")
                 {
                     DateTime earliest = DateTime.MaxValue;
+                    DateTime latest = DateTime.MinValue;
                     if(list_Appointments.Items.Count > 1)
                     {
                         foreach (object o in list_Appointments.Items)
@@ -138,11 +139,20 @@ namespace JDGrooming
                             {
                                 Appointment a = (Appointment)o;
                                 if (earliest > a.Time) { earliest = a.Time; }
+                                if(latest < a.Time) { latest = a.Time; }
+
                             }
                         }
                         if (calendar.SelectedDate.Value.AddDays(-42) > earliest)
                         {
                             MessageBox.Show("You must book allergy appointments within 6 weeks of the first appointment.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            calendar.SelectedDate = earliest.AddDays(41);
+                            return;
+                        }
+                        if(calendar.SelectedDate.Value.AddDays(42) < latest)
+                        {
+                            MessageBox.Show("You must book allergy appointments within 6 weeks of the first appointment.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            calendar.SelectedDate = latest.AddDays(-41);
                             return;
                         }
                     }
