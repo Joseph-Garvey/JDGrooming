@@ -17,7 +17,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Label Style="{StaticResource lbl_WhiteHeading}" Margin="5,5,5,0">Select Grooming Option:</Label>
-            <Label Style="{StaticResource lbl_WhiteHeading}" Name="lbl_Alert" Margin="5,5,5,0" Grid.Column="1" FontSize="8"></Label>
+            <Label Style="{StaticResource lbl_WhiteHeading}" Name="lbl_Alert" Margin="5,5,5,0" Grid.Column="1" FontSize="8" Content="{Binding FirstAppt}"></Label>
             <DataGrid Grid.Row="1" x:Name="data_Services" ItemsSource="{Binding Services}" Margin="5,0,5,5" Grid.ColumnSpan="2"></DataGrid>
             <!--<Label Style="{StaticResource lbl_WhiteHeading}" Grid.Column="1" Margin="5,5,5,0">Booking Details:</Label>
             <Border Grid.Column="1" Grid.Row="1" Style="{StaticResource brd_1}">

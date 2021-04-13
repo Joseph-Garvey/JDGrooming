@@ -28,6 +28,7 @@ namespace JDGrooming
         {
             this.DataContext = this; 
             InitializeComponent();
+            ClientData.dataview.Width = 770;
             ClientData.DataList = JDApp.query.FillClientTable();
         }
     }

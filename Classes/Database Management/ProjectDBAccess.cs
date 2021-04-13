@@ -522,7 +522,7 @@ namespace JDGrooming.Classes.Database_Management
                 if (ImgSourceHasChanged(Img_Source)) { Start += ", [Image]"; End += (", '" + Img_Source + "'"); }
                 if (AdditionalInfo != "") { Start += ", [AdditionalInfo]"; End += (", '" + AdditionalInfo + "'"); }
                 QueryDatabase(Start + ") " + End + ");");
-                MessageBox.Show("Client registered successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Dog registered successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
         /// <summary>

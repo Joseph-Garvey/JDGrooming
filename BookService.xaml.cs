@@ -40,6 +40,7 @@ namespace JDGrooming
             }
         }
 
+        public String FirstAppt { get; set; }
         public String DogName { get; set; }
         public int DogID { get; set; }
         public int ClientID { get; set; }
@@ -63,7 +64,7 @@ namespace JDGrooming
                     s.price += 5;
                 }
             }
-            lbl_Alert.Content = "15 minutes and a £5 fee has been added as this is the dog's first appointment.";
+            FirstAppt = "15 minutes and a £5 fee has been added as this is the dog's first appointment.";
             InitializeComponent();
         }
 

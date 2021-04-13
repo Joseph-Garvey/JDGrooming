@@ -126,7 +126,7 @@ namespace JDGrooming
                         }
                         catch (NullReferenceException)
                         {
-                            MessageBox.Show("Please select a dog from a list", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show("Please select a service from a list", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                         break;
                 }
