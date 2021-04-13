@@ -95,18 +95,43 @@ namespace JDGrooming
 
         private void Next(object sender, RoutedEventArgs e)
         {
-            switch (View)
+            try
             {
-                case BookClient client:
-                    ShowDogBooking(int.Parse(client.SelectedItem[0].ToString()));
-                    break;
-                case BookDog dog:
-                    ShowServices(int.Parse(dog.SelectedItem[0].ToString()), dog.ClientID, dog.SelectedItem[1].ToString());
-                    break;
-                case BookService service:
-                    ShowTimes(service.DogID, service.ClientID, service.SelectedService, service.DogName);
-                    break;
+                switch (View)
+                {
+                    case BookClient client:
+                        try
+                        {
+                            ShowDogBooking(int.Parse(client.SelectedItem[0].ToString()));
+                        }
+                        catch (NullReferenceException)
+                        {
+                            MessageBox.Show("Please select a client from the list.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        break;
+                    case BookDog dog:
+                        try
+                        {
+                            ShowServices(int.Parse(dog.SelectedItem[0].ToString()), dog.ClientID, dog.SelectedItem[1].ToString());
+                        }
+                        catch (NullReferenceException)
+                        {
+                            MessageBox.Show("Please select a dog from a list", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        break;
+                    case BookService service:
+                        try
+                        {
+                            ShowTimes(service.DogID, service.ClientID, service.SelectedService, service.DogName);
+                        }
+                        catch (NullReferenceException)
+                        {
+                            MessageBox.Show("Please select a dog from a list", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        break;
+                }
             }
+            catch { }
         }
 
         private void Previous(object sender, RoutedEventArgs e)

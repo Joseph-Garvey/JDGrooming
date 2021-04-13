@@ -63,6 +63,7 @@ namespace JDGrooming
                     s.price += 5;
                 }
             }
+            lbl_Alert.Content = "15 minutes and a £5 fee has been added as this is the dog's first appointment.";
             InitializeComponent();
         }
 

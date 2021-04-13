@@ -213,7 +213,7 @@ namespace JDGrooming
             try
             {
                 if (DogName == "" || DogName == null || ClientIndex == -1 || BreedIndex == -1) { throw new NullReferenceException(); }
-                JDApp.query.RegisterDog(DogName, ClientName.ToString(), BreedName.ToString(), AdditionalInfo, img_Dog.Img_Source ?? "", DOB);
+                JDApp.query.RegisterDog(DogName, ClientName.ToString(), BreedName.ToString(), AdditionalInfo ?? "", img_Dog.Img_Source ?? "", DOB);
             }
             catch (NullReferenceException) { MessageBox.Show(failedMissingData, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
