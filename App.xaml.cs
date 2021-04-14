@@ -32,7 +32,7 @@ namespace JDGrooming
                 string debugPath = System.IO.Path.GetDirectoryName(Environment.CurrentDirectory);
                 string datadirectoryPath = System.IO.Path.GetDirectoryName(debugPath);
                 AppDomain.CurrentDomain.SetData("DataDirectory", datadirectoryPath);
-                //// Start Splash Screen and Show
+                // Start Splash Screen and Show
                 //Splash splashScreen = new Splash();
                 //this.MainWindow = splashScreen;
                 //splashScreen.Show();

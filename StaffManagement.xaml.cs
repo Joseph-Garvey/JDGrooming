@@ -45,10 +45,16 @@ namespace JDGrooming
             {
                 foreach (Staff s in data_Staff.ItemsSource)
                 {
+                    if(s.Monday_End <= s.Monday_Start) { throw new RotaException(); }
+                    if(s.Tuesday_End <= s.Tuesday_Start ) { throw new RotaException(); }
+                    if (s.Wednesday_End <= s.Wednesday_Start) { throw new RotaException(); }
+                    if (s.Thursday_End <= s.Thursday_Start) { throw new RotaException(); }
+                    if (s.Friday_End <= s.Friday_Start) { throw new RotaException(); }
                     JDApp.query.UpdateShifts(s);
                 }
                 MessageBox.Show("Staff Rota Successfully Updated - Please ensure you reschedule appointments outside of current shifts.");
             }
+            catch (RotaException) { MessageBox.Show("Rota not updated - shift end must be after shift start.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
             catch { }
         }
 
@@ -72,7 +78,7 @@ namespace JDGrooming
                 if(description.Length > 50) { MessageBox.Show("Description must be less than 50 characters"); return; }
                 Absence a = new Absence(s.ID, s.Name, s.Role, starttime, endtime, description);
                 JDApp.query.AddAbsence(a);
-                MessageBox.Show("Absence has been added to database.", "Success", MessageBoxButton.OK);
+                MessageBox.Show("Absence has been added to database. Please check the booking list to ensure clients are rescheduled to an available date.", "Success", MessageBoxButton.OK);
                 data_Exceptions.ItemsSource = JDApp.query.GetAbsences();
                 // there is a bug when selecting a start date after end date
             }
@@ -117,9 +123,10 @@ namespace JDGrooming
             {
                 if (date_StartDate.SelectedDate.Value != DateTime.Today)
                 {
+                    date_EndDate.SelectedDate = date_StartDate.SelectedDate.Value;
                     date_EndDate.BlackoutDates.Add(new CalendarDateRange(DateTime.Today, date_StartDate.SelectedDate.Value.AddDays(-1)));
                 }
-                date_EndDate.DisplayDate = date_StartDate.SelectedDate.Value;
+                date_EndDate.SelectedDate = date_StartDate.SelectedDate.Value;
             }
          }
 
