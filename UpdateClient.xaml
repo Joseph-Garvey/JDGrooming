@@ -65,18 +65,18 @@
                     <Label Grid.Row="3" Grid.Column="3" Content="Second Line"/>
                     <TextBox  Text="{Binding SecondLine, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="4"></TextBox>
                     <Label Grid.Row="4" Content="Postcode*"/>
-                    <TextBox Grid.Row="4" Grid.Column="1"  Text="{Binding Postcode, UpdateSourceTrigger=PropertyChanged}" TextChanged="VerifyText"></TextBox>
+                    <TextBox x:Name="txt_Postcode" Grid.Row="4" Grid.Column="1"  Text="{Binding Postcode, UpdateSourceTrigger=PropertyChanged}" TextChanged="VerifyText"></TextBox>
                     <CheckBox Grid.Row="4" Grid.Column="2" x:Name="chk_Postcode" Style="{StaticResource Verification}" ></CheckBox>
                     <Label Grid.Row="4" Grid.Column="3" Content="Town*"/>
-                    <TextBox  Text="{Binding Town, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="4"></TextBox>
+                    <TextBox x:Name="txt_Town"  Text="{Binding Town, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="4"></TextBox>
                     <Label Grid.Row="6">Email Address:</Label>
-                    <TextBox  Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" TextChanged="VerifyText" Grid.Row="6" Grid.Column="1"></TextBox>
+                    <TextBox x:Name="txt_Email"  Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" TextChanged="VerifyText" Grid.Row="6" Grid.Column="1"></TextBox>
                     <CheckBox Grid.Row="6" Grid.Column="2" x:Name="chk_Email" Style="{StaticResource Verification}"></CheckBox>
                     <Label Grid.Row="7">Home Phone:</Label>
-                    <TextBox  Text="{Binding HomePhone, UpdateSourceTrigger=PropertyChanged}" TextChanged="VerifyText" Grid.Row="7" Grid.Column="1"></TextBox>
+                    <TextBox x:Name="txt_HomePhone" Text="{Binding HomePhone, UpdateSourceTrigger=PropertyChanged}" TextChanged="VerifyText" Grid.Row="7" Grid.Column="1"></TextBox>
                     <CheckBox Grid.Row="7" Grid.Column="2" x:Name="chk_HomePhone" Style="{StaticResource Verification}"></CheckBox>
                     <Label Grid.Row="6" Grid.Column="3"  Width="Auto" Content="Mobile:"/>
-                    <TextBox  Text="{Binding Mobile, UpdateSourceTrigger=PropertyChanged}" TextChanged="VerifyText" Grid.Row="6" Grid.Column="4"></TextBox>
+                    <TextBox x:Name="txt_Mobile"  Text="{Binding Mobile, UpdateSourceTrigger=PropertyChanged}" TextChanged="VerifyText" Grid.Row="6" Grid.Column="4"></TextBox>
                     <CheckBox Grid.Row="6" Grid.Column="5" x:Name="chk_Mobile" Style="{StaticResource Verification}"></CheckBox>
                     <Button Style="{StaticResource btnDark}" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="3" Margin="10,5,10,5" Click="btn_UpdateClientClick" Background="#3f3f46">Update Client</Button>
                 </Grid>

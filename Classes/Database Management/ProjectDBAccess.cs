@@ -145,16 +145,62 @@ namespace JDGrooming.Classes.Database_Management
         }
         public void UpdateClient(string id, string forename, string surname, string firstline, string secondline, string town, string postcode, string email, string mobile, string homephone)
         {
-            String Start = String.Format("UPDATE [Client] SET [Forename] = '{0}', [Surname] = '{1}', [FirstLine] = '{2}', [Town] = '{3}', [Postcode] = '{4}'",
-                forename, surname, firstline, town, postcode);
-            String SQL = Start;
-            if (secondline != "") { SQL += ", [SecondLine] = '" + secondline + "'"; }
-            if (email != "") { SQL += ", [Email] = '" + email + "'"; }
-            if (mobile != "") { SQL += ", [Mobile] = '" + mobile + "'"; }
-            if (homephone != "") { SQL += ", [HomePhone] = '" + homephone + "'"; }
-            SQL += " WHERE [ID] = " + id + " ;";
-            QueryDatabase(SQL);
-            // secondline and contact are nullable
+            // add letter validation for names etc
+            // try something similar to last year's system but more efficient.
+            // this time get something that works, then improve on it.
+            // also auto format the strings in future.
+            const String failedNameFormat = "\u2022 Names must consist of letters.";
+            const String failedForenameLength = "\u2022 Forename must be less than 35 characters.";
+            const String failedSurnameLength = "\u2022 Surname must be less than 50 characters.";
+            const String failedAddressLength = "\u2022 Address line must be less than 35 characters.";
+            const String failedTownLength = "\u2022 Town/City name must be less than 64 characters.";
+            const String failedPostCode = "\u2022 Postcode must be of valid format and length eg. XX0 XX0.";
+            const String failedEmail = "\u2022 Email must be of valid format and length (<255 chars) eg. JoeBloggs@mail.com";
+            const String failedPhone = "\u2022 PhoneNo must be of valid format and length (<32 chars)";
+            const String failedContactDetail = "\u2022 Customer must provide at least one method of contact.";
+            String Errors = "";
+            if ((email == "")
+                && (homephone == "")
+                && (mobile == "")
+                ) { AddToErrors(ref Errors, failedContactDetail); }
+            if (forename.Length > 35) AddToErrors(ref Errors, failedForenameLength);
+            if (surname.Length > 50) AddToErrors(ref Errors, failedSurnameLength);
+            if (!CheckCharsAreLetters(forename) || !CheckCharsAreLetters(surname)) AddToErrors(ref Errors, failedNameFormat);
+            if ((firstline.Length > 35) || (secondline.Length > 35)) AddToErrors(ref Errors, failedAddressLength);
+            if (town.Length > 64) AddToErrors(ref Errors, failedTownLength);
+            if ((postcode.Length > 8) || (!Verification.VerifyPostcode(postcode))) AddToErrors(ref Errors, failedPostCode);
+            bool ContactDetailsPresent = false;
+            if (email != "")
+            {
+                ContactDetailsPresent = true;
+                if ((email.Length > 255) || (!Verification.VerifyEmail(email))) AddToErrors(ref Errors, failedEmail);
+            }
+            if (mobile != "")
+            {
+                ContactDetailsPresent = true;
+                if ((mobile.Length > 32) || (!Verification.VerifyPhoneNumber(mobile))) AddToErrors(ref Errors, failedPhone);
+            }
+            if (homephone != "")
+            {
+                ContactDetailsPresent = true;
+                if ((homephone.Length > 32) || (!Verification.VerifyPhoneNumber(homephone))) AddToErrors(ref Errors, failedPhone);
+            }
+            if (!ContactDetailsPresent) { AddToErrors(ref Errors, failedContactDetail); }
+            if (Errors != "") { MessageBox.Show(Errors, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+            else
+            {
+                String Start = String.Format("UPDATE [Client] SET [Forename] = '{0}', [Surname] = '{1}', [FirstLine] = '{2}', [Town] = '{3}', [Postcode] = '{4}'",
+    forename, surname, firstline, town, postcode);
+                String SQL = Start;
+                SQL += ", [SecondLine] = '" + secondline + "'";
+                SQL += ", [Email] = '" + email + "'";
+                SQL += ", [Mobile] = '" + mobile + "'";
+                SQL += ", [HomePhone] = '" + homephone + "'";
+                SQL += " WHERE [ID] = " + id + " ;";
+                QueryDatabase(SQL);
+                MessageBox.Show("Client Updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                // secondline and contact are nullable
+            }
         }
         /// <summary>
         /// only update the changed field in future + nullable values
@@ -468,12 +514,13 @@ namespace JDGrooming.Classes.Database_Management
             QueryDatabase($"INSERT INTO [Appointment] ([TransactionID], [DogID], [Time], [StaffID], [SelectedService]) VALUES ({TransactionID}, {DogID}, '{Appointment_Time:yyyy-MM-dd HH:mm:ss}', {StaffID}, '{Selected_Service}');");
         }
 
-        public void RegisterClient(String Forename, String Surname, String FirstLine, String SecondLine, String Postcode, String Town, String Email, String Mobile, String HomePhone)
+        public bool RegisterClient(String Forename, String Surname, String FirstLine, String SecondLine, String Postcode, String Town, String Email, String Mobile, String HomePhone)
         {
             // add letter validation for names etc
             // try something similar to last year's system but more efficient.
             // this time get something that works, then improve on it.
             // also auto format the strings in future.
+            bool success = false;
             const String failedNameFormat = "\u2022 Names must consist of letters.";
             const String failedForenameLength = "\u2022 Forename must be less than 35 characters.";
             const String failedSurnameLength = "\u2022 Surname must be less than 50 characters.";
@@ -522,7 +569,9 @@ namespace JDGrooming.Classes.Database_Management
                 if (SecondLine != "") { Start += ", [SecondLine]"; End += ", '" + SecondLine + "'"; }
                 ((App)Application.Current).query.QueryDatabase(Start + ") " + End + ");");
                 MessageBox.Show("Client registered successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                return true;
             }
+            return success;
         }
         /// <summary>
         /// Registers a supplied dog to the database and verifies in info fits criteria

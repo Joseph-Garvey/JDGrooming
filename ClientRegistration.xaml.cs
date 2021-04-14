@@ -164,7 +164,18 @@ namespace JDGrooming
             try
             {
                 if ((Forename == null) || Forename == "" || (Surname == "") || Surname == null || (FirstLine == "") || FirstLine == null || (Postcode == "") || Postcode == null || (Town == "") || Town == null) throw new NullReferenceException();
-                JDApp.query.RegisterClient(Forename, Surname, FirstLine, SecondLine ?? "", Postcode, Town, Email ?? "", Mobile ?? "", HomePhone ?? "");
+                if(JDApp.query.RegisterClient(Forename, Surname, FirstLine, SecondLine ?? "", Postcode, Town, Email ?? "", Mobile ?? "", HomePhone ?? ""))
+                {
+                    Forename = "";
+                    Surname = "";
+                    FirstLine = "";
+                    SecondLine = "";
+                    Postcode = "";
+                    Town = "";
+                    Mobile = "";
+                    Email = "";
+                    HomePhone = "";
+                }
             }
             catch (NullReferenceException) { MessageBox.Show(failedMissingInfo, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }

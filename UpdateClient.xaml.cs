@@ -182,11 +182,11 @@ namespace JDGrooming
                 FirstLine = ClientDetails[2];
                 SecondLine = ClientDetails[3] ?? "";
                 Town = ClientDetails[4];
-                Postcode = ClientDetails[5];       
+                Postcode = ClientDetails[5];
                 Email = ClientDetails[6] ?? "";
                 HomePhone = ClientDetails[7] ?? "";
                 Mobile = ClientDetails[8] ?? "";
-                
+
             }
             catch (NullReferenceException)
             {
@@ -207,11 +207,12 @@ namespace JDGrooming
             try
             {
                 int id = JDApp.query.GetClientIDFromString(ClientInfo);
-                JDApp.query.UpdateClient(id.ToString(), Forename, Surname, FirstLine, SecondLine, Town, Postcode, Email, Mobile, HomePhone);
-                MessageBox.Show("Client Updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                if ((Forename == null) || Forename == "" || (Surname == "") || Surname == null || (FirstLine == "") || FirstLine == null || (Postcode == "") || Postcode == null || (Town == "") || Town == null) throw new NullReferenceException();
+                JDApp.query.UpdateClient(id.ToString(), Forename, Surname, FirstLine, SecondLine ?? "", Town, Postcode, Email ?? "", Mobile ?? "", HomePhone ?? "");
                 ClientList = new ObservableCollection<string>(JDApp.query.GetClientStringShort());
                 ClientIndex = -1;
             }
+            catch(NullReferenceException) { MessageBox.Show("Please select a client from the dropdown and ensure all fields marked * are completed.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
             catch { }
         }
         #endregion
