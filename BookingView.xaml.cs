@@ -39,6 +39,9 @@ namespace JDGrooming
                     case BookService service:
                         ChangeProgress(3);
                         break;
+                    case BookTime time:
+                        ChangeProgress(4);
+                        break;
                 }
             }
         }

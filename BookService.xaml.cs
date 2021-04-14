@@ -63,8 +63,8 @@ namespace JDGrooming
                     s.Duration += FirstAppointmentOffset;
                     s.price += 5;
                 }
+                FirstAppt = "15 minutes and a £5 fee has been added as this is the dog's first appointment.";
             }
-            FirstAppt = "15 minutes and a £5 fee has been added as this is the dog's first appointment.";
             InitializeComponent();
         }
 
