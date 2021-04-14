@@ -367,6 +367,13 @@ namespace JDGrooming.Classes.Database_Management
             else
             { // check this code does not suffer same bug
                 Appointment earliestappt = RetrieveFirstAppointment(DogID);
+                foreach(Appointment a in appointments)
+                {
+                    if (a.Time == earliestappt.Time && a.DogID == earliestappt.DogID)
+                    {
+                        a.SelectedService_Duration = a.SelectedService_Duration.Add(new TimeSpan(0, 15, 0));
+                    }
+                }
                 foreach (Staff s in stafflist)
                 {
                     Schedule item = new Schedule(s, new bool[32] { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true });
@@ -376,12 +383,8 @@ namespace JDGrooming.Classes.Database_Management
                         if(a.StaffID == s.ID || a.DogID == DogID)
                         {
                             int blockstart = (int)((a.Time.TimeOfDay - (new TimeSpan(9, 0, 0))).TotalMinutes / 15);
-                            if(a.Time == earliestappt.Time && a.DogID == earliestappt.DogID)
-                            {
-                                a.SelectedService_Duration.Add(new TimeSpan(0, 15, 0));
-                            }
                             int blockcount = (int)(a.SelectedService_Duration.TotalMinutes / 15);
-                            for(int i = blockstart; i < blockcount+blockstart-1; i++)
+                            for(int i = blockstart; i < blockcount+blockstart; i++)
                             {
                                 item.time[i] = false;
                             }

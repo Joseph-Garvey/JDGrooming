@@ -176,11 +176,11 @@ namespace JDGrooming
                     int blockstart = int.Parse(s.Substring(start, fin - start));
                     int blockcount = (int)(Selected_Service.Duration.TotalMinutes / 15);
                     int itemindex = Schedules.IndexOf((Schedule)data_Availability.SelectedCells[0].Item);
-                    for (int i = blockstart; i < blockcount + blockstart - 1; i++) // fix change on click  /// either get item or get grid
+                    for (int i = blockstart; i < (blockcount + blockstart); i++) // fix change on click  /// either get item or get grid
                     {
                         if (((Schedule)(data_Availability.SelectedCells[0].Item)).time[i] == false) return; // databind this
                     }
-                    for (int i = blockstart; i < blockcount + blockstart - 1; i++)
+                    for (int i = blockstart; i < blockcount + blockstart; i++)
                     {
                         //((Schedule)(data_Availability.SelectedCells[0].Item)).time[i] = false;
                         Schedules[itemindex].time[i] = false;
