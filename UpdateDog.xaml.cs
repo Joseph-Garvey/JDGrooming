@@ -152,15 +152,18 @@ namespace JDGrooming
                 // maybe make client info an update later but just get this working to start off with.
                 // add notification that an element has changed etc
                 if(id == "" || DogName == "" || Breed == "") { throw new NullReferenceException(); }
+                if(DogName.Length > 32) { MessageBox.Show("Dog name must be less than or equal to 32 characters", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+                if (DogInfo.Length > 255) { MessageBox.Show("Dog info must be less than or equal to 255 characters", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+                foreach(Char c in DogName)
+                {
+                    if(!(Char.IsWhiteSpace(c) || Char.IsLetter(c))) { MessageBox.Show("Dog names must consist entirely of letters and whitespace.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+                }
                 JDApp.query.UpdateDog(id, DogName, Breed, DogInfo ?? "", Status);
                 MessageBox.Show("Dog Updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 DogView.DataList = JDApp.query.FillDogTable();
             }
-            catch (NullReferenceException)
-            {
-                MessageBox.Show("Ensure all fields are completed and that a dog has been selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch { MessageBox.Show("An error has occurred.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+            catch { MessageBox.Show("An error has occurred. Ensure all fields are completed and that a dog has been selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+
         }
         /// <summary>
         /// Retrieves the details of selected dog.
@@ -204,7 +207,6 @@ namespace JDGrooming
                 DogInfo = "";
                 BreedInfo = "";
                 img_Dog.Img_Source = "";
-                MessageBox.Show("Ensure that a dog has been selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion

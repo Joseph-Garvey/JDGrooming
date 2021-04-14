@@ -18,7 +18,7 @@
         <StackPanel Margin="0,5,5,5">
             <local:ImageManager x:Name="img_Dog"></local:ImageManager>
             <Border Style="{StaticResource brd_1}" Margin="5,0,5,5">
-                <Grid>
+                <Grid MaxWidth="190">
                     <Grid.Resources>
                         <Style TargetType="Label" BasedOn="{StaticResource lbl_WhiteHeading}">
                             <Setter Property="FontSize" Value="6"/>
@@ -51,7 +51,7 @@
                     <Label>Name:</Label>
                     <TextBox x:Name="txtName" Grid.Column="1" Text="{Binding DogName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Label Grid.Row="1">Breed:</Label>
-                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Breed, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0" Content="{Binding Breed}"></Label>
                     <Label Grid.Row="2">DOB:</Label>
                     <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0" Content="{Binding DOB}"></Label>
                     <Label Grid.Row="3">Status:</Label>
