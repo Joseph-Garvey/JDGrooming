@@ -275,9 +275,33 @@ namespace JDGrooming.Classes.Database_Management
             {
                 SqlDataReader reader = ReadDatabase("SELECT COUNT([DogID]) FROM [Appointment] WHERE [DogID] = " + id + " ;");
                 while ((reader.Read())) if (reader.GetInt32(0) > 0) { first = false; }
+                reader.Close();
             }
             catch { db.Rdr.Close(); }
             return first;
+        }
+        public Appointment RetrieveFirstAppointment(int DogID)
+        {
+            Appointment earliestappt = new Appointment();
+            try
+            {
+                List<Appointment> apptlist = new List<Appointment> { };
+
+                DateTime earliest = DateTime.MaxValue;
+                SqlDataReader reader = ReadDatabase($"SELECT [Time], [StaffID], [SelectedService], [Duration], [DogID] FROM [Appointment], [Service] WHERE [Appointment].[SelectedService] = [Service].[Name] AND [DogID] = {DogID};");
+                while (reader.Read())
+                {
+                    Appointment a = new Appointment(reader.GetDateTime(0), reader.GetInt32(1), reader.GetString(2), reader.GetTimeSpan(3), reader.GetInt32(4));
+                    apptlist.Add(a);
+                }
+                reader.Close();
+                foreach(Appointment a in apptlist)
+                {
+                    if(a.Time < earliest) { earliestappt = a; earliest = a.Time; }
+                }
+            }
+            catch { db.Rdr.Close(); }
+            return earliestappt;
         }
         public ObservableCollection<Service> GetServices()
         {
@@ -342,6 +366,7 @@ namespace JDGrooming.Classes.Database_Management
             }
             else
             { // check this code does not suffer same bug
+                Appointment earliestappt = RetrieveFirstAppointment(DogID);
                 foreach (Staff s in stafflist)
                 {
                     Schedule item = new Schedule(s, new bool[32] { true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true });
@@ -351,6 +376,10 @@ namespace JDGrooming.Classes.Database_Management
                         if(a.StaffID == s.ID || a.DogID == DogID)
                         {
                             int blockstart = (int)((a.Time.TimeOfDay - (new TimeSpan(9, 0, 0))).TotalMinutes / 15);
+                            if(a.Time == earliestappt.Time && a.DogID == earliestappt.DogID)
+                            {
+                                a.SelectedService_Duration.Add(new TimeSpan(0, 15, 0));
+                            }
                             int blockcount = (int)(a.SelectedService_Duration.TotalMinutes / 15);
                             for(int i = blockstart; i < blockcount+blockstart-1; i++)
                             {

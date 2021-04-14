@@ -40,6 +40,12 @@ namespace JDGrooming.Classes
             SelectedService = selectedService ?? throw new ArgumentNullException(nameof(selectedService));
         }
 
+        public Appointment()
+        {
+            Time = DateTime.MaxValue;
+            DogID = int.MaxValue;
+        }
+
         public override string ToString()
         {
             return $"{DogName} - {Time:HH:mm dd/MM/yyyy} - {StaffName} - Duration: {SelectedService_Duration}";

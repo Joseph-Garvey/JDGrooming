@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JDGrooming.Classes;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -31,7 +32,62 @@ namespace JDGrooming
             InitializeComponent();
             data_Booking.dataview.MaxHeight = 400;
             data_Booking.dataview.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
-            data_Booking.DataList = JDApp.query.FillAppointmentTable();
+            //
+            Search_DataGrid tmp = new Search_DataGrid();
+            tmp.DataList = JDApp.query.FillAppointmentTable();
+            //
+            List<String> DogIDs = new List<String>();
+            foreach(DataRow n in tmp.DataList.Table.Rows)
+            {
+                object[] o = n.ItemArray;
+                if (!DogIDs.Contains(o[2].ToString()))
+                {
+                    DogIDs.Add(o[2].ToString());
+                }
+            }
+            //foreach(DataRowView r in tmp.dataview.Items)
+            //{
+            //    object[] o = r.Row.ItemArray;
+            //    if (!DogIDs.Contains(o[2].ToString()))
+            //    {
+            //        DogIDs.Add(o[2].ToString());
+            //    }
+            //}
+            foreach (String id in DogIDs)
+            {
+                Appointment first = JDApp.query.RetrieveFirstAppointment(int.Parse(id));
+                foreach (DataRow r in tmp.DataList.Table.Rows)
+                {
+                    object[] o = r.ItemArray;
+                    string dogid = o[2].ToString();
+                    DateTime time = DateTime.Parse(o[4].ToString());
+                    if (dogid == id && time == first.Time)
+                    {
+                        // check this works
+                        TimeSpan duration = TimeSpan.Parse(o[6].ToString());
+                        o[6] = (duration.Add(new TimeSpan(0, 15, 0)).ToString());
+                        r.ItemArray = o;
+                    }
+                }
+            }
+            //foreach (String id in DogIDs)
+            //{
+            //    Appointment first = JDApp.query.RetrieveFirstAppointment(int.Parse(id));
+            //    foreach (DataRowView r in tmp.dataview.Items)
+            //    {
+            //        object[] o = r.Row.ItemArray;
+            //        string dogid = o[2].ToString();
+            //        DateTime time = DateTime.Parse(o[4].ToString());
+            //        if(dogid == id && time == first.Time)
+            //        {
+            //            // check this works
+            //            TimeSpan duration = TimeSpan.Parse(o[6].ToString());
+            //            o[6] = (duration.Add(new TimeSpan(0,15,0)).ToString());
+            //            r.Row.ItemArray[6] = (duration.Add(new TimeSpan(0, 15, 0)).ToString());
+            //        }
+            //    }
+            //}
+            data_Booking.DataList = tmp.DataList;
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
