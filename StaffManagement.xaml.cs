@@ -47,7 +47,7 @@ namespace JDGrooming
                 {
                     JDApp.query.UpdateShifts(s);
                 }
-                MessageBox.Show("Staff Rota Successfully Updated");
+                MessageBox.Show("Staff Rota Successfully Updated - Please ensure you reschedule appointments outside of current shifts.");
             }
             catch { }
         }
@@ -69,6 +69,7 @@ namespace JDGrooming
                 DateTime starttime = date_StartDate.SelectedDate.Value.Add((TimeSpan)selected_StartTime);
                 DateTime endtime = date_EndDate.SelectedDate.Value.Add((TimeSpan)cmb_EndTimes.SelectedItem);
                 String description = txt_Description.Text;
+                if(description.Length > 50) { MessageBox.Show("Description must be less than 50 characters"); return; }
                 Absence a = new Absence(s.ID, s.Name, s.Role, starttime, endtime, description);
                 JDApp.query.AddAbsence(a);
                 MessageBox.Show("Absence has been added to database.", "Success", MessageBoxButton.OK);

@@ -151,11 +151,16 @@ namespace JDGrooming
                 // Update Name, breed must be a combobox dropdown, status button, update dog info
                 // maybe make client info an update later but just get this working to start off with.
                 // add notification that an element has changed etc
-                JDApp.query.UpdateDog(id, DogName, Breed, DogInfo, Status);
+                if(id == "" || DogName == "" || Breed == "") { throw new NullReferenceException(); }
+                JDApp.query.UpdateDog(id, DogName, Breed, DogInfo ?? "", Status);
                 MessageBox.Show("Dog Updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 DogView.DataList = JDApp.query.FillDogTable();
             }
-            catch { }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("Ensure all fields are completed and that a dog has been selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch { MessageBox.Show("An error has occurred.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
         /// <summary>
         /// Retrieves the details of selected dog.
@@ -199,6 +204,7 @@ namespace JDGrooming
                 DogInfo = "";
                 BreedInfo = "";
                 img_Dog.Img_Source = "";
+                MessageBox.Show("Ensure that a dog has been selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion

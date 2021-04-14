@@ -44,6 +44,10 @@ namespace JDGrooming
 
         private void this_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if(((App)Application.Current).MainWindow.WindowState == WindowState.Maximized)
+            {
+                ((App)Application.Current).ChangeWindowState(((App)Application.Current).MainWindow);
+            }
             ((App)Application.Current).MainWindow.DragMove();
         }
 
