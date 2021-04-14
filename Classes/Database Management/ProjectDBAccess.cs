@@ -326,7 +326,7 @@ namespace JDGrooming.Classes.Database_Management
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public ObservableCollection<Schedule> GetSchedules(DateTime date, ObservableCollection<Staff> stafflist)
+        public ObservableCollection<Schedule> GetSchedules(DateTime date, ObservableCollection<Staff> stafflist, int DogID)
         {
             ObservableCollection<Schedule> timetable = new ObservableCollection<Schedule> { };
             List<Appointment> appointments = RetrieveAppointments_Day(date);
@@ -348,7 +348,7 @@ namespace JDGrooming.Classes.Database_Management
                     if (s.Monday_End.Hours < 17) item.time = GetHalfDaySchedule();
                     foreach (Appointment a in appointments)
                     {
-                        if(a.StaffID == s.ID)
+                        if(a.StaffID == s.ID || a.DogID == DogID)
                         {
                             int blockstart = (int)((a.Time.TimeOfDay - (new TimeSpan(9, 0, 0))).TotalMinutes / 15);
                             int blockcount = (int)(a.SelectedService_Duration.TotalMinutes / 15);
@@ -381,10 +381,10 @@ namespace JDGrooming.Classes.Database_Management
             List<Appointment> results = new List<Appointment> { };
             try
             {
-                SqlDataReader reader = ReadDatabase($"SELECT [Time], [StaffID], [SelectedService], [Duration] FROM [Appointment], [Service] WHERE [Time] BETWEEN '{testdate:yyyy-MM-dd 00:00:00}' AND '{testdate:yyyy-MM-dd 23:59:59}' AND [Appointment].[SelectedService] = [Service].[Name];");
+                SqlDataReader reader = ReadDatabase($"SELECT [Time], [StaffID], [SelectedService], [Duration], [DogID] FROM [Appointment], [Service] WHERE [Time] BETWEEN '{testdate:yyyy-MM-dd 00:00:00}' AND '{testdate:yyyy-MM-dd 23:59:59}' AND [Appointment].[SelectedService] = [Service].[Name];");
                 while (reader.Read())
                 {
-                    Appointment a = new Appointment(reader.GetDateTime(0), reader.GetInt32(1), reader.GetString(2), reader.GetTimeSpan(3));
+                    Appointment a = new Appointment(reader.GetDateTime(0), reader.GetInt32(1), reader.GetString(2), reader.GetTimeSpan(3), reader.GetInt32(4));
                     results.Add(a);
                 }
                 reader.Close();

@@ -157,7 +157,7 @@ namespace JDGrooming
                         }
                     }
                 }
-                Schedules = JDApp.query.GetSchedules(calendar.SelectedDate.Value, StaffList);
+                Schedules = JDApp.query.GetSchedules(calendar.SelectedDate.Value, StaffList, DogID);
                 data_Availability.ItemsSource = Schedules;
             }
         }

@@ -25,9 +25,10 @@ namespace JDGrooming.Classes
             SelectedService = selectedService ?? throw new ArgumentNullException(nameof(selectedService));
         }
 
-        public Appointment(DateTime time, int staffID, string selectedService, TimeSpan selectedService_Duration) : this(time, staffID, selectedService)
+        public Appointment(DateTime time, int staffID, string selectedService, TimeSpan selectedService_Duration, int DogID) : this(time, staffID, selectedService)
         {
             SelectedService_Duration = selectedService_Duration;
+            this.DogID = DogID;
         }
 
         public Appointment(int transactionID, int dogID, DateTime time, int staffID, string selectedService)
