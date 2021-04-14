@@ -213,9 +213,16 @@ namespace JDGrooming
             try
             {
                 if (DogName == "" || DogName == null || ClientIndex == -1 || BreedIndex == -1) { throw new NullReferenceException(); }
-                JDApp.query.RegisterDog(DogName, ClientName.ToString(), BreedName.ToString(), AdditionalInfo ?? "", img_Dog.Img_Source ?? "", DOB);
+                if(JDApp.query.RegisterDog(DogName, ClientName.ToString(), BreedName.ToString(), AdditionalInfo ?? "", img_Dog.Img_Source ?? "", DOB))
+                {
+                    DogName = "";
+                    cmb_Client.SelectedIndex = -1;
+                    cmb_Breed.SelectedIndex = -1;
+                    AdditionalInfo = "";
+                }
             }
             catch (NullReferenceException) { MessageBox.Show(failedMissingData, "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
+            catch { MessageBox.Show("An error has occurred.", "Error", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
         // add to app.xaml.cs
         #endregion

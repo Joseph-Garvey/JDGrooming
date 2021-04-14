@@ -52,7 +52,7 @@
                             </Grid.ColumnDefinitions>
                             <Label FontSize="12" Margin="5,0,5,0">Client Details:</Label>
                             <ComboBox x:Name="cmb_Client" Grid.Column="1" Margin="5" SelectedItem="{Binding ClientInfo}"
-                                  Style="{StaticResource Searchable}" DropDownClosed="cmb_DropDownClosed" SelectedIndex="{Binding ClientIndex}"
+                                  Style="{StaticResource Searchable}" DropDownClosed="cmb_DropDownClosed" SelectedIndex="{Binding ClientIndex}" MaxWidth="330"
                                   Text="{Binding Client_searchtext}" DropDownOpened="cmb_DropDownOpened" ItemsSource="{Binding ClientList}" SelectionChanged="cmb_Client_SelectionChanged"></ComboBox>
                         </Grid>
                     </Border>

@@ -24,20 +24,20 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label Style="{StaticResource lbl_WhiteHeading}" Margin="5,0,5,0">Dog Name:</Label>
-        <TextBox Grid.Row="1" Margin="5,0,5,0" Text="{Binding DogName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Grid.Row="1" Margin="5,0,5,0" TextWrapping="WrapWithOverflow" Width="150" Text="{Binding DogName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         <Label Style="{StaticResource lbl_WhiteHeading}" Grid.Row="2" Margin="5,0,5,0">Client Name:</Label>
         <ComboBox x:Name="cmb_Client" FontSize="6" Height="15" Grid.Row="3" Margin="5,0,5,0" SelectedItem="{Binding ClientName}"
                                   Style="{StaticResource Searchable}" DropDownClosed="cmb_DropDownClosed" SelectedIndex="{Binding ClientIndex}"
-                                  Text="{Binding Client_searchtext}" ItemsSource="{Binding ClientList}"></ComboBox>
+                                  Text="{Binding Client_searchtext}" ItemsSource="{Binding ClientList}" Width="150"></ComboBox>
         <Label Style="{StaticResource lbl_WhiteHeading}" Grid.Row="4" Margin="5,0,5,0">Breed:</Label>
         <local:ImageManager x:Name="img_Dog" Grid.Column="1" Grid.RowSpan="5"/>
         <ComboBox Name="cmb_Breed" Margin="5,0,5,0" FontSize="6" Height="15" SelectionChanged="cmb_Breed_SelectionChanged" SelectedItem="{Binding BreedName}"
                           Style="{StaticResource Searchable}" ItemsSource="{Binding BreedList}" Grid.Row="5" Grid.ColumnSpan="2"
-                          Text="{Binding Breed_searchtext}" DropDownClosed="cmb_DropDownClosed" SelectedIndex="{Binding BreedIndex}"></ComboBox>
+                          Text="{Binding Breed_searchtext}" DropDownClosed="cmb_DropDownClosed" SelectedIndex="{Binding BreedIndex}" Width="255"></ComboBox>
         <Label Margin="5,0,5,0"  Style="{StaticResource lbl_WhiteHeading}" Grid.Row="6" Grid.ColumnSpan="2">Date of Birth:</Label>
-        <DatePicker Name="dp_DOB" Margin="5,0,5,0" Grid.Row="7" SelectedDateChanged="dp_DOB_SelectedDateChanged" Grid.ColumnSpan="2" SelectedDate="{Binding DOB}"/>
+        <DatePicker Name="dp_DOB" Margin="5,0,5,0" Grid.Row="7" SelectedDateChanged="dp_DOB_SelectedDateChanged" Grid.ColumnSpan="2"  Width="255" SelectedDate="{Binding DOB}"/>
         <Label Margin="5,0,5,0" Style="{StaticResource lbl_WhiteHeading}" Grid.Row="8" Grid.ColumnSpan="2">Additional Info:</Label>
-        <TextBox Margin="5,0,5,0" Grid.Row="9"  Grid.ColumnSpan="2" Text="{Binding AdditionalInfo, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Margin="5,0,5,0" Grid.Row="9" TextWrapping="Wrap" MaxHeight="50"  Grid.ColumnSpan="2" Text="{Binding AdditionalInfo, UpdateSourceTrigger=PropertyChanged}"  Width="255"></TextBox>
         <Button Style="{StaticResource btnDark}" Margin="10" Click="btn_Register" Grid.Row="10" Grid.ColumnSpan="2">Register</Button>
     </Grid>
 </UserControl>

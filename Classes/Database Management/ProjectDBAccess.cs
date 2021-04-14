@@ -582,7 +582,7 @@ namespace JDGrooming.Classes.Database_Management
         /// <param name="AdditionalInfo">Staff notes on dog</param>
         /// <param name="Img_Source">Name of dog's image file.</param>
         /// <param name="DOB">Dog Date of Birth</param>
-        public void RegisterDog(String DogName, String ClientName, String BreedName, String AdditionalInfo, String Img_Source, DateTime DOB)
+        public bool RegisterDog(String DogName, String ClientName, String BreedName, String AdditionalInfo, String Img_Source, DateTime DOB)
         {
             // add null checks + whitespace for name etc check user reqs
             const String failedNameFormat = "\u2022 Names must consist of letters.";
@@ -594,7 +594,7 @@ namespace JDGrooming.Classes.Database_Management
             if (AdditionalInfo.Length > 255) { AddToErrors(ref Errors, failedAdditionaInfoLength); }
             if (!CheckCharsAreLetters(DogName)) { AddToErrors(ref Errors, failedNameFormat); }
             if ((Img_Source ?? "").Length > 260) { AddToErrors(ref Errors, failedFileNameLength); }
-            if (Errors != "") MessageBox.Show(Errors, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (Errors != "") { MessageBox.Show(Errors, "Error", MessageBoxButton.OK, MessageBoxImage.Error); return false; }
             else
             {
                 // image is optional // add check that image still exists
@@ -604,6 +604,7 @@ namespace JDGrooming.Classes.Database_Management
                 if (AdditionalInfo != "") { Start += ", [AdditionalInfo]"; End += (", '" + AdditionalInfo + "'"); }
                 QueryDatabase(Start + ") " + End + ");");
                 MessageBox.Show("Dog registered successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                return true;
             }
         }
         /// <summary>
